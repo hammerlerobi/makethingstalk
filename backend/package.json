@@ -13,9 +13,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/lowdb": "^1.0.9",
     "@types/multer": "^1.4.2",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
+    "lowdb": "^1.0.0",
     "multer": "^1.4.2"
   },
   "devDependencies": {
