@@ -6,29 +6,25 @@ import { cachedDataVersionTag } from 'v8';
 
 
 class App {
-	public app: express.Application;
+	public express: express.Application;
 	public db : DataBase;
 	constructor() {
-		this.app = express();
+		this.express = express();
 		this.config();
 		this.allRoutes();
 		this.db = new DataBase();
-		// Test adding a tag
-		const tag:Tag = {id : "HelloTag"};
-		this.db.AddTag(tag);
 	}
 	private config(): void {
-		this.app.use(bodyParser.json());
-		this.app.use(bodyParser.urlencoded({
+		this.express.use(bodyParser.json());
+		this.express.use(bodyParser.urlencoded({
 			extended: true
 		}));
 	}
 
 	private allRoutes(): void {
-		this.app.use("/upload", UploadRoutes);
+		this.express.use("/upload", UploadRoutes);
 	}
 
 
 }
-
-export default new App().app;
+export default new App();

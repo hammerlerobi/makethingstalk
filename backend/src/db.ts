@@ -1,12 +1,13 @@
 import lowdb from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
 
-export interface Media {
+export type Media = {
+	id: string;
 	name: string;
-	uploadTime: Date;
+	uploadTime: number;
 	connectedTags: Tag[];
 };
-export interface Tag {
+export type Tag = {
 	id: string;
 	// 	medias:Media[];
 };
@@ -44,6 +45,22 @@ class DataBase {
 
 	public async AddMedia(media:Media):Promise <any>{
 		(await this.database).get('Medias', []).push(media).value();
+		(await this.database).write();
+	}
+
+	public async MediaExists(filename:string):Promise <boolean>{
+		const media = (await this.database).get('Medias')
+						.find({name:filename})
+						.value()
+		if (media) return true;
+		return false;
+	}
+
+	public async UpdateMedia(media:Media):Promise <any>{
+		(await this.database).get('Medias')
+		.find({name : media.name})
+		.assign(media)
+		.write()
 	}
 }
 
