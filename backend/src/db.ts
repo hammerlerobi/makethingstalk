@@ -67,7 +67,7 @@ class DataBase {
 		(await this.database).write();
 	}
 
-	public async GetMedid(mediaId:string):Promise<Media>{
+	public async GetMedia(mediaId:string):Promise<Media>{
 		const media = (await this.database).get('Medias', [])
 						.find({id:mediaId})
 						.value();
@@ -86,9 +86,15 @@ class DataBase {
 
 	public async UpdateMedia(media:Media):Promise <any>{
 		(await this.database).get('Medias')
-		.find({name : media.name})
+		.find({id : media.id})
 		.assign(media)
 		.write()
+	}
+
+	public async RemoveMedia(mediaId:string):Promise <any>{
+		(await this.database).get('Medias')
+		.remove({ id: mediaId })
+  		.write()
 	}
 }
 
