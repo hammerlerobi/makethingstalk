@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import {UploadRoutes} from './routes/uploadRoutes';
+import {TagRoutes} from './routes/tagRoutes';
 import {DataBase,Tag,Media} from './db';
 import { cachedDataVersionTag } from 'v8';
 
@@ -23,8 +24,7 @@ class App {
 
 	private allRoutes(): void {
 		this.express.use("/upload", UploadRoutes);
+		this.express.use("/tag", TagRoutes);
 	}
-
-
 }
 export default new App();
