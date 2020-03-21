@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 	}
 });
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
-	if (file.mimetype === "video/mp4 ") {
+	if (file.mimetype === "video/mp4") {
 		const exists = app.db.MediaExists(file.originalname);
 		exists.then(value => {
 			console.log('resolved', value);

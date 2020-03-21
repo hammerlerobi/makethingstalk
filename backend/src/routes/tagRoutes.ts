@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import { promises, Resolver } from 'dns';
 
 const router = express.Router();
-router.post('/linkTag', async (req: Request,res: Response, next: NextFunction) => {
+router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
 
 	let isNewTag = false;
 	const tagId = req.body.tagId;
@@ -16,7 +16,7 @@ router.post('/linkTag', async (req: Request,res: Response, next: NextFunction) =
 	let tag;
 
 	try {
-        media = await app.db.GetMedid(mediaId);
+        media = await app.db.GetMedia(mediaId);
     } catch (e) {
 		res.send(e.message);
 		return res.end();
