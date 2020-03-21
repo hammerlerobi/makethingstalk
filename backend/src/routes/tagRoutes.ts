@@ -1,9 +1,5 @@
 import express, {Request,Response,NextFunction} from 'express';
 import app from '../app';
-import {Media} from '../db';
-
-import shortid from 'shortid';
-import { promises, Resolver } from 'dns';
 
 const router = express.Router();
 router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
