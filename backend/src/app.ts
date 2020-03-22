@@ -4,6 +4,8 @@ import {DataBase} from './db';
 import { MediaRoutes } from './routes/mediaRoutes';
 import {UploadRoutes} from './routes/uploadRoutes';
 import {TagRoutes} from './routes/tagRoutes';
+import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
+import { ITransmitter } from './transmitters/ITransmitter';
 
 
 
@@ -11,11 +13,13 @@ import {TagRoutes} from './routes/tagRoutes';
 class App {
 	public express: express.Application;
 	public db : DataBase;
+	public transmitters : ITransmitter[];
 	constructor() {
 		this.express = express();
 		this.config();
 		this.allRoutes();
 		this.db = new DataBase();
+		this.transmitters.push(new WebsocketTransmitter());
 	}
 	private config(): void {
 		this.express.use(bodyParser.json());
