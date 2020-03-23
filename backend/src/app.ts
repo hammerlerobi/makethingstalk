@@ -6,6 +6,8 @@ import {UploadRoutes} from './routes/uploadRoutes';
 import {TagRoutes} from './routes/tagRoutes';
 import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
 import { ITransmitter } from './transmitters/ITransmitter';
+import { IInputDevice } from './input/IInputDevice';
+import { ReaderRFID } from './input/ReaderRFID';
 
 
 
@@ -13,14 +15,24 @@ import { ITransmitter } from './transmitters/ITransmitter';
 class App {
 	public express: express.Application;
 	public db : DataBase;
-	public transmitters : ITransmitter[];
+	public transmitters : ITransmitter[] = new Array<ITransmitter>();
+	public inputDevices : IInputDevice[] = new Array<IInputDevice>();
 	constructor() {
 		this.express = express();
 		this.config();
 		this.allRoutes();
 		this.db = new DataBase();
 		this.transmitters.push(new WebsocketTransmitter());
+		this.inputDevices.push(new ReaderRFID());
+		this.bindTransmittersToInputs();
 	}
+
+	private bindTransmittersToInputs():void{
+		this.inputDevices.forEach(inputDevice => {
+			inputDevice.bindTransmitters(this.transmitters);
+		});
+	}
+
 	private config(): void {
 		this.express.use(bodyParser.json());
 		this.express.use(bodyParser.urlencoded({
