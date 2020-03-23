@@ -8,6 +8,7 @@
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
+        "typeRoots": ["./node_modules/@types", "./custom_types"],
         "paths": {
             "*": [
                 "node_modules/*"
