@@ -1,4 +1,4 @@
-import MFRC522 from "mfrc522-rpi";
+import Mfrc522 from "mfrc522-rpi";
 import SoftSPI from "rpi-softspi";
 import {ITransmitter, IInteraktionMessage} from "../transmitters/ITransmitter";
 import {IInputDevice} from "./IInputDevice";
@@ -33,10 +33,10 @@ class ReaderRFID implements IInputDevice{
 	readLoop():void{
 		setInterval(function() {
 			// # reset card
-			this.mfrc522.reset();
+			this.reader.reset();
 
 			// # Scan for cards
-			let response = this.mfrc522.findCard();
+			let response = this.reader.findCard();
 			if (!response.status) {
 			  console.log("No Card");
 			  return;
@@ -44,7 +44,7 @@ class ReaderRFID implements IInputDevice{
 			console.log("Card detected, CardType: " + response.bitSize);
 			this.send({message:"Card found"});
 			// # Get the UID of the card
-			response = this.mfrc522.getUid();
+			response = this.reader.getUid();
 			if (!response.status) {
 			  console.log("UID Scan Error");
 			  return;
@@ -76,7 +76,7 @@ class ReaderRFID implements IInputDevice{
 			console.log("Block: 8 Data: " + this.mfrc522.getDataForBlock(8));
 
 			// # Stop
-			this.mfrc522.stopCrypto();
+			this.reader.stopCrypto();
 		  }, 500);
 	}
 }
