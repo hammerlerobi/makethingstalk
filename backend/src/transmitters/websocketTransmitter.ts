@@ -27,7 +27,7 @@ class WebsocketTransmitter implements ITransmitter{
 			}
 		})
 		// test the websocket
-		  console.log("Websocket started");
+		  console.log("Websocket started at port: "+this.wss.options.port);
 		  setInterval(()=>this.sendMessage({command:"Test"}),200);
 	}
 
