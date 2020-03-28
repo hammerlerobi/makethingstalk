@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Player</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Helvetica";
+      }
+      #testButton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        padding: 10px;
+      }
+      video {
+        width: 100%;
+      }
+      .stage {
+        width: 100%;
+      }
+      #idle {
+        background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+        color: white;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */
+        opacity: 1;
+        transition: all 1s ease;
+      }
+      .hidden {
+        opacity: 0 !important;
+      }
+      button {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="testButton">
+      <button
+        data-file="videos/bunny.mp4"
+        onclick="sendVideo(this.getAttribute('data-file'))"
+      >
+        BUNNY
+      </button>
+      <button
+        data-file="videos/goat.mp4"
+        onclick="sendVideo(this.getAttribute('data-file'))"
+      >
+        GOAT
+      </button>
+      <button onclick="stopVideo()">
+        stop playing
+      </button>
+    </div>
+    <div class="stage">
+      <div id="idle">
+        PLEASE SEND A VIDEO URL VIA WS
+      </div>
+      <video id="myVideo" autoplay>
+        <source id="mp4_src" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <script>
+      var object;
+      var videoContainer = document.getElementById("myVideo");
+      var idleScreen = document.getElementById("idle");
+      var connection = new WebSocket("ws:localhost:8080", ["soap", "xmpp"]);
+
+      // ----- TEST BUTTON
+      function sendVideo(e) {
+        connection.send(JSON.stringify({ videoSrc: e }));
+      }
+      function stopVideo() {
+        connection.send(JSON.stringify({ videoStop: true }));
+      }
+      // ----- TEST BUTTON
+
+      // When the connection is open, send some data to the server
+      connection.onopen = function() {
+        console.log("----- CONNECTED TO THE SERVER -----");
+      };
+      // Log messages from the server
+      connection.onmessage = function(e) {
+        try {
+          object = JSON.parse(e.data);
+        } catch (error) {
+          object = e.data;
+        }
+        console.log(("server", object));
+
+        if (object.videoSrc) {
+          videoContainer.src = object.videoSrc;
+          videoContainer.load();
+        }
+        if (object.videoStop) {
+          videoContainer.pause();
+        }
+      };
+
+      videoContainer.onplay = function() {
+        idleScreen.classList.add("hidden");
+      };
+      videoContainer.onended = function() {
+        idleScreen.classList.remove("hidden");
+      };
+      videoContainer.onpause = function() {
+        idleScreen.classList.remove("hidden");
+      };
+    </script>
+  </body>
+</html>
