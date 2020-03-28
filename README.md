@@ -13,7 +13,7 @@ Start test WS server
 cd player && npm start
 ```
 
-To start and stop a video send a JSON object vai WS
+To start and stop a video send a JSON object
 
 ```
 //play a video
