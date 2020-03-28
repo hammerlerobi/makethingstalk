@@ -33,7 +33,7 @@ class WebsocketTransmitter implements ITransmitter{
 
 	public sendMessage (message: IInteraktionMessage):void {
 		this.wss.clients.forEach(function each(ws) {
-			ws.send("testcommand");
+			ws.send(message.command);
 		  });
 	}
 }

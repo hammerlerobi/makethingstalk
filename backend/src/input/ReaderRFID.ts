@@ -17,6 +17,7 @@ class ReaderRFID implements IInputDevice{
 		this.reader = new Mfrc522(this.softSPI);
 		this.reader.setBuzzerPin(18);
 		this.reader.setResetPin(22);
+		this.readLoop();
 	  }
 
 	  bindTransmitters(transmitters:ITransmitter[]){
@@ -29,22 +30,20 @@ class ReaderRFID implements IInputDevice{
 		});
 	  }
 
-
-	readLoop():void{
-		setInterval(function() {
-			// # reset card
-			this.reader.reset();
+	  read(){
+		const reader = this.reader;
+		reader.reset();
 
 			// # Scan for cards
-			let response = this.reader.findCard();
+			let response = reader.findCard();
 			if (!response.status) {
 			  console.log("No Card");
 			  return;
 			}
 			console.log("Card detected, CardType: " + response.bitSize);
-			this.send({message:"Card found"});
+			this.send({command:"Card found"+response.data});
 			// # Get the UID of the card
-			response = this.reader.getUid();
+			response = reader.getUid();
 			if (!response.status) {
 			  console.log("UID Scan Error");
 			  return;
@@ -60,24 +59,20 @@ class ReaderRFID implements IInputDevice{
 			);
 
 			// # Select the scanned card
-			const memoryCapacity = this.mfrc522.selectCard(uid);
+			const memoryCapacity = reader.selectCard(uid);
 			console.log("Card Memory Capacity: " + memoryCapacity);
 
-			// # This is the default key for authentication
-			const key = [0xff, 0xff, 0xff, 0xff, 0xff, 0xff];
-
-			// # Authenticate on Block 8 with key and uid
-			if (!this.mfrc522.authenticate(8, key, uid)) {
-			  console.log("Authentication Error");
-			  return;
-			}
-
 			// # Dump Block 8
-			console.log("Block: 8 Data: " + this.mfrc522.getDataForBlock(8));
+			console.log("Block: 8 Data: " + reader.getDataForBlock(8));
 
 			// # Stop
 			this.reader.stopCrypto();
-		  }, 500);
+
+	  }
+
+
+	readLoop():void{
+		setInterval( () => this.read(), 500);
 	}
 }
 export {
