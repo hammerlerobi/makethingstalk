@@ -7,7 +7,13 @@ We use typescript, and if you commit stuff follow https://www.conventionalcommit
 
 ## Player
 
-Player is expecting a JSON object for playing and pause a video
+Start test WS server
+
+```
+cd player && npm start
+```
+
+To start and stop a video send a JSON object vai WS
 
 ```
 //play a video
