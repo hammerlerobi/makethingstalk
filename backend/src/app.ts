@@ -41,9 +41,13 @@ class App {
 	}
 
 	private allRoutes(): void {
-		this.express.use("/upload", UploadRoutes);
-		this.express.use("/tag", TagRoutes);
-		this.express.use("/media", MediaRoutes);
+		this.express.use("api/upload", UploadRoutes);
+		this.express.use("api/tag", TagRoutes);
+		this.express.use("api/media", MediaRoutes);
+		// add static routes for player
+		this.express.use('/player', express.static('../player/'));
+		this.express.use('/media', express.static('./uploads/'));
+
 	}
 }
 export default new App();
