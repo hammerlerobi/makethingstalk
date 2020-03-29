@@ -29,7 +29,6 @@ class WebsocketTransmitter implements ITransmitter{
 		})
 		// test the websocket
 		  console.log("Websocket started at port: "+this.wss.options.port);
-		  setInterval(()=>this.sendMessage({command:"Play",media:"bunny.mp4"}),5000);
 	}
 
 	public sendMessage (message: IInteractionMessage):void {
