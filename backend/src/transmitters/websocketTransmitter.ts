@@ -1,4 +1,5 @@
-import { ITransmitter, IInteraktionMessage } from "./ITransmitter";
+import { ITransmitter } from "./ITransmitter";
+import {IInteractionMessage} from './IInteractionMessage';
 import WebSocket from 'ws';
 
 class WebsocketTransmitter implements ITransmitter{
@@ -28,12 +29,12 @@ class WebsocketTransmitter implements ITransmitter{
 		})
 		// test the websocket
 		  console.log("Websocket started at port: "+this.wss.options.port);
-		  setInterval(()=>this.sendMessage({command:"Test"}),200);
+		  setInterval(()=>this.sendMessage({command:"Play",media:"bunny.mp4"}),5000);
 	}
 
-	public sendMessage (message: IInteraktionMessage):void {
+	public sendMessage (message: IInteractionMessage):void {
 		this.wss.clients.forEach(function each(ws) {
-			ws.send(message.command);
+			ws.send(JSON.stringify(message));
 		  });
 	}
 }

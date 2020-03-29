@@ -1,6 +1,7 @@
 import Mfrc522 from "mfrc522-rpi";
 import SoftSPI from "rpi-softspi";
-import {ITransmitter, IInteraktionMessage} from "../transmitters/ITransmitter";
+import {ITransmitter} from "../transmitters/ITransmitter";
+import {IInteractionMessage} from "../transmitters/IInteractionMessage";
 import {IInputDevice} from "./IInputDevice";
 
 class ReaderRFID implements IInputDevice{
@@ -24,7 +25,7 @@ class ReaderRFID implements IInputDevice{
 		this.transmitters = transmitters;
 	  }
 
-	  send(message:IInteraktionMessage){
+	  send(message:IInteractionMessage){
 		this.transmitters.forEach(transmitter => {
 			transmitter.sendMessage(message);
 		});
@@ -41,7 +42,6 @@ class ReaderRFID implements IInputDevice{
 			  return;
 			}
 			console.log("Card detected, CardType: " + response.bitSize);
-			this.send({command:"Card found"+response.data});
 			// # Get the UID of the card
 			response = reader.getUid();
 			if (!response.status) {
@@ -50,6 +50,11 @@ class ReaderRFID implements IInputDevice{
 			}
 			// # If we have the UID, continue
 			const uid = response.data;
+
+			//send the command to the Player, currently we just send a dummy command
+			//later we will make a lookup in the database to find the right media
+			this.send({command:"Play",media:"bunny.mp4"});
+			
 			console.log(
 			  "Card read UID: %s %s %s %s",
 			  uid[0].toString(16),

@@ -66,17 +66,16 @@
       <div id="idle">
         PLEASE SEND A VIDEO URL VIA WS
       </div>
-      <video id="myVideo" autoplay>
+      <video id="myVideo"  src=""autoplay>
         <source id="mp4_src" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
 
     <script>
-      var object;
       var videoContainer = document.getElementById("myVideo");
       var idleScreen = document.getElementById("idle");
-      var connection = new WebSocket("ws:localhost:8080", ["soap", "xmpp"]);
+      var connection = new WebSocket("ws:localhost:8090", ["soap", "xmpp"]);
 
       // ----- TEST BUTTON
       function sendVideo(e) {
@@ -91,21 +90,31 @@
       connection.onopen = function() {
         console.log("----- CONNECTED TO THE SERVER -----");
       };
-      // Log messages from the server
+     
+      
       connection.onmessage = function(e) {
-        try {
-          object = JSON.parse(e.data);
-        } catch (error) {
-          object = e.data;
-        }
-        console.log(("server", object));
+        //please refer to 
+        //backend/transmitters/IInteractonMessage.ts 
+        //this is what we will receive here.
 
-        if (object.videoSrc) {
-          videoContainer.src = object.videoSrc;
+        let message;
+        try {
+          message = JSON.parse(e.data);
+        } catch (error) {
+          console.error(error);
+        }
+      
+        if (message.media) {
+          videoContainer.src = "../media/"+message.media;
           videoContainer.load();
         }
-        if (object.videoStop) {
-          videoContainer.pause();
+        if (message.command) {
+          switch (message.command){
+            case "play":
+              videoContainer.pause();
+            case "pause":
+              videoContainer.pause()
+          }
         }
       };
 

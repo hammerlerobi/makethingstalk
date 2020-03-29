@@ -1,9 +1,10 @@
-import { ITransmitter, IInteraktionMessage } from "../transmitters/ITransmitter";
+import { ITransmitter } from "../transmitters/ITransmitter";
+import { IInteractionMessage } from "../transmitters/IInteractionMessage";
 
 interface IInputDevice {
 	transmitters : ITransmitter[];
 	bindTransmitters (transmitters :ITransmitter[]):void;
-	send (message:IInteraktionMessage):void;
+	send (message:IInteractionMessage):void;
 }
 export {
 	IInputDevice as IInputDevice,
