@@ -36,17 +36,18 @@ class App {
 	private config(): void {
 		this.express.use(bodyParser.json());
 		this.express.use(bodyParser.urlencoded({
-			extended: true
+			extended: false
 		}));
 	}
 
 	private allRoutes(): void {
-		this.express.use("api/upload", UploadRoutes);
-		this.express.use("api/tag", TagRoutes);
-		this.express.use("api/media", MediaRoutes);
 		// add static routes for player
 		this.express.use('/player', express.static('../player/'));
 		this.express.use('/media', express.static('./uploads/'));
+		this.express.use('/frontend', express.static('../frontend/'));
+		this.express.use('/api/media', MediaRoutes);
+		this.express.use('/api/upload', UploadRoutes);
+		this.express.use('/api/tag', TagRoutes);
 
 	}
 }

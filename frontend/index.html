@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Basic Frontend, for test purpose</title>
+</head>
+<body>
+	<form method="post" action="http://localhost:4000/api/upload/" enctype="multipart/form-data">
+		FileUpload currenty only mp4<br><br>
+		<input type="file" id="files" name="files"> 
+		<button type="submit" id="submitfile">submit</button>
+	</form>
+
+	<br><br><br>
+	<a onclick="fetchMedias()" href="#">Fetch media List</a>
+	<div id="medialist">
+
+
+	</div>
+	
+</body>
+<script>
+	// write the mediaID here and wait for the websocket to receive a tag
+	var mediaIDToLink = "";
+
+	//start websocket we need it to link tags
+	var connection = new WebSocket("ws:localhost:8090", ["soap", "xmpp"]);
+	connection.onopen = function() {
+        console.log("----- CONNECTED TO THE SERVER -----");
+      };
+	connection.onmessage = function(e) {
+        //please refer to 
+        //backend/transmitters/IInteractonMessage.ts 
+        //this is what we will receive here.
+
+		let message;
+		console.dir(message);
+        try {
+          message = JSON.parse(e.data);
+        } catch (error) {
+          console.error(error);
+        }
+      
+        if (message.tagID && mediaIDToLink !=="") {
+
+			console.log("Linking "+message.tagID + "to Media"+ mediaIDToLink);
+			postData('http://localhost:4000/api/tag/link', { tagId: message.tagID,mediaId:mediaIDToLink})
+			.then((data) => {
+				console.log(data); // JSON data parsed by `response.json()` call
+			});
+			// if we get a tag and mediaIDToLink is set we link the media to the tag
+        }
+      };
+
+
+	  async function postData(url = '', data = {}) {
+		// Default options are marked with *
+		const response = await fetch(url, {
+		  method: 'POST', // *GET, POST, PUT, DELETE, etc.
+		  mode: 'same-origin', // no-cors, *cors, same-origin
+		  cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+		  credentials: 'same-origin', // include, *same-origin, omit
+		  headers: {
+			'Content-Type': 'application/json'
+			// 'Content-Type': 'application/x-www-form-urlencoded',
+		  },
+		  redirect: 'follow', // manual, *follow, error
+		  referrerPolicy: 'no-referrer', // no-referrer, *client
+		  body: JSON.stringify(data) // body data type must match "Content-Type" header
+		});
+	  }
+
+
+	var startLinkMode = (mediaId) => {
+		console.log(mediaId);
+		mediaIDToLink=mediaId;
+		// after 5 seconds we clear mediaIDToLink and end linkmode
+		setTimeout(function(){ mediaIDToLink = "" }, 5000);
+	}
+
+	var fetchMedias = ()=>{
+	fetch('http://localhost:4000/api/media')
+	.then((response) => {
+		return response.json();
+	})
+	.then((data) => {
+		var container = document.getElementById('medialist');
+		container.innerHTML = '';
+		console.dir(data);
+		data.forEach(element => {
+			var node = document.createElement("div");
+			const markup = `
+			<div class="media">
+				<br><br><br>
+				Name: ${element.name}<br>
+				ID:${element.id}<br>
+				LINKEDTags: ${element.connectedTags} <br>
+				<a href="http://localhost:4000/api/media/delete?mediaId="+${element.id}">Delete</a><br>
+				<a href="#" onclick="startLinkMode('${element.id}')">LinkMedia</a><br>
+			</div>
+			`;
+
+			node.innerHTML = markup;
+
+/*
+
+			var text = document.createElement("span");
+			text.innerHTML= element.name;
+			var id = document.createElement("span");
+			id.innerHTML = element.id;
+			var deletelink = document.createElement("a");
+			deletelink.href= "http://localhost:4000/api/media/delete?mediaId="+element.id;
+			deletelink.innerHTML="delete";
+
+			var linkLink = document.createElement("a");
+			let mediaId = element.id;
+			linkLink.onclick = () => {startLinkMode(element.id)};
+			linkLink.innerHTML="linkThisVideoToTag";
+
+			node.appendChild(text);
+			node.appendChild(id);
+			node.appendChild(deletelink);
+			node.appendChild(linkLink);
+			*/
+			container.appendChild(node);
+		}
+		);
+	});
+}
+</script>
+</html>
