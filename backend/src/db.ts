@@ -5,11 +5,11 @@ export type Media = {
 	id: string;
 	name: string;
 	uploadTime: number;
-	connectedTags?: Tag[];
+	connectedTags?: string[];
 };
 export type Tag = {
 	id: string;
-	medias?:Media[];
+	medias?:string[];
 };
 
 
@@ -74,6 +74,13 @@ class DataBase {
 		if(!media)
 			throw new Error("Media with ID "+mediaId+" not found");
 		return media;
+	}
+
+	public async GetAllMedia():Promise<Media[]>{
+		const medias = (await this.database).get('Medias', []).value();
+		if(!medias)
+			throw new Error("No Medias found");
+		return medias;
 	}
 
 	public async MediaExists(filename:string):Promise <boolean>{
