@@ -51,10 +51,10 @@ class ReaderRFID implements IInputDevice{
 			// # If we have the UID, continue
 			const uid = response.data;
 
-			//send the command to the Player, currently we just send a dummy command
-			//later we will make a lookup in the database to find the right media
-			this.send({command:"Play",media:"bunny.mp4"});
-			
+			// send the command to the Player, currently we just send a dummy command
+			// later we will make a lookup in the database to find the right media
+			this.send({command:"Play",media:"bunny.mp4",tagID:"tag12"});
+
 			console.log(
 			  "Card read UID: %s %s %s %s",
 			  uid[0].toString(16),
