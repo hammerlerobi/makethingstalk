@@ -1,4 +1,32 @@
 {
-  "Tags": [],
-  "Medias": []
+  "Tags": [
+    {
+      "id": "abcd",
+      "medias": [
+        "9Y4kuuvnD"
+      ]
+    }
+  ],
+  "Medias": [
+    {
+      "id": "9Y4kuuvnD",
+      "name": "goat.mp4",
+      "uploadTime": 1585913775113,
+      "connectedTags": [
+        "abcd"
+      ]
+    },
+    {
+      "id": "GueyiKwmo",
+      "name": "bunny.mp4",
+      "uploadTime": 1585922576080,
+      "connectedTags": []
+    },
+    {
+      "id": "vcBfqMmmD",
+      "name": "giphy.mp4",
+      "uploadTime": 1585922725367,
+      "connectedTags": []
+    }
+  ]
 }
