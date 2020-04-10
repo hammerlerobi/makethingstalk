@@ -71,6 +71,7 @@ class ReaderRFID implements IInputDevice{
 			const adress =  uidString.join('-');
 
 			if(this.lastReadTag !== adress){
+				this.lastReadTag = adress;
 				// Adresse change so new TAG is present
 				// make lookup in db
 				app.db.GetTag(adress)
@@ -80,7 +81,7 @@ class ReaderRFID implements IInputDevice{
 						app.db.GetMedia(result.medias[0]).then (media =>{
 							this.send({command:"Play",media:media.name,tagID:result.id})
 						})
-						
+
 					}else{
 						console.log("new tag");
 						this.send({command:"NewTAG",media:"",tagID:result.id})
