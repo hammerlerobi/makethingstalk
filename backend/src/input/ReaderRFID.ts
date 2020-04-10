@@ -77,7 +77,10 @@ class ReaderRFID implements IInputDevice{
 				.then(result => {
 					if(result.medias){
 						console.log("tag has medias");
-						this.send({command:"Play",media:result.medias[0],tagID:result.id})
+						app.db.GetMedia(result.medias[0]).then (media =>{
+							this.send({command:"Play",media:media.name,tagID:result.id})
+						})
+						
 					}else{
 						console.log("new tag");
 						this.send({command:"NewTAG",media:"",tagID:result.id})
