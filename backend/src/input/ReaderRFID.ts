@@ -8,7 +8,7 @@ import app from '../app';
 class ReaderRFID implements IInputDevice{
 	reader : Mfrc522;
 	transmitters : ITransmitter[];
-	lastReadTag : String ="";
+	lastReadTag : string ="";
 	noCardPresentCount : number = 0;
 
 	softSPI = new SoftSPI({
@@ -61,28 +61,32 @@ class ReaderRFID implements IInputDevice{
 
 			this.noCardPresentCount = 0;
 			// # If we have the UID, continue
-			let uid = response.data;
-			
+			const uid = response.data;
+
 			uid[0].toString(16);
 			uid[1].toString(16);
-			uid[2].toString(16); 
+			uid[2].toString(16);
 			uid[3].toString(16);
-			let uidString = uid.map(String)
-			let adress =  uidString.join('-');
+			const uidString = uid.map(String)
+			const adress =  uidString.join('-');
 
 			if(this.lastReadTag !== adress){
 				// Adresse change so new TAG is present
-				// make lookup in db 
+				// make lookup in db
 				app.db.GetTag(adress)
 				.then(result => {
-					if(result.medias)
+					if(result.medias){
+						console.log("tag has medias");
 						this.send({command:"Play",media:result.medias[0],tagID:result.id})
-					else
-						this.send({command:"NewTAG",media:"",tagID:result.id})	
+					}else{
+						console.log("new tag");
+						this.send({command:"NewTAG",media:"",tagID:result.id})
+						}
 				})
 				.catch(()=>{
-					this.send({command:"NewTAG",media:"",tagID:adress})	
-				})				
+					console.log("tag not in db send new Tag ");
+					this.send({command:"NewTAG",media:"",tagID:adress})
+				})
 			}
 			this.reader.stopCrypto();
 	  }

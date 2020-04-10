@@ -1,32 +1,20 @@
 {
   "Tags": [
     {
-      "id": "abcd",
+      "id": "57-76-22-99-0",
       "medias": [
-        "9Y4kuuvnD"
+        "NnQD2EuDQ"
       ]
     }
   ],
   "Medias": [
     {
-      "id": "9Y4kuuvnD",
-      "name": "goat.mp4",
-      "uploadTime": 1585913775113,
+      "id": "NnQD2EuDQ",
+      "name": "file_example_MP4_480_1_5MG.mp4",
+      "uploadTime": 1586511440712,
       "connectedTags": [
-        "abcd"
+        "57-76-22-99-0"
       ]
-    },
-    {
-      "id": "GueyiKwmo",
-      "name": "bunny.mp4",
-      "uploadTime": 1585922576080,
-      "connectedTags": []
-    },
-    {
-      "id": "vcBfqMmmD",
-      "name": "giphy.mp4",
-      "uploadTime": 1585922725367,
-      "connectedTags": []
     }
   ]
 }
