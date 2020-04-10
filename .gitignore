@@ -4,3 +4,5 @@ backend/dist
 backend/uploads
 backend/package-lock.json
 player/package-lock.json
+database.json
+.DS_Store
