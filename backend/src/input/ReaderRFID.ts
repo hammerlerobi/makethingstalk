@@ -1,81 +1,96 @@
 import Mfrc522 from "mfrc522-rpi";
 import SoftSPI from "rpi-softspi";
-import { ITransmitter } from "../transmitters/ITransmitter";
-import { IInteractionMessage } from "../transmitters/IInteractionMessage";
-import { IInputDevice } from "./IInputDevice";
+import {ITransmitter} from "../transmitters/ITransmitter";
+import {IInteractionMessage} from "../transmitters/IInteractionMessage";
+import {IInputDevice} from "./IInputDevice";
+import app from '../app';
 
-class ReaderRFID implements IInputDevice {
-  reader: Mfrc522;
-  transmitters: ITransmitter[];
-  softSPI = new SoftSPI({
-    clock: 23, // pin number of SCLK
-    mosi: 19, // pin number of MOSI
-    miso: 21, // pin number of MISO
-    client: 24 // pin number of CS
-  });
+class ReaderRFID implements IInputDevice{
+	reader : Mfrc522;
+	transmitters : ITransmitter[];
+	lastReadTag : String ="";
+	noCardPresentCount : number = 0;
 
-  constructor() {
-    this.reader = new Mfrc522(this.softSPI);
-    this.reader.setBuzzerPin(18);
-    this.reader.setResetPin(22);
-    this.readLoop();
-  }
+	softSPI = new SoftSPI({
+		clock: 23, // pin number of SCLK
+		mosi: 19, // pin number of MOSI
+		miso: 21, // pin number of MISO
+		client: 24 // pin number of CS
+	  });
 
-  bindTransmitters(transmitters: ITransmitter[]) {
-    this.transmitters = transmitters;
-  }
+	  constructor() {
+		this.reader = new Mfrc522(this.softSPI);
+		this.reader.setBuzzerPin(18);
+		this.reader.setResetPin(22);
+		this.readLoop();
+	  }
 
-  send(message: IInteractionMessage) {
-    this.transmitters.forEach(transmitter => {
-      transmitter.sendMessage(message);
-    });
-  }
+	  bindTransmitters(transmitters:ITransmitter[]){
+		this.transmitters = transmitters;
+	  }
 
-  read() {
-    const reader = this.reader;
-    reader.reset();
+	  send(message:IInteractionMessage){
+		this.transmitters.forEach(transmitter => {
+			transmitter.sendMessage(message);
+		});
+	  }
 
-    // # Scan for cards
-    let response = reader.findCard();
-    if (!response.status) {
-      //   console.log("No Card");
-      return;
-    }
-    console.log("Card detected, CardType: " + response.bitSize);
-    // # Get the UID of the card
-    response = reader.getUid();
-    if (!response.status) {
-      console.log("UID Scan Error");
-      return;
-    }
-    // # If we have the UID, continue
-    const uid = response.data;
+	  read(){
+		const reader = this.reader;
+		reader.reset();
 
-    // send the command to the Player, currently we just send a dummy command
-    // later we will make a lookup in the database to find the right media
-    this.send({ command: "Play", media: "bunny.mp4", tagID: "tag12" });
+			// # Scan for cards
+			let response = reader.findCard();
+			if (!response.status) {
+			  this.noCardPresentCount++;
+			  if(this.noCardPresentCount>2){
+				this.send({command:"Idle",media:"",tagID:""});
+				this.lastReadTag="";
+				console.log("Card Left");
+			  }
+			  return;
+			}
+			console.log("Card detected, CardType: " + response.bitSize);
+			// # Get the UID of the card
+			response = reader.getUid();
+			if (!response.status) {
+			  console.log("UID Scan Error");
+			  return;
+			}
 
-    console.log(
-      "Card read UID: %s %s %s %s",
-      uid[0].toString(16),
-      uid[1].toString(16),
-      uid[2].toString(16),
-      uid[3].toString(16)
-    );
 
-    // # Select the scanned card
-    const memoryCapacity = reader.selectCard(uid);
-    console.log("Card Memory Capacity: " + memoryCapacity);
+			this.noCardPresentCount = 0;
+			// # If we have the UID, continue
+			let uid = response.data;
+			
+			uid[0].toString(16);
+			uid[1].toString(16);
+			uid[2].toString(16); 
+			uid[3].toString(16);
+			let uidString = uid.map(String)
+			let adress =  uidString.join('-');
 
-    // # Dump Block 8
-    console.log("Block: 8 Data: " + reader.getDataForBlock(8));
+			if(this.lastReadTag !== adress){
+				// Adresse change so new TAG is present
+				// make lookup in db 
+				app.db.GetTag(adress)
+				.then(result => {
+					if(result.medias)
+						this.send({command:"Play",media:result.medias[0],tagID:result.id})
+					else
+						this.send({command:"NewTAG",media:"",tagID:result.id})	
+				})
+				.catch(()=>{
+					this.send({command:"NewTAG",media:"",tagID:adress})	
+				})				
+			}
+			this.reader.stopCrypto();
+	  }
 
-    // # Stop
-    this.reader.stopCrypto();
-  }
-
-  readLoop(): void {
-    setInterval(() => this.read(), 500);
-  }
+	readLoop():void{
+		setInterval( () => this.read(), 500);
+	}
 }
-export { ReaderRFID };
+export {
+	ReaderRFID as ReaderRFID,
+};
