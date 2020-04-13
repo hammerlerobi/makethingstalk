@@ -44,8 +44,10 @@
       
         if (message.tagID && mediaIDToLink !=="") {
 
+			var ip = location.hostname;
+
 			console.log("Linking "+message.tagID + "to Media"+ mediaIDToLink);
-			postData('http://localhost:4000/api/tag/link', { tagId: message.tagID,mediaId:mediaIDToLink})
+			postData('http://" + ip + ":4000/api/tag/link', { tagId: message.tagID,mediaId:mediaIDToLink})
 			.then((data) => {
 				console.log(data); // JSON data parsed by `response.json()` call
 			});
