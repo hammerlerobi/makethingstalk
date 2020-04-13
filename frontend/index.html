@@ -5,8 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Basic Frontend, for test purpose</title>
 </head>
+<script>
+	var IP = location.hostname;
+</script>
 <body>
-	<form method="post" action="http://localhost:4000/api/upload/" enctype="multipart/form-data">
+	<form method="post" action="/api/upload/" enctype="multipart/form-data">
 		FileUpload currenty only mp4<br><br>
 		<input type="file" id="files" name="files"> 
 		<button type="submit" id="submitfile">submit</button>
@@ -25,7 +28,7 @@
 	var mediaIDToLink = "";
 
 	//start websocket we need it to link tags
-	var connection = new WebSocket("ws:localhost:8090", ["soap", "xmpp"]);
+	var connection = new WebSocket("ws:" + IP + ":8090", ["soap", "xmpp"]);
 	connection.onopen = function() {
         console.log("----- CONNECTED TO THE SERVER -----");
       };
@@ -44,10 +47,10 @@
       
         if (message.tagID && mediaIDToLink !=="") {
 
-			var ip = location.hostname;
+			
 
 			console.log("Linking "+message.tagID + "to Media"+ mediaIDToLink);
-			postData('http://" + ip + ":4000/api/tag/link', { tagId: message.tagID,mediaId:mediaIDToLink})
+			postData('http://' + IP + ':4000/api/tag/link', { tagId: message.tagID,mediaId:mediaIDToLink})
 			.then((data) => {
 				console.log(data); // JSON data parsed by `response.json()` call
 			});
@@ -82,7 +85,7 @@
 	}
 
 	var fetchMedias = ()=>{
-	fetch('http://localhost:4000/api/media')
+	fetch('http://' + IP + ':4000/api/media')
 	.then((response) => {
 		return response.json();
 	})
@@ -98,7 +101,7 @@
 				Name: ${element.name}<br>
 				ID:${element.id}<br>
 				LINKEDTags: ${element.connectedTags} <br>
-				<a href="http://localhost:4000/api/media/delete?mediaId="+${element.id}">Delete</a><br>
+				<a href="http://${IP}:4000/api/media/delete?mediaId="+${element.id}">Delete</a><br>
 				<a href="#" onclick="startLinkMode('${element.id}')">LinkMedia</a><br>
 			</div>
 			`;
