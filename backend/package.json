@@ -9,8 +9,8 @@
     "prestart": "npm run build",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "syncToRPIFull":"rsync --update -raz --progress ../backend pi@192.168.178.59:~/makeThingsTalk",
-    "syncToRPI":"rsync --update -raz --progress ../backend/src/ pi@192.168.178.59:~/makeThingsTalk/backend/src/"
+    "syncToRPIFull": "rsync --update -raz --progress ../backend pi@192.168.178.59:~/makeThingsTalk",
+    "syncToRPI": "rsync --update -raz --progress ../backend/src/ pi@192.168.178.59:~/makeThingsTalk/backend/src/"
   },
   "author": "",
   "license": "ISC",
