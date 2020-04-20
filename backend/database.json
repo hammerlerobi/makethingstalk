@@ -1,20 +1,4 @@
 {
-  "Tags": [
-    {
-      "id": "57-76-22-99-0",
-      "medias": [
-        "NnQD2EuDQ"
-      ]
-    }
-  ],
-  "Medias": [
-    {
-      "id": "NnQD2EuDQ",
-      "name": "file_example_MP4_480_1_5MG.mp4",
-      "uploadTime": 1586511440712,
-      "connectedTags": [
-        "57-76-22-99-0"
-      ]
-    }
-  ]
+  "Tags": [],
+  "Medias": []
 }
