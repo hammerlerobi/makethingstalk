@@ -1,10 +1,13 @@
 <a href="http://makethingstalk.io"><img src="./docs/assets/makethingstalklogo.png" title="MakeThingsTalk" alt="MakeThingstalk"></a>
 
-
-## is a project to build your own rfid trigged mediastation based on a raspberry pi.
-
+### a project to build your own rfid trigged mediastation based on a raspberry pi.<br /><br />
+    
+    
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger) [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
+<br /><br />
+
+
 
 
 ### this project is in early development but we try to provide a working version on master at any time.
