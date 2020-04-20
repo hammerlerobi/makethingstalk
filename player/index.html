@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Player</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Helvetica";
+      }
+      #testButton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        padding: 10px;
+      }
+      video {
+        width: 100%;
+      }
+      .stage {
+        width: 100%;
+      }
+      #idle {
+        background: linear-gradient(45deg, #0f2027, #203a43, #2c5364);
+        color: white;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center; /* align horizontal */
+        align-items: center; /* align vertical */
+        opacity: 1;
+        transition: all 1s ease;
+      }
+      .hidden {
+        opacity: 0 !important;
+      }
+      button {
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage">
+      <div id="idle">
+        PLEASE SEND A VIDEO URL VIA WS
+      </div>
+      <video id="myVideo" src="" autoplay="autoPlay" muted="muted">
+        <source id="mp4_src" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <script>
+      
+      var ip = location.hostname;
+
+      var videoContainer = document.getElementById("myVideo");
+      var videoSrc = document.getElementById("mp4_src");
+      var idleScreen = document.getElementById("idle");
+      var connection = new WebSocket("ws:" + ip + ":8090", ["soap", "xmpp"]);
+
+      // When the connection is open, send some data to the server
+      connection.onopen = function() {
+        console.log("----- CONNECTED TO THE SERVER -----");
+      };
+
+      connection.onmessage = function(e) {
+        //please refer to
+        //backend/transmitters/IInteractonMessage.ts
+        //this is what we will receive here.
+
+        let message;
+        try {
+          message = JSON.parse(e.data);
+        } catch (error) {
+          console.error(error);
+        }
+        console.log("WS:", message);
+
+        if (message.media) {
+          videoContainer.src = "../media/" + message.media;
+          videoContainer.load();
+        }
+
+        if (message.command) {
+          switch (message.command) {
+            case "play":
+              videoContainer.play();
+            case "pause":
+            // videoContainer.pause();
+          }
+        }
+      };
+
+      videoContainer.onplay = function() {
+        idleScreen.classList.add("hidden");
+      };
+      videoContainer.onended = function() {
+        idleScreen.classList.remove("hidden");
+      };
+      videoContainer.onpause = function() {
+        idleScreen.classList.remove("hidden");
+      };
+    </script>
+  </body>
+</html>
