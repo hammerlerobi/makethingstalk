@@ -79,9 +79,10 @@
 
 	var startLinkMode = (mediaId) => {
 		console.log(mediaId);
+		alert("place tag on box to connect media to tag within 10 seconds");
 		mediaIDToLink=mediaId;
 		// after 5 seconds we clear mediaIDToLink and end linkmode
-		setTimeout(function(){ mediaIDToLink = "" }, 5000);
+		setTimeout(function(){ mediaIDToLink = "" }, 10000);
 	}
 
 	var fetchMedias = ()=>{
