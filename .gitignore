@@ -1,8 +1,7 @@
 backend/node_modules
 player/node_modules
 backend/dist
-backend/uploads
 backend/package-lock.json
 player/package-lock.json
-database.json
+backend/database.json
 .DS_Store
