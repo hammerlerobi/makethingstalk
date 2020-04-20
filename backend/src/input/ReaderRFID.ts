@@ -43,7 +43,7 @@ class ReaderRFID implements IInputDevice{
 			let response = reader.findCard();
 			if (!response.status) {
 			  this.noCardPresentCount++;
-			  if(this.noCardPresentCount>2){
+			  if(this.noCardPresentCount===2){
 				this.send({command:"Idle",media:"",tagID:""});
 				this.lastReadTag="";
 				console.log("Card Left");
