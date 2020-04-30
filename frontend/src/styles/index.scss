@@ -1,20 +1,105 @@
+@import "utilities.scss";
+
+.App {
+  overflow: hidden;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: ff-scala-sans-pro, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.leftSide {
-  width: 100%;
+.gradient-bg {
+  background: url("../assets/noise.png") 0% 0% / 10%,
+    linear-gradient(
+      96deg,
+      rgba(166, 163, 159, 1) 0%,
+      rgba(178, 176, 171, 1) 50%,
+      rgba(204, 201, 196, 1) 50%,
+      rgba(191, 188, 184, 1) 100%
+    );
+}
+
+.place-tag,
+.load-video {
   height: 100%;
+}
+
+.place-tag-animation,
+.load-video-animation {
   position: relative;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-    radial-gradient(40.8% 68.67% at 50% 54.89%, #ccc9c4 0%, #bfbcb8 100%);
+  .animation-box,
+  .animation-tag,
+  .animation-player {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+  }
+  .animation-box {
+    width: 70%;
+    background: url("../assets/box@2x.png") 50% 80% / contain no-repeat;
+  }
+  .animation-tag {
+    width: 26%;
+    background: url("../assets/tag@2x.png") 50% 10% / contain no-repeat;
+  }
+  .animation-player {
+    width: 70%;
+    background: url("../assets/player-c@2x.png") 50% 80% / contain no-repeat;
+  }
 }
 
 .headline {
   font-size: 1.5em;
+  color: white;
+  position: relative;
+  p {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+  }
 }
+.load-video p {
+  top: 0;
+}
+// IDLE SPLIT VIEW
+// .section-skew-left {
+//   transform: skew(-9deg);
+//   background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+//     linear-gradient(220deg, #ccc9c4 0%, #bfbcb8 126%);
+//   &:before {
+//     content: "";
+//     width: 50%;
+//     height: 100%;
+//     position: absolute;
+//     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+//       linear-gradient(220deg, #ccc9c4 0%, #bfbcb8 100%);
+//     top: 0;
+//     left: 0;
+//     transform: skew(9deg);
+//     z-index: -1;
+//   }
+// }
+// .section-skew-right {
+//   transform: skew(-9deg);
+//   background: red;
+//   &:after {
+//     content: "";
+//     width: 50%;
+//     height: 100%;
+//     position: absolute;
+//     background: red;
+//     top: 0;
+//     right: 0;
+//     transform: skew(9deg);
+//     z-index: -1;
+//   }
+// }
+
+// .anti-skew {
+//   transform: skew(9deg);
+// }
