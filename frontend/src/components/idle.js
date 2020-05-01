@@ -1,80 +1,26 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import Left from "./idle/left";
+import Right from "./idle/right";
 
-const transition = { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] };
-
-const variants = {
-  initial: { scale: 1, opacity: 0, delay: 0, y: 50 },
-  enter: { scale: 1, opacity: 1, y: 0, transition },
-  exit: {
-    scale: 0.5,
-    opacity: 0,
-    transition: { duration: 1.5, ...transition },
-  },
-};
-
-function Idle() {
+const Idle = () => {
   return (
-    <div className="container-fluid p-0">
-      <Link to="/step2">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.75 } }}
+      className="container-fluid p-0"
+    >
+      <Link to="/taglink">
         <div className="row vh-100 p0 m-0 gradient-bg">
-          <motion.div
-            initial="initial"
-            animate="enter"
-            exit="exit"
-            variants={variants}
-            className="col p-0"
-          >
-            <div className="place-tag">
-              <div className="headline h-40">
-                <p>
-                  Plaziere ein RFID Chip auf der Box <br /> um dein Video damit
-                  zu verknüpfen.
-                </p>
-              </div>
-              <div className="place-tag-animation h-60">
-                <div className="animation-box">
-                  <motion.div
-                    animate={{ y: 60 }}
-                    transition={{
-                      ease: "easeInOut",
-                      flip: Infinity,
-                      duration: 6,
-                    }}
-                    className="animation-tag"
-                  ></motion.div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-          <motion.div
-            initial="initial"
-            animate="enter"
-            exit="exit"
-            variants={{
-              ...variants,
-              initial: { y: -50, opacity: 0 },
-            }}
-            className="col p-0 "
-          >
-            <div className="load-video">
-              <div className="load-video-animation h-60">
-                <div className="animation-player"></div>
-              </div>
-              <div className="headline h-40">
-                <p>
-                  Drag’n’Drop ein Video hier um es <br />
-                  als Platzhalter zu definieren.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+          <Left></Left>
+          <Right></Right>
         </div>
       </Link>
-    </div>
+    </motion.div>
   );
-}
+};
 
 Idle.propTypes = {};
 

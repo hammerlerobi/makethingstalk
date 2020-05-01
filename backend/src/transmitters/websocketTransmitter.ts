@@ -12,10 +12,10 @@ class WebsocketTransmitter implements ITransmitter {
           // See zlib defaults.
           chunkSize: 1024,
           memLevel: 7,
-          level: 3
+          level: 3,
         },
         zlibInflateOptions: {
-          chunkSize: 10 * 1024
+          chunkSize: 10 * 1024,
         },
         // Other options settable:
         clientNoContextTakeover: true, // Defaults to negotiated value.
@@ -23,12 +23,21 @@ class WebsocketTransmitter implements ITransmitter {
         serverMaxWindowBits: 10, // Defaults to negotiated value.
         // Below options specified as default values.
         concurrencyLimit: 10, // Limits zlib concurrency for perf.
-        threshold: 1024 // Size (in bytes) below which messages
+        threshold: 1024, // Size (in bytes) below which messages
         // should not be compressed.
-      }
+      },
     });
     // test the websocket
     console.log("Websocket started at port: " + this.wss.options.port);
+    setInterval(
+      () =>
+        this.sendMessage({
+          command: "play",
+          media: "bunny.mp4",
+          tagID: "" + Math.round(Math.random() * 999999999),
+        }),
+      10000
+    );
   }
 
   public sendMessage(message: IInteractionMessage): void {

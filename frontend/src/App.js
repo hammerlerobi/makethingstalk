@@ -2,9 +2,10 @@ import React from "react";
 import { AnimatePresence } from "framer-motion";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Idle from "./components/idle";
-import Step2 from "./components/step2";
+import TagLink from "./components/taglink";
+import { Connection } from "./components/utilities/websocket";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Router>
@@ -13,7 +14,7 @@ function App() {
             <AnimatePresence exitBeforeEnter>
               <Switch location={location} key={location.pathname}>
                 <Route exact path="/" component={Idle} />
-                <Route exact path="/step2" component={Step2} />
+                <Route path="/taglink" component={TagLink} />
               </Switch>
             </AnimatePresence>
           )}
@@ -21,7 +22,7 @@ function App() {
       </Router>
     </div>
   );
-}
+};
 
 export default App;
 

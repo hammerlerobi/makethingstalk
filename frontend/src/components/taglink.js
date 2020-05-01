@@ -1,32 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Tag from "./tag";
 import adjNoun from "adj-noun";
-import { motion } from "framer";
-import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import "../styles/step2.scss";
+import { Connection } from "./utilities/websocket";
 
-const transition = { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] };
-
-const variants = {
-  initial: { scale: 1, opacity: 0, delay: 0 },
-  enter: { scale: 1, opacity: 1, y: 0, transition },
-  exit: {
-    scale: 0.5,
-    opacity: 0,
-    transition: { duration: 1.5, ...transition },
-  },
-};
-
-function Step2() {
+const TagLink = () => {
   adjNoun.seed(parseInt(Math.random() * 999));
+  const isData = Connection();
 
   return (
     <motion.div
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      variants={variants}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transitino: { duration: 0.75 } }}
       className="container-fluid p-0"
     >
       {" "}
@@ -36,7 +25,7 @@ function Step2() {
             <Tag
               color={get_random_color()}
               name={adjNoun().join("-")}
-              id="123-456-789"
+              id={isData}
               video=""
             ></Tag>
             <motion.p
@@ -55,9 +44,9 @@ function Step2() {
       </Link>
     </motion.div>
   );
-}
+};
 
-export default Step2;
+export default TagLink;
 
 function rand(min, max) {
   return parseInt(Math.random() * (max - min + 1), 10) + min;
