@@ -1,10 +1,21 @@
 import React from "react";
 import { motion } from "framer";
+import { connect } from "react-redux";
+
+const transition = {
+  ease: "backOut",
+  duration: 0.8,
+};
+const variants = {
+  open: { scale: [0, 1], opacity: [0, 1], rotate: [-40, 0], ...transition },
+  uploaded: { scale: [1, 1.3, 1], rotate: [0, 10, 0], ...transition },
+};
 
 const Tag = (props) => {
   return (
     <motion.div
-      animate={{ scale: [0, 1], opacity: [0, 1], rotate: [-40, 0] }}
+      animate={props.upload === false ? "uploaded" : "open"}
+      variants={variants}
       transition={{
         ease: "backOut",
         duration: 0.8,
@@ -15,19 +26,23 @@ const Tag = (props) => {
         className="upload-progress"
         style={{
           transform: "scaleY(" + props.scale + ")",
-          backgroundColor: props.color,
+          backgroundColor: props.tagColor,
         }}
       ></div>
 
-      <h2>{props.name}</h2>
-      {props.video ? <h5>{props.video}</h5> : ""}
-      <h5>{props.id}</h5>
+      <h2>{props.tagName}</h2>
+      <h5>{props.tagID}</h5>
+      {props.media ? <h5>{props.media}</h5> : ""}
     </motion.div>
   );
 };
 
-Tag.defaultProps = {
-  scale: 1,
-};
+const mapStateToProps = (state) => ({
+  tagID: state.tagID,
+  tagName: state.tagName,
+  tagColor: state.tagColor,
+  media: state.media,
+  upload: state.upload,
+});
 
-export default Tag;
+export default connect(mapStateToProps)(Tag);
