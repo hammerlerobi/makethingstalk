@@ -32,8 +32,8 @@ class WebsocketTransmitter implements ITransmitter {
     setInterval(
       () =>
         this.sendMessage({
-          command: "play",
-          media: "bunny.mp4",
+          command: "",
+          media: "",
           tagID: "" + Math.round(Math.random() * 999999999),
         }),
       10000

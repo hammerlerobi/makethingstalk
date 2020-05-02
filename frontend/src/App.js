@@ -5,7 +5,9 @@ import Idle from "./components/idle";
 import TagLink from "./components/taglink";
 import { Connection } from "./components/utilities/websocket";
 
-const App = () => {
+function App() {
+  Connection();
+
   return (
     <div className="App">
       <Router>
@@ -22,7 +24,7 @@ const App = () => {
       </Router>
     </div>
   );
-};
+}
 
 export default App;
 

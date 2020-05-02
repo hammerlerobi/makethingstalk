@@ -1,10 +1,20 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import Left from "./idle/left";
 import Right from "./idle/right";
+import { connect } from "react-redux";
+import { setOldPage } from "../components/redux/actions";
 
-const Idle = () => {
+const Idle = (props) => {
+  let history = useHistory();
+  let currentLocation = useLocation().pathname;
+  //navigation to upload screen if tag has been detected
+  if (props.tagID !== "" && props.oldPage !== currentLocation) {
+    history.push("/taglink");
+    props.setOldPage(currentLocation);
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,9 +32,22 @@ const Idle = () => {
   );
 };
 
-Idle.propTypes = {};
+const mapStateToProps = (state) => {
+  return {
+    tagID: state.tagID,
+    oldPage: state.oldPage,
+  };
+};
 
-export default Idle;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setOldPage: (oldPage) => {
+      dispatch(setOldPage(oldPage));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Idle);
 
 {
   /* <div className="col p-0 section-skew-left">
