@@ -17,9 +17,12 @@ class OmxPlayer implements ITransmitter {
 
     //we use the transmitter interface so that we can simply add the omxplayer to the array
     sendMessage(message: IInteractionMessage): void {
-        omxp.open('path_to_file', this.opts);
+        console.log("open"+message.media);
+        omxp.open("../uploads/"+message.media, this.opts);
     }    
 }
+
+export { OmxPlayer };
 
 
 

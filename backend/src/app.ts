@@ -5,6 +5,7 @@ import { MediaRoutes } from './routes/mediaRoutes';
 import {UploadRoutes} from './routes/uploadRoutes';
 import {TagRoutes} from './routes/tagRoutes';
 import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
+import {OmxPlayer} from './nativePlayer/OmxPlayer';
 import { ITransmitter } from './transmitters/ITransmitter';
 import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
@@ -23,6 +24,7 @@ class App {
 		this.allRoutes();
 		this.db = new DataBase();
 		this.transmitters.push(new WebsocketTransmitter());
+		this.transmitters.push(new OmxPlayer());
 		this.inputDevices.push(new ReaderRFID());
 		this.bindTransmittersToInputs();
 	}
