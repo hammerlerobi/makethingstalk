@@ -6,6 +6,7 @@ import TagLink from "./components/taglink";
 import { Connection } from "./components/utilities/websocket";
 
 function App() {
+  //connecting to WS
   Connection();
 
   return (

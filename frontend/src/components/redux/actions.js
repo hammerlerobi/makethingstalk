@@ -1,8 +1,9 @@
-export const addTag = (tagID, media) => {
+export const newTag = (command, media, tagID) => {
   return {
-    type: "ADD_TAG",
-    tagID: tagID,
+    type: "NEW_TAG",
+    command: command,
     media: media,
+    tagID: tagID,
   };
 };
 
@@ -13,10 +14,15 @@ export const addMedia = (media) => {
   };
 };
 
-export const addTagPerson = (tagName, tagColor) => {
+export const addTagName = (tagName) => {
   return {
-    type: "ADD_TAG_PERSON",
+    type: "ADD_TAG_NAME",
     tagName: tagName,
+  };
+};
+export const addTagColor = (tagColor) => {
+  return {
+    type: "ADD_TAG_COLOR",
     tagColor: tagColor,
   };
 };
@@ -35,9 +41,10 @@ export const testUpload = (state) => {
   };
 };
 
-//TESTING DISPATCHES
+// TESTING DISPATCHES
 // {
-// 	type: 'ADD_TAG',
-// 	tagID: 123456456,
-
+// 	type: 'NEW_TAG',
+// 	command: "NewTag",
+// 	tagID: "#123456456",
+// 	media: "test.mp4",
 // 	}

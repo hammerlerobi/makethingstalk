@@ -1,11 +1,7 @@
-.bg {
-  background: url("../assets/noise.png") 0% 0% / 10%,
-    linear-gradient(
-      96deg,
-      rgba(166, 163, 159, 1) 0%,
-      rgba(178, 176, 171, 1) 100%
-    );
-}
+// .bg {
+//   background: url("../assets/noise.png") 0% 0% / 10%,
+//     linear-gradient(130deg, rgba(166, 163, 159, 1) 0%, rgb(107, 106, 103) 100%);
+// }
 
 .tag {
   max-width: 250px;
@@ -36,5 +32,13 @@
     opacity: 1;
     transform-origin: bottom;
     transition: all 0.5s ease-in-out;
+  }
+}
+
+#dropzone-area {
+  cursor: pointer;
+  transition: all 0.5s ease;
+  &.active {
+    box-shadow: inset 0px 0px 0px 10px #0067ff;
   }
 }

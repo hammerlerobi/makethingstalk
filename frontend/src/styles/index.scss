@@ -2,25 +2,34 @@
 
 .App {
   overflow: hidden;
-  background: rgb(166, 163, 159);
+  background: url("../assets/noise.png") 0% 0% / 10%,
+    // linear-gradient(130deg, rgba(166, 163, 159, 1) 0%, rgb(107, 106, 103) 100%),
+      radial-gradient(
+        40.8% 68.67% at 50% 54.89%,
+        rgba(166, 163, 159, 1) 0%,
+        rgb(136, 135, 131) 100%
+      );
 }
 body {
   margin: 0;
+  font-size: 2.3vh;
   font-family: ff-scala-sans-pro, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.gradient-bg {
-  background: url("../assets/noise.png") 0% 0% / 10%,
-    linear-gradient(
-      96deg,
-      rgba(166, 163, 159, 1) 0%,
-      rgba(178, 176, 171, 1) 50%,
-      rgba(204, 201, 196, 1) 50%,
-      rgba(191, 188, 184, 1) 100%
-    );
-}
+// .gradient-bg {
+//   background: url("../assets/noise.png") 0% 0% / 10%,
+//     linear-gradient(130deg, rgba(166, 163, 159, 1) 0%, rgb(107, 106, 103) 100%);
+//   // background: url("../assets/noise.png") 0% 0% / 10%,
+//   //   linear-gradient(
+//   //     96deg,
+//   //     rgba(166, 163, 159, 1) 0%,
+//   //     rgba(178, 176, 171, 1) 50%,
+//   //     rgba(204, 201, 196, 1) 50%,
+//   //     rgba(191, 188, 184, 1) 100%
+//   //   );
+// }
 
 .place-tag,
 .load-video {
@@ -41,10 +50,12 @@ body {
   }
   .animation-box {
     width: 70%;
+    max-width: 500px;
     background: url("../assets/box@2x.png") 50% 80% / contain no-repeat;
   }
   .animation-tag {
-    width: 26%;
+    width: 25%;
+    max-width: 140px;
     background: url("../assets/tag@2x.png") 50% 10% / contain no-repeat;
   }
   .animation-player {
@@ -55,9 +66,10 @@ body {
 
 .headline {
   font-size: 1.5em;
-  color: white;
+  color: #fff;
   position: relative;
   p {
+    padding: 0 20px;
     width: 100%;
     position: absolute;
     bottom: 0;

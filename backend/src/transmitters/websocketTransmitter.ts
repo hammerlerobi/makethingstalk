@@ -32,9 +32,11 @@ class WebsocketTransmitter implements ITransmitter {
     setInterval(
       () =>
         this.sendMessage({
-          command: "",
+          command: "NewTag",
           media: "",
           tagID: "" + Math.round(Math.random() * 999999999),
+          tagColor: "rgb(0,255,0)",
+          tagName: "alkdfjlasökfj",
         }),
       10000
     );

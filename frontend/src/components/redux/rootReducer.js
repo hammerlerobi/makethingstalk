@@ -2,22 +2,36 @@ import adjNoun from "adj-noun";
 adjNoun.seed(parseInt(Math.random() * 999));
 
 const initState = {
-  tagID: "",
+  command: "",
   media: null,
+  tagID: "",
   oldPage: null,
-  tagName: adjNoun().join("-"),
+  tagName: adjNoun().join(" "),
   tagColor: get_random_color(),
   upload: null,
 };
 
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
-    case "ADD_TAG":
-      return { ...state, tagID: action.tagID, media: action.media };
+    case "NEW_TAG":
+      let merged = {
+        command: action.command,
+        media: action.media,
+        tagID: action.tagID,
+      };
+      //avoid removing empty states
+      for (var key in state) {
+        if (merged[key] === undefined || merged[key] === null)
+          merged[key] = state[key];
+      }
+      return merged;
+
     case "ADD_MEDIA":
       return { ...state, media: action.media };
-    case "ADD_TAG_PERSON":
-      return { ...state, tagName: action.tagName, tagColor: action.tagColor };
+    case "ADD_TAG_COLOR":
+      return { ...state, tagColor: action.tagColor };
+    case "ADD_TAG_NAME":
+      return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
       return { ...state, oldPage: action.oldPage };
     case "TEST_UPLOAD":
