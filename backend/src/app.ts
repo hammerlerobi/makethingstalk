@@ -5,7 +5,7 @@ import { MediaRoutes } from './routes/mediaRoutes';
 import {UploadRoutes} from './routes/uploadRoutes';
 import {TagRoutes} from './routes/tagRoutes';
 import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
-import {OmxPlayer} from './nativePlayer/OmxPlayer';
+import {OmxPlayer} from './nativePlayer/omxPlayer';
 import { ITransmitter } from './transmitters/ITransmitter';
 import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
@@ -46,7 +46,7 @@ class App {
 		// add static routes for player
 		this.express.use('/player', express.static('../player/'));
 		this.express.use('/media', express.static('./uploads/'));
-		this.express.use('/frontend', express.static('../frontend/'));
+		this.express.use('/', express.static('../frontend/build/'));
 		this.express.use('/api/media', MediaRoutes);
 		this.express.use('/api/upload', UploadRoutes);
 		this.express.use('/api/tag', TagRoutes);
