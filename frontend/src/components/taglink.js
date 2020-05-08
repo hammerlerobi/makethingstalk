@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Tag from "./tag";
 import "../styles/upload.scss";
 
+var IP = window.location.hostname;
 var descriptionText = "";
 const TagLink = (props) => {
   let history = useHistory();
@@ -27,7 +28,14 @@ const TagLink = (props) => {
     props.addMedia(acceptedFiles[0].name);
     // GETTING THE FILES HERE
     // -> READY TO UPLOAD
-    props.testUpload();
+    // props.testUpload();
+    postData("http://" + IP + ":4000/api/tag/link", {
+      tagId: props.tagID,
+      mediaId: acceptedFiles[0].name,
+    }).then((data) => {
+      console.log(data); // JSON data parsed by `response.json()` call
+    });
+    // if we get a tag and mediaIDToLink is set we link the media to the tag
   }, []);
 
   // FEEDBACK FOR ACTIVE
@@ -109,3 +117,20 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TagLink);
+
+async function postData(url = "", data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: "POST", // *GET, POST, PUT, DELETE, etc.
+    mode: "same-origin", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *client
+    body: JSON.stringify(data), // body data type must match "Content-Type" header
+  });
+}
