@@ -1,9 +1,11 @@
 import React, { useCallback } from "react";
+import request from "superagent";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { setOldPage, addMedia, testUpload } from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
+
 import Tag from "./tag";
 import "../styles/upload.scss";
 
@@ -26,23 +28,13 @@ const TagLink = (props) => {
 
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
-    var formData = new FormData();
-    acceptedFiles.map((file, index) => {
-      formData.append(file.name, file);
-    });
-    fetch("http://192.168.178.43:4000/api/upload/", {
-      // content-type header should not be specified!
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((success) => {
-        // Do something with the successful response
-        console.log("SUCESS", success);
-      })
-      .catch((error) => console.log(error));
+    // -> READY TO UPLOADERconst req = request.post('https://httpbin.org/post');
+    const req = request.post("http://" + IP + ":4000/api/upload/");
 
-    // -> READY TO UPLOAD
+    acceptedFiles.forEach((file) => {
+      req.attach(file.name, file);
+    });
+    req.end();
     // props.testUpload();
     postData("http://" + IP + ":4000/api/tag/link", {
       tagId: props.tagID,
@@ -83,15 +75,6 @@ const TagLink = (props) => {
       className="container-fluid p-0"
     >
       {" "}
-      <form method="post" action="/api/upload/" enctype="multipart/form-data">
-        FileUpload currenty only mp4
-        <br />
-        <br />
-        <input type="file" id="files" name="files" />
-        <button type="submit" id="submitfile">
-          submit
-        </button>
-      </form>
       <div
         id="dropzone-area"
         className={isDragActive ? "active" : ""}
