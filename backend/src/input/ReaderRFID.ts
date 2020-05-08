@@ -48,8 +48,6 @@ class ReaderRFID implements IInputDevice {
           command: "Idle",
           media: "",
           tagID: "",
-          tagColor: "",
-          tagName: "",
         });
         this.lastReadTag = "";
         console.log("Card Left");
@@ -89,8 +87,6 @@ class ReaderRFID implements IInputDevice {
                 command: "Play",
                 media: media.name,
                 tagID: result.id,
-                tagColor: "",
-                tagName: "",
               });
             });
           } else {
@@ -99,8 +95,6 @@ class ReaderRFID implements IInputDevice {
               command: "NewTAG",
               media: "",
               tagID: result.id,
-              tagColor: "",
-              tagName: "",
             });
           }
         })
@@ -110,8 +104,6 @@ class ReaderRFID implements IInputDevice {
             command: "NewTAG",
             media: "",
             tagID: adress,
-            tagColor: "",
-            tagName: "",
           });
         });
     }
