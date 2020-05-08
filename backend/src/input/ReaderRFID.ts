@@ -23,6 +23,13 @@ class ReaderRFID implements IInputDevice {
     this.reader.setBuzzerPin(18);
     this.reader.setResetPin(22);
     this.readLoop();
+    setInterval(() =>  this.send({
+      command: "NewTAG",
+      media: "",
+      tagID: "abc",
+    }), 10000);
+
+
   }
 
   bindTransmitters(transmitters: ITransmitter[]) {
