@@ -29,11 +29,9 @@ const TagLink = (props) => {
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
     // -> READY TO UPLOADERconst req = request.post('https://httpbin.org/post');
-    const req = request.post("http://" + IP + ":4000/api/upload/");
+    const req = request.post("/api/upload/");
 
-    acceptedFiles.forEach((file) => {
-      req.attach(file.name, file);
-    });
+    req.attach(acceptedFiles.name, acceptedFiles[0]);
     req.end();
     // props.testUpload();
     postData("http://" + IP + ":4000/api/tag/link", {
