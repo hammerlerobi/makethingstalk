@@ -30,7 +30,7 @@ const TagLink = (props) => {
     acceptedFiles.map((file, index) => {
       formData.append(file.name, file);
     });
-    fetch("http://192.168.178.43:4000/api/upload", {
+    fetch("http://192.168.178.43:4000/api/upload/", {
       // content-type header should not be specified!
       method: "POST",
       body: formData,
@@ -82,6 +82,16 @@ const TagLink = (props) => {
       exit={{ opacity: 0, transitino: { duration: 0.75 } }}
       className="container-fluid p-0"
     >
+      {" "}
+      <form method="post" action="/api/upload/" enctype="multipart/form-data">
+        FileUpload currenty only mp4
+        <br />
+        <br />
+        <input type="file" id="files" name="files" />
+        <button type="submit" id="submitfile">
+          submit
+        </button>
+      </form>
       <div
         id="dropzone-area"
         className={isDragActive ? "active" : ""}
