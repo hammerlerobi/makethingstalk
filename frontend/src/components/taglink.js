@@ -9,6 +9,7 @@ import "../styles/upload.scss";
 
 var IP = window.location.hostname;
 var descriptionText = "";
+var files = "";
 const TagLink = (props) => {
   let history = useHistory();
   let currentLocation = useLocation().pathname;
@@ -25,8 +26,22 @@ const TagLink = (props) => {
 
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
-    props.addMedia(acceptedFiles[0].name);
-    // GETTING THE FILES HERE
+    var formData = new FormData();
+    files.map((file, index) => {
+      formData.append(file.name, file);
+    });
+    fetch("http://localhost/api/upload", {
+      // content-type header should not be specified!
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((success) => {
+        // Do something with the successful response
+        console.log("SUCESS", success);
+      })
+      .catch((error) => console.log(error));
+
     // -> READY TO UPLOAD
     // props.testUpload();
     postData("http://" + IP + ":4000/api/tag/link", {
