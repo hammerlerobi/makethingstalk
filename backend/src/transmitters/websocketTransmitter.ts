@@ -29,17 +29,6 @@ class WebsocketTransmitter implements ITransmitter {
     });
     // test the websocket
     console.log("Websocket started at port: " + this.wss.options.port);
-    setInterval(
-      () =>
-        this.sendMessage({
-          command: "NewTag",
-          media: "",
-          tagID: "" + Math.round(Math.random() * 999999999),
-          tagColor: "rgb(0,255,0)",
-          tagName: "alkdfjlasökfj",
-        }),
-      10000
-    );
   }
 
   public sendMessage(message: IInteractionMessage): void {
