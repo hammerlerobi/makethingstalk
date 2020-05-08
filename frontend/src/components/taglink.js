@@ -30,7 +30,7 @@ const TagLink = (props) => {
     acceptedFiles.map((file, index) => {
       formData.append(file.name, file);
     });
-    fetch("http://localhost/api/upload", {
+    fetch("http://192.168.178.43:4000/api/upload", {
       // content-type header should not be specified!
       method: "POST",
       body: formData,
