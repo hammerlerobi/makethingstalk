@@ -28,12 +28,17 @@ const TagLink = (props) => {
 
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
-    // -> READY TO UPLOADERconst req = request.post('https://httpbin.org/post');
+   //upload the file
+    let formData = new FormData();
+    console.log(acceptedFiles);
+    formData.append('files', acceptedFiles[0]);
     const req = request.post("/api/upload/");
-
-    req.attach(acceptedFiles.name, acceptedFiles[0]);
+    req.send(formData);
     req.end();
-    // props.testUpload();
+
+  // link the tag -- TAG ID IS UNDEFINED
+    console.log("TagID is undefined"+props.tagID);
+
     postData("http://" + IP + ":4000/api/tag/link", {
       tagId: props.tagID,
       mediaId: acceptedFiles[0].name,
