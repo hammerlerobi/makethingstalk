@@ -2,6 +2,7 @@ import store from "../redux/reduxStore";
 import { newTag, addTagName, addTagColor } from "../redux/actions";
 
 var IP = window.location.hostname;
+var IP = "192.168.178.43";
 var message;
 export function Connection() {
   var ws = new WebSocket("ws://" + IP + ":8090", ["soap", "xmpp"]);

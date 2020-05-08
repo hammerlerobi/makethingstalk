@@ -27,7 +27,7 @@ const TagLink = (props) => {
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
     var formData = new FormData();
-    files.map((file, index) => {
+    acceptedFiles.map((file, index) => {
       formData.append(file.name, file);
     });
     fetch("http://localhost/api/upload", {
