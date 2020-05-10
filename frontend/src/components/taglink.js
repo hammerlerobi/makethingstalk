@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import request from "superagent";
+import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { setOldPage, addMedia, testUpload } from "../components/redux/actions";
-import { useDropzone } from "react-dropzone";
+import Dropzone from "react-dropzone-uploader";
+
 import { motion } from "framer-motion";
 
 import Tag from "./tag";
@@ -15,7 +15,6 @@ var files = "";
 const TagLink = (props) => {
   let history = useHistory();
   let currentLocation = useLocation().pathname;
-
   //navigation to idle screen if tag has been removed
   if (
     props.tagCommand === "Idle" &&
@@ -27,29 +26,22 @@ const TagLink = (props) => {
   }
 
   // DROP ZONE
-  const onDrop = useCallback((acceptedFiles, e) => {
-    // -> READY TO UPLOADERconst req = request.post('https://httpbin.org/post');
-    const req = request.post("/api/upload/");
+  // specify upload params and url for your files
+  const getUploadParams = ({ meta }) => {
+    return { url: "http://" + IP + ":4000/api/upload/" };
+  };
 
-    req.attach(acceptedFiles.name, acceptedFiles[0]);
-    req.end();
-    // props.testUpload();
-    postData("http://" + IP + ":4000/api/tag/link", {
-      tagId: props.tagID,
-      mediaId: acceptedFiles[0].name,
-    }).then((data) => {
-      console.log(data); // JSON data parsed by `response.json()` call
-    });
-    // if we get a tag and mediaIDToLink is set we link the media to the tag
-  }, []);
+  const handleChangeStatus = ({ meta }, status) => {
+    console.log(status, meta.name);
+  };
 
   // FEEDBACK FOR ACTIVE
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    multiple: false,
-    accept: "video/*",
-  });
+  // postData("http://" + IP + ":4000/api/tag/link", {
+  // 	tagId: props.tagID,
+  // 	mediaId: acceptedFiles[0].name,
+  // }).then((data) => {
+  // 	console.log(data); // JSON data parsed by `response.json()` call
+  // });
 
   //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
   switch (props.upload) {
@@ -73,26 +65,31 @@ const TagLink = (props) => {
       className="container-fluid p-0"
     >
       {" "}
-      <div
-        id="dropzone-area"
-        className={isDragActive ? "active" : ""}
-        {...getRootProps()}
-      >
-        <input {...getInputProps()} />
-        <div className="row vh-100 p0 m-0 bg">
-          <div className="col p-0 d-flex flex-column justify-content-center align-items-center">
-            <Tag scale={props.upload ? 0 : 1}></Tag>
-            <motion.p
-              animate={{ opacity: [0, 1] }}
-              transition={{
-                duration: 1,
-                delay: 1,
-              }}
-              className="headline mt-5"
-            >
-              {descriptionText}
-            </motion.p>
-          </div>
+      <Dropzone
+        getUploadParams={getUploadParams}
+        onChangeStatus={handleChangeStatus}
+        maxFiles={1}
+        multiple={false}
+        canCancel={false}
+        inputContent="Drop A File"
+        styles={{
+          dropzone: { width: 400, height: 200 },
+          dropzoneActive: { borderColor: "green" },
+        }}
+      />
+      <div className="row vh-100 p0 m-0 bg">
+        <div className="col p-0 d-flex flex-column justify-content-center align-items-center">
+          <Tag scale={props.upload ? 0 : 1}></Tag>
+          <motion.p
+            animate={{ opacity: [0, 1] }}
+            transition={{
+              duration: 1,
+              delay: 1,
+            }}
+            className="headline mt-5"
+          >
+            {descriptionText}
+          </motion.p>
         </div>
       </div>
     </motion.div>
