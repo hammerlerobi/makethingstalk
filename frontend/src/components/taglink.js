@@ -27,8 +27,11 @@ const TagLink = (props) => {
 
   // DROP ZONE
   // specify upload params and url for your files
-  const getUploadParams = ({ meta }) => {
-    return { url: "http://" + IP + ":4000/api/upload/" };
+  const getUploadParams = ({ file, meta }) => {
+    let formData = new FormData();
+    formData.append("files", file);
+
+    return { url: "http://" + IP + ":4000/api/upload/", formData };
   };
 
   const handleChangeStatus = ({ meta }, status) => {
