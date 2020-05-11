@@ -11,11 +11,10 @@ import "../styles/upload.scss";
 
 var IP = window.location.hostname;
 var descriptionText = "";
-var files = "";
+var file = "";
 const TagLink = (props) => {
   let history = useHistory();
   let currentLocation = useLocation().pathname;
-
   //navigation to idle screen if tag has been removed
   if (
     props.tagCommand === "Idle" &&
@@ -29,34 +28,56 @@ const TagLink = (props) => {
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
     //upload the file
-    let data = new FormData();
-    console.log(acceptedFiles);
-    data.append("files", acceptedFiles[0]);
-    const req = request.post("/api/upload/");
-    req.on("progress", (event) => {
-      var percent = Math.floor(event.percent);
-      if (percent >= 100) {
-        console.log("FINISHED");
-      } else {
-        console.log(percent);
-      }
+    let formData = new FormData();
+    formData.append("file", file);
+    const req = request.post("/api/upload/").then((res) => {
+      console.log("yay got " + JSON.stringify(res.body));
+    });
+    req
+      .on("progress", (event) => {
+        var percent = Math.floor(event.percent);
+        if (percent >= 100) {
+          console.log("FINISHED");
+        } else {
+          console.log(percent);
+        }
+      })
+      .then((res) => {
+        console.log("SEND:", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    req
+      .send(formData)
+      .then((res) => {
+        console.log("SEND:", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    req.end((err, res, xhr) => {
+      // var res = JSON.parse(xhr.response);
+      // console.log("linking" + props.tagID + "to" + res.id);
+      // linkTag(props.tagID, res.id);
     });
 
-    req.send(data);
-    req.end((err, res) => {
-      console.log("Successfully uploaded");
-    });
-
-    postData("http://" + IP + ":4000/api/tag/link", {
-      tagId: props.tagID,
-      mediaId: acceptedFiles[0].name,
-    }).then((data) => {
-      console.log(data); // JSON data parsed by `response.json()` call
-    });
     // if we get a tag and mediaIDToLink is set we link the media to the tag
   }, []);
 
-  // FEEDBACK FOR ACTIVE
+  // specify upload params and url for your files
+  // ----- ÜBERNEHMEN
+
+  const linkTag = (tagId, mediaId) => {
+    postData("http://" + IP + ":4000/api/tag/link", {
+      tagId: tagId,
+      mediaId: mediaId,
+    }).then((data) => {
+      console.log(data); // JSON data parsed by `response.json()` call
+    });
+  };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
