@@ -29,22 +29,33 @@ const TagLink = (props) => {
   // specify upload params and url for your files
   const getUploadParams = ({ file, meta }) => {
     let formData = new FormData();
-    formData.append("files", file);
+    formData.append("file", file);
 
     return { url: "http://" + IP + ":4000/api/upload/", formData };
   };
 
-  const handleChangeStatus = ({ meta }, status) => {
-    console.log(status, meta.name);
+  const handleChangeStatus = ({ meta, file, xhr}, status) => {
+
+    if(status ==="done"){
+      var res = JSON.parse(xhr.response);
+      console.log(res);
+      console.log("linking"+ props.tagID+"to"+res.id);
+      linkTag(props.tagID,res.id);
+    }
   };
 
-  // FEEDBACK FOR ACTIVE
-  // postData("http://" + IP + ":4000/api/tag/link", {
-  // 	tagId: props.tagID,
-  // 	mediaId: acceptedFiles[0].name,
-  // }).then((data) => {
-  // 	console.log(data); // JSON data parsed by `response.json()` call
-  // });
+  const linkTag = (tagId, mediaId) => {
+    postData("http://" + IP + ":4000/api/tag/link", {
+      tagId: tagId,
+      mediaId: mediaId,
+    }).then((data) => {
+      console.log(data); // JSON data parsed by `response.json()` call
+    });
+
+  }
+
+ 
+ 
 
   //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
   switch (props.upload) {
@@ -103,6 +114,8 @@ const mapStateToProps = (state) => ({
   tagCommand: state.command,
   oldPage: state.oldPage,
   upload: state.upload,
+  tagID: state.tagID
+
 });
 
 const mapDispatchToProps = (dispatch) => {

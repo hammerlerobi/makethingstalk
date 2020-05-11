@@ -35,19 +35,22 @@ const upload = multer({
 	fileFilter
 });
 
-router.post('/', upload.array('files', 5), async (req: Request,
+router.post('/', upload.single('file'), async (req: Request,
 	res: Response, next: NextFunction) => {
-	const files = req.files as Express.Multer.File[];
-	files.forEach(file => {
-		const media: Media = {
+	const file = req.file as Express.Multer.File;
+	const media: Media = {
 			id: shortid.generate(),
 			name: file.filename,
 			uploadTime: Date.now(),
 			connectedTags: []
 		};
-		app.db.AddMedia(media);
-	});
-	res.send("Done");
+		app.db.AddMedia(media)
+		.then(value => {
+			res.send(media);
+		})
+		.catch(error => {
+			res.send("Something went wrong "+error);
+		});
 });
 
 export {
