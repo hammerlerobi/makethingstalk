@@ -26,14 +26,13 @@ const TagLink = (props) => {
   }
 
   // DROP ZONE
-  const onDrop = useCallback((acceptedFiles, e) => {
+  const onDrop = useCallback((file, e) => {
     //upload the file
     let formData = new FormData();
     formData.append("file", file);
-    const req = request.post("/api/upload/").then((res) => {
-      console.log("yay got " + JSON.stringify(res.body));
-    });
-    req
+    const req = request
+      .post("/api/upload/")
+      .send(formData)
       .on("progress", (event) => {
         var percent = Math.floor(event.percent);
         if (percent >= 100) {
@@ -43,28 +42,14 @@ const TagLink = (props) => {
         }
       })
       .then((res) => {
-        console.log("SEND:", res);
+        var result = JSON.stringify(res.body.id);
+        console.log(result);
+        //result here
+        linkTag(props.tagID, result);
       })
       .catch((err) => {
         console.log(err);
       });
-
-    req
-      .send(formData)
-      .then((res) => {
-        console.log("SEND:", res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    req.end((err, res, xhr) => {
-      // var res = JSON.parse(xhr.response);
-      // console.log("linking" + props.tagID + "to" + res.id);
-      // linkTag(props.tagID, res.id);
-    });
-
-    // if we get a tag and mediaIDToLink is set we link the media to the tag
   }, []);
 
   // specify upload params and url for your files

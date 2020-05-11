@@ -18,7 +18,7 @@ export function Connection() {
     }
 
     store.dispatch(newTag(message.command, message.media, message.tagID));
-    store.dispatch(addTagColor(message.tagColor));
-    store.dispatch(addTagName(message.tagName));
+    // store.dispatch(addTagColor(message.tagColor));
+    // store.dispatch(addTagName(message.tagName));
   };
 }
