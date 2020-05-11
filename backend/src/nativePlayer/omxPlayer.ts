@@ -1,6 +1,7 @@
 import { ITransmitter } from "../transmitters/ITransmitter";
 import { IInteractionMessage } from "../transmitters/IInteractionMessage";
 import omxp from "omxplayer-controll";
+import {CURRENT_RESOLUTION,PROJECT_DIR } from "../setttings";
 
 class OmxPlayer implements ITransmitter {
     currentAlpha = 0 ;
@@ -15,18 +16,18 @@ class OmxPlayer implements ITransmitter {
         'disableGhostbox': true, // false | true | default: false
         'subtitlePath': '', // default: ""
         'startAt': 0, // default: 0
-        'startVolume': 0.8 // 0.0 ... 1.0 default: 1.0
+        'startVolume': 0.8 ,// 0.0 ... 1.0 default: 1.0
+        'win':`0 0 CURRENT_RESOLUTION[0] CURRENT_RESOLUTION[1]`
     };
 
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
-        console.log("open"+message.media);
         if(message.command === "play"){
-            omxp.open("../uploads/"+message.media, this.opts);
+            //path for some reason must be absolute
+            omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
             this.fadeIn();
         }
-
     }
 
     fadeIn():void{
