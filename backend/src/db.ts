@@ -91,6 +91,14 @@ class DataBase {
 		return false;
 	}
 
+	public async GetMediaByFilename(filename:string):Promise <Media>{
+		const media = (await this.database).get('Medias')
+						.find({name:filename})
+						.value()
+		if (media) return media;
+		return null;
+	}
+
 	public async UpdateMedia(media:Media):Promise <any>{
 		(await this.database).get('Medias')
 		.find({id : media.id})
