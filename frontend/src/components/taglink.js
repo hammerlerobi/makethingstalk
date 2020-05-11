@@ -29,12 +29,23 @@ const TagLink = (props) => {
   // DROP ZONE
   const onDrop = useCallback((acceptedFiles, e) => {
     //upload the file
-    let formData = new FormData();
+    let data = new FormData();
     console.log(acceptedFiles);
-    formData.append("files", acceptedFiles[0]);
+    data.append("files", acceptedFiles[0]);
     const req = request.post("/api/upload/");
-    req.send(formData);
-    req.end();
+    req.on("progress", (event) => {
+      var percent = Math.floor(event.percent);
+      if (percent >= 100) {
+        console.log("FINISHED");
+      } else {
+        console.log(percent);
+      }
+    });
+
+    req.send(data);
+    req.end((err, res) => {
+      console.log("Successfully uploaded");
+    });
 
     postData("http://" + IP + ":4000/api/tag/link", {
       tagId: props.tagID,
