@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import request from "superagent";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { setOldPage, addMedia, testUpload } from "../components/redux/actions";
+import { setOldPage, addMedia } from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 
@@ -26,10 +26,10 @@ const TagLink = (props) => {
   }
 
   // DROP ZONE
-  const onDrop = useCallback((file, e) => {
+  const onDrop = useCallback((files, e) => {
     //upload the file
     let formData = new FormData();
-    formData.append("file", file);
+    formData.append("file", files[0]);
     const req = request
       .post("/api/upload/")
       .send(formData)
@@ -51,7 +51,7 @@ const TagLink = (props) => {
         console.log(err);
       });
   }, []);
-
+  // {id: "plRsa_Kyv", name: "200514.mp4", uploadTime: 1589268403069, connectedTags: Array(0)}
   // specify upload params and url for your files
   // ----- ÜBERNEHMEN
 
@@ -132,12 +132,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     addMedia: (media) => {
       dispatch(addMedia(media));
-    },
-    testUpload: () => {
-      dispatch(testUpload(true));
-      setTimeout(() => {
-        dispatch(testUpload(false));
-      }, 5000);
     },
   };
 };
