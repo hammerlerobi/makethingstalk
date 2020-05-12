@@ -1,18 +1,17 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import request from "superagent";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { setOldPage, addMedia } from "../components/redux/actions";
+import { setOldPage, setUploadStatus } from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 
-import Tag from "./tag";
 import "../styles/upload.scss";
+import TagWrapper from "./tag/tag-wrapper";
 
 var IP = window.location.hostname;
-var descriptionText = "";
-var file = "";
 const TagLink = (props) => {
+  const [uploadProgress, setProgress] = useState(0);
   let history = useHistory();
   let currentLocation = useLocation().pathname;
   //navigation to idle screen if tag has been removed
@@ -36,13 +35,17 @@ const TagLink = (props) => {
       .on("progress", (event) => {
         var percent = Math.floor(event.percent);
         if (percent >= 100) {
+          props.setUploadStatus("finished");
           console.log("FINISHED");
+          setProgress(100);
         } else {
           console.log(percent);
+          props.setUploadStatus("uploading");
+          setProgress(percent);
         }
       })
       .then((res) => {
-       // var result = JSON.stringify(res.body);
+        // var result = JSON.stringify(res.body);
         console.log(res.body);
         //result here
         linkTag(props.tagID, res.body.id);
@@ -51,17 +54,14 @@ const TagLink = (props) => {
         console.log(err);
       });
   }, []);
-  // {id: "plRsa_Kyv", name: "200514.mp4", uploadTime: 1589268403069, connectedTags: Array(0)}
-  // specify upload params and url for your files
-  // ----- ÜBERNEHMEN
 
   const linkTag = (tagId, mediaId) => {
-    console.log("linking"+tagId+"to"+mediaId);
+    console.log("linking" + tagId + "to" + mediaId);
     postData("http://" + IP + ":4000/api/tag/link", {
       tagId: tagId,
       mediaId: mediaId,
     }).then((response) => {
-      console.log("linked"); 
+      console.log("linked");
     });
   };
 
@@ -70,20 +70,6 @@ const TagLink = (props) => {
     multiple: false,
     accept: "video/*",
   });
-
-  //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
-  switch (props.upload) {
-    case true:
-      descriptionText = "Video wird hochgeladen ...";
-      break;
-    case false:
-      descriptionText = "Das Video wurde erfolgreich verknüpft. ";
-      break;
-    default:
-      descriptionText =
-        "Klicke auf den Bildschirm oder lege einfach dein Video hier ab um es mit dem Tag zu verknüpfen";
-      break;
-  }
 
   return (
     <motion.div
@@ -99,21 +85,7 @@ const TagLink = (props) => {
         {...getRootProps()}
       >
         <input {...getInputProps()} />
-        <div className="row vh-100 p0 m-0 bg">
-          <div className="col p-0 d-flex flex-column justify-content-center align-items-center">
-            <Tag scale={props.upload ? 0 : 1}></Tag>
-            <motion.p
-              animate={{ opacity: [0, 1] }}
-              transition={{
-                duration: 1,
-                delay: 1,
-              }}
-              className="headline mt-5"
-            >
-              {descriptionText}
-            </motion.p>
-          </div>
-        </div>
+        <TagWrapper uploadProgress={uploadProgress}></TagWrapper>
       </div>
     </motion.div>
   );
@@ -131,8 +103,8 @@ const mapDispatchToProps = (dispatch) => {
     setOldPage: (oldPage) => {
       dispatch(setOldPage(oldPage));
     },
-    addMedia: (media) => {
-      dispatch(addMedia(media));
+    setUploadStatus: (uploadStatus) => {
+      dispatch(setUploadStatus(uploadStatus));
     },
   };
 };
@@ -153,15 +125,15 @@ async function postData(url = "", data = {}) {
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *client
     body: JSON.stringify(data), // body data type must match "Content-Type" header
-  }).then(res => {
+  }).then((res) => {
     if (res.ok) {
-        return new Promise(function(resolve, reject) {
-          resolve('success');
-        });
+      return new Promise(function (resolve, reject) {
+        resolve("success");
+      });
     } else {
-      return new Promise(function(resolve, reject) {
-        reject('failed');
+      return new Promise(function (resolve, reject) {
+        reject("failed");
       });
     }
-})
+  });
 }

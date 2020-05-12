@@ -34,7 +34,7 @@ const rootReducer = (state = initState, action) => {
       return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
       return { ...state, oldPage: action.oldPage };
-    case "TEST_UPLOAD":
+    case "SET_UPLOAD_STATUS":
       return {
         ...state,
         upload: action.state,

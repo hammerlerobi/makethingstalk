@@ -34,9 +34,9 @@ export const setOldPage = (oldPage) => {
   };
 };
 
-export const testUpload = (state) => {
+export const setUploadStatus = (state) => {
   return {
-    type: "TEST_UPLOAD",
+    type: "SET_UPLOAD_STATUS",
     state: state,
   };
 };

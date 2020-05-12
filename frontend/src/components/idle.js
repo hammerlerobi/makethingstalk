@@ -9,7 +9,10 @@ const Idle = (props) => {
   let history = useHistory();
   let currentLocation = useLocation().pathname;
   //navigation to upload screen if tag has been detected
-  if (props.tagCommand === "NewTAG" && props.oldPage !== currentLocation) {
+  if (
+    (props.tagCommand === "NewTAG" || props.tagCommand === "Play") &&
+    props.oldPage !== currentLocation
+  ) {
     props.setOldPage(currentLocation);
     history.push("/taglink");
   }
