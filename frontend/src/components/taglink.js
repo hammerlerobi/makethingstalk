@@ -42,10 +42,10 @@ const TagLink = (props) => {
         }
       })
       .then((res) => {
-        var result = JSON.stringify(res.body.id);
-        console.log(result);
+       // var result = JSON.stringify(res.body);
+        console.log(res.body);
         //result here
-        linkTag(props.tagID, result);
+        linkTag(props.tagID, res.body.id);
       })
       .catch((err) => {
         console.log(err);
@@ -56,11 +56,12 @@ const TagLink = (props) => {
   // ----- ÜBERNEHMEN
 
   const linkTag = (tagId, mediaId) => {
+    console.log("linking"+tagId+"to"+mediaId);
     postData("http://" + IP + ":4000/api/tag/link", {
       tagId: tagId,
       mediaId: mediaId,
-    }).then((data) => {
-      console.log(data); // JSON data parsed by `response.json()` call
+    }).then((response) => {
+      console.log("linked"); 
     });
   };
 
@@ -152,5 +153,15 @@ async function postData(url = "", data = {}) {
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *client
     body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
+  }).then(res => {
+    if (res.ok) {
+        return new Promise(function(resolve, reject) {
+          resolve('success');
+        });
+    } else {
+      return new Promise(function(resolve, reject) {
+        reject('failed');
+      });
+    }
+})
 }
