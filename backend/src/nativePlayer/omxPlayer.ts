@@ -1,7 +1,7 @@
 import { ITransmitter } from "../transmitters/ITransmitter";
 import { IInteractionMessage } from "../transmitters/IInteractionMessage";
 import omxp from "omxplayer-controll";
-import {CURRENT_RESOLUTION,PROJECT_DIR } from "../setttings";
+import {CURRENT_RESOLUTION,PROJECT_DIR } from "../settings";
 
 class OmxPlayer implements ITransmitter {
     currentAlpha = 0 ;
@@ -22,11 +22,16 @@ class OmxPlayer implements ITransmitter {
 
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
-        if(message.command === "play"){
+        if(message.command === "Play"){
             // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
-            this.fadeIn();
+            setTimeout(this.fadeIn,5000);
+        }
+        if(message.command === "idle"){
+            // path for some reason must be absolute
+            this.playing = false;
+            this.fadeOut();
         }
     }
 
@@ -36,6 +41,17 @@ class OmxPlayer implements ITransmitter {
             this.currentAlpha += this.fadeSpeed;
             process.nextTick(this.fadeIn);
             this.currentAlpha = Math.min(this.currentAlpha,255);
+        }
+    }
+
+    fadeOut():void{
+        if(this.currentAlpha > 0){
+            omxp.setAlpha(this.currentAlpha, (err:Error)=>{console.log(err)});
+            this.currentAlpha -= this.fadeSpeed;
+            process.nextTick(this.fadeIn);
+            this.currentAlpha = Math.max(this.currentAlpha,0);
+        }else{
+            omxp.stop();
         }
     }
 }
