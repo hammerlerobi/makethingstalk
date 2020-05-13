@@ -8,8 +8,8 @@ import {
 import adjNoun from "adj-noun";
 adjNoun.seed(parseInt(Math.random() * 999));
 
-//  var IP = window.location.hostname;
-var IP = "192.168.178.43";
+  var IP = window.location.hostname;
+//var IP = "192.168.178.43";
 var message;
 export function Connection() {
   var ws = new WebSocket("ws://" + IP + ":8090", ["soap", "xmpp"]);
