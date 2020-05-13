@@ -26,7 +26,7 @@ class OmxPlayer implements ITransmitter {
             // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
-            setTimeout(this.fadeIn,5000);
+            setTimeout(this.fadeIn.bind(this),1000);
         }
         if(message.command === "idle"){
             // path for some reason must be absolute
@@ -39,19 +39,19 @@ class OmxPlayer implements ITransmitter {
         if(this.currentAlpha < 255 && this.playing){
             omxp.setAlpha(this.currentAlpha, (err:Error)=>{console.log(err)});
             this.currentAlpha += this.fadeSpeed;
-            process.nextTick(this.fadeIn);
+            process.nextTick(this.fadeIn.bind(this));
             this.currentAlpha = Math.min(this.currentAlpha,255);
         }
     }
 
     fadeOut():void{
         if(this.currentAlpha > 0){
-            omxp.setAlpha(this.currentAlpha, (err:Error)=>{console.log(err)});
+            omxp.setAlpha(this.currentAlpha, (err:any)=>{console.log(err)});
             this.currentAlpha -= this.fadeSpeed;
-            process.nextTick(this.fadeIn);
+            process.nextTick(this.fadeOut.bind(this));
             this.currentAlpha = Math.max(this.currentAlpha,0);
         }else{
-            omxp.stop();
+            omxp.stop((err:any)=>{console.log(err)});
         }
     }
 }
