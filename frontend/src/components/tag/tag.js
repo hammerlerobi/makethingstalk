@@ -5,7 +5,7 @@ import { transform } from "framer-motion";
 
 const transition = {
   ease: "backOut",
-  duration: 0.6,
+  duration: 0.5,
 };
 const variants = {
   open: { scale: [0, 1], opacity: [0, 1], rotate: [-40, 0], ...transition },
@@ -20,10 +20,7 @@ const Tag = (props) => {
     <motion.div
       animate={props.upload === "finished" ? "uploaded" : "open"}
       variants={variants}
-      transition={{
-        ease: "backOut",
-        duration: 0.8,
-      }}
+      transition={transition}
       className="tag d-flex flex-column justify-content-center align-items-center"
     >
       <div

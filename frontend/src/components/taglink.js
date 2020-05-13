@@ -81,7 +81,7 @@ const TagLink = (props) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transitino: { duration: 0.75 } }}
+      exit={{ opacity: 0, transitino: { duration: 0.5 } }}
       className="container-fluid p-0"
     >
       {" "}

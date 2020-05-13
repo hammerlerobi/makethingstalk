@@ -9,10 +9,11 @@ const TagWrapper = (props) => {
 
   switch (props.upload) {
     case "uploading":
-      descriptionText = "Video wird hochgeladen ...";
+      descriptionText = "Wird hochgeladen ...";
       break;
     case "finished":
-      descriptionText = "Das Video wurde erfolgreich verknüpft. ";
+      descriptionText =
+        "🎉 Das Video wurde erfolgreich hochgeladen und verknüpft.";
       break;
     default:
       descriptionText =
@@ -23,15 +24,15 @@ const TagWrapper = (props) => {
     <div className="row vh-100 p0 m-0 bg">
       <div className="col p-0 d-flex flex-column justify-content-center align-items-center ">
         <Tag uploadProgress={props.uploadProgress}></Tag>
-        <motion.div
+        <div
           animate={{ opacity: [0, 1] }}
           transition={{
-            duration: 0.75,
+            duration: 0.5,
           }}
           className="tag-headline"
         >
           <p>{descriptionText}</p>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

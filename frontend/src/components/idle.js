@@ -18,16 +18,11 @@ const Idle = (props) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.75 } }}
-      className="container-fluid p-0"
-    >
+    <div className="container-fluid p-0">
       <div className="row vh-100 p0 m-0 gradient-bg">
         <Left></Left>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

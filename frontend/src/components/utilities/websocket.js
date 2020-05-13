@@ -1,5 +1,10 @@
 import store from "../redux/reduxStore";
-import { newTag, setTagName, setTagColor } from "../redux/actions";
+import {
+  newTag,
+  setTagName,
+  setTagColor,
+  setUploadStatus,
+} from "../redux/actions";
 import adjNoun from "adj-noun";
 adjNoun.seed(parseInt(Math.random() * 999));
 
@@ -23,6 +28,7 @@ export function Connection() {
     if (message.command === "NewTAG" || message.command === "Play") {
       store.dispatch(setTagColor(get_random_color()));
       store.dispatch(setTagName(adjNoun().join(" ")));
+      store.dispatch(setUploadStatus(null));
     }
   };
 }

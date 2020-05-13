@@ -1,11 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const transition = { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] };
+const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const variants = {
   initial: { opacity: 0, delay: 0, y: 50 },
-  enter: { opacity: 1, y: 0, transition },
+  enter: { opacity: 1, y: 0, transition: transition },
   exit: {
     opacity: 0,
     y: 50,
