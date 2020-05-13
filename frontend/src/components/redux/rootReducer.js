@@ -18,12 +18,19 @@ const rootReducer = (state = initState, action) => {
       };
       //avoid removing empty states
       for (var key in state) {
-        if (
-          merged[key] === undefined ||
-          merged[key] === null ||
-          merged[key] === ""
-        )
-          merged[key] = state[key];
+        if (action.command === "Idle") {
+          if (
+            merged[key] === undefined ||
+            merged[key] === null ||
+            merged[key] === ""
+          ) {
+            merged[key] = state[key];
+          }
+        } else {
+          if (merged[key] === undefined || merged[key] === null) {
+            merged[key] = state[key];
+          }
+        }
       }
       return merged;
 

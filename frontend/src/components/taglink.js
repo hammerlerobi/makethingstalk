@@ -22,7 +22,7 @@ const TagLink = (props) => {
   if (
     props.tagCommand === "Idle" &&
     props.oldPage !== currentLocation &&
-    !props.upload
+    props.upload !== "uploading"
   ) {
     history.push("/");
     props.setOldPage(currentLocation);
@@ -69,6 +69,7 @@ const TagLink = (props) => {
       console.log("linked");
     });
   };
+
   //DROP ZONE SETTINGS
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

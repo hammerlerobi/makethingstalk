@@ -35,8 +35,8 @@ const Tag = (props) => {
       ></div>
 
       <h2>{props.tagName}</h2>
+      {props.media ? <h4>{props.media}</h4> : ""}
       <h5>#{props.tagID}</h5>
-      {props.media ? <h5>{props.media}</h5> : ""}
     </motion.div>
   );
 };
