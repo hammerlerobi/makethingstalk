@@ -2,7 +2,11 @@ import React, { useCallback, useState } from "react";
 import request from "superagent";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { setOldPage, setUploadStatus } from "../components/redux/actions";
+import {
+  setOldPage,
+  setUploadStatus,
+  setMedia,
+} from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 
@@ -24,10 +28,12 @@ const TagLink = (props) => {
     props.setOldPage(currentLocation);
   }
 
-  // DROP ZONE
+  // DROP ZONE FUNCTION
   const onDrop = useCallback((files, e) => {
     //upload the file
     let formData = new FormData();
+    console.log(files);
+
     formData.append("file", files[0]);
     const req = request
       .post("/api/upload/")
@@ -36,7 +42,6 @@ const TagLink = (props) => {
         var percent = Math.floor(event.percent);
         if (percent >= 100) {
           props.setUploadStatus("finished");
-          console.log("FINISHED");
           setProgress(100);
         } else {
           console.log(percent);
@@ -45,9 +50,9 @@ const TagLink = (props) => {
         }
       })
       .then((res) => {
-        // var result = JSON.stringify(res.body);
         console.log(res.body);
-        //result here
+        console.log("FIIIINISHED");
+        props.setTagMedia(files[0].name);
         linkTag(props.tagID, res.body.id);
       })
       .catch((err) => {
@@ -64,11 +69,11 @@ const TagLink = (props) => {
       console.log("linked");
     });
   };
-
+  //DROP ZONE SETTINGS
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
-    accept: "video/*",
+    accept: "video/mp4",
   });
 
   return (
@@ -105,6 +110,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setUploadStatus: (uploadStatus) => {
       dispatch(setUploadStatus(uploadStatus));
+    },
+    setTagMedia: (media) => {
+      dispatch(setMedia(media));
     },
   };
 };

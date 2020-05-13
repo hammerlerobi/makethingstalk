@@ -7,22 +7,22 @@ export const newTag = (command, media, tagID) => {
   };
 };
 
-export const addMedia = (media) => {
+export const setMedia = (media) => {
   return {
-    type: "ADD_MEDIA",
+    type: "SET_MEDIA",
     media: media,
   };
 };
 
-export const addTagName = (tagName) => {
+export const setTagName = (tagName) => {
   return {
-    type: "ADD_TAG_NAME",
+    type: "SET_TAG_NAME",
     tagName: tagName,
   };
 };
-export const addTagColor = (tagColor) => {
+export const setTagColor = (tagColor) => {
   return {
-    type: "ADD_TAG_COLOR",
+    type: "SET_TAG_COLOR",
     tagColor: tagColor,
   };
 };
