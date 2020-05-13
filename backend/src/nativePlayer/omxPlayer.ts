@@ -23,7 +23,7 @@ class OmxPlayer implements ITransmitter {
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
         if(message.command === "play"){
-            //path for some reason must be absolute
+            // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
             this.fadeIn();
