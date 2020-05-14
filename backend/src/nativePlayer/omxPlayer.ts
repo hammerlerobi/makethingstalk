@@ -18,7 +18,7 @@ class OmxPlayer implements ITransmitter {
         'startAt': 0, // default: 0
 	'alpha':1, // must be 1 zero does not work
         'startVolume': 0.8 ,// 0.0 ... 1.0 default: 1.0
-        'win':'0 0 1920 1080 ' // must be set otherwise alpha is not working
+        'win': '"'+'0 0 '+CURRENT_RESOLUTION[0]+' '+CURRENT_RESOLUTION[1]+'"' // must be set otherwise alpha is not working
     };
 
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
