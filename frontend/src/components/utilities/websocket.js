@@ -5,11 +5,10 @@ import {
   setTagColor,
   setUploadStatus,
 } from "../redux/actions";
-import adjNoun from "adj-noun";
-adjNoun.seed(parseInt(Math.random() * 999));
+import { getName } from "./name-generator";
 
-  var IP = window.location.hostname;
-//var IP = "192.168.178.43";
+var IP = window.location.hostname;
+// var IP = "192.168.178.43";
 var message;
 export function Connection() {
   var ws = new WebSocket("ws://" + IP + ":8090", ["soap", "xmpp"]);
@@ -27,7 +26,7 @@ export function Connection() {
     store.dispatch(newTag(message.command, message.media, message.tagID));
     if (message.command === "NewTAG" || message.command === "Play") {
       store.dispatch(setTagColor(get_random_color()));
-      store.dispatch(setTagName(adjNoun().join(" ")));
+      store.dispatch(setTagName(getName(message.tagID)));
       store.dispatch(setUploadStatus(null));
     }
   };

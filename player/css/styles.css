@@ -1,0 +1,123 @@
+@font-face {
+    font-family: "ScalaSans";
+    src: url("../assets/fonts/ScalaSans.otf") format("otf"),
+    }
+
+@font-face {
+    font-family: "ScalaSans-Bold";
+    src: url("../assets/fonts/ScalaSans-Bold.otf") format("otf"),
+    }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "ScalaSans";
+    /*font-size: 3em;*/
+    font-size: 3vw;
+    color: white;
+    background-color: black;
+}
+
+b {
+    font-family: "ScalaSans-Bold";
+}
+
+.stage {
+    width: 100%;
+}
+
+.layer {
+    opacity: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 1s ease;
+}
+
+.layer.hidden {
+    opacity: 0 !important;
+}
+
+#video {
+    width: 100%;
+}
+
+#idle {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+#idle.layer.hidden {
+}
+
+#tag {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    color: black;
+}
+
+#tag-visual {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+#tag-bubble {
+    position: relative;
+    width: 30vw;
+    height: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    transform: scale(1);
+    transition: all .5s ease-out;
+}
+
+#tag-image {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+}
+
+
+#tag-bubble.hidden {
+    transform: scale(1.25);
+}
+
+
+#tag-name {
+    margin-top: .2em;
+    font-size: 1.25em;
+    line-height: 1em;
+    max-width: 80%;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: .01em;
+}
+
+#tag-id {
+    margin-top: .4em;
+    font-size: .5em;
+    opacity: .75;
+}
+
+#tag-info {
+    position: absolute;
+    width: 50%;
+    font-size: .5em;
+    bottom: 5%;
+    line-height: 1.5em;
+}
+
+#tag-info img {
+    height: .5em;
+    margin-right: .25em;
+}
