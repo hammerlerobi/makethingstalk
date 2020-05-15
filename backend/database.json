@@ -1,34 +1,4 @@
 {
-  "Tags": [
-    {
-      "id": "abc",
-      "medias": [
-        "vBkRkpZ7s"
-      ]
-    },
-    {
-      "id": "1",
-      "medias": [
-        "GG06Sco07"
-      ]
-    }
-  ],
-  "Medias": [
-    {
-      "id": "vBkRkpZ7s",
-      "name": "WhatsApp Video 2020-04-01 at 13.04.47.mp4",
-      "uploadTime": 1589274549620,
-      "connectedTags": [
-        "abc"
-      ]
-    },
-    {
-      "id": "GG06Sco07",
-      "name": "jesuiten01.mp4",
-      "uploadTime": 1589534797012,
-      "connectedTags": [
-        "1"
-      ]
-    }
-  ]
+  "Tags": [],
+  "Medias": []
 }
