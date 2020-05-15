@@ -9,7 +9,7 @@ import {OmxPlayer} from './nativePlayer/omxPlayer';
 import { ITransmitter } from './transmitters/ITransmitter';
 import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
-
+import { DebugKeyboardInput } from './input/DebugKeyboardInput';
 
 
 
@@ -26,6 +26,7 @@ class App {
 		this.transmitters.push(new WebsocketTransmitter());
 		this.transmitters.push(new OmxPlayer());
 		this.inputDevices.push(new ReaderRFID());
+		this.inputDevices.push(new DebugKeyboardInput());
 		this.bindTransmittersToInputs();
 	}
 
