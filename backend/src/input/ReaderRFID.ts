@@ -1,7 +1,7 @@
 import Mfrc522 from "mfrc522-rpi";
 import SoftSPI from "rpi-softspi";
 import { ITransmitter } from "../transmitters/ITransmitter";
-import { IInteractionMessage } from "../transmitters/IInteractionMessage";
+import { IInteractionMessage, TagCommand } from "../transmitters/IInteractionMessage";
 import { IInputDevice } from "./IInputDevice";
 import app from "../app";
 
@@ -50,7 +50,7 @@ class ReaderRFID implements IInputDevice {
       this.noCardPresentCount++;
       if (this.noCardPresentCount === 2) {
         this.send({
-          command: "Idle",
+          command: TagCommand.idle,
           media: "",
           tagID: "",
         });
@@ -89,7 +89,7 @@ class ReaderRFID implements IInputDevice {
             console.log("tag has medias");
             app.db.GetMedia(result.medias[0]).then((media) => {
               this.send({
-                command: "Play",
+                command: TagCommand.play,
                 media: media.name,
                 tagID: result.id,
               });
@@ -97,7 +97,7 @@ class ReaderRFID implements IInputDevice {
           } else {
             console.log("new tag");
             this.send({
-              command: "NewTAG",
+              command: TagCommand.new,
               media: "",
               tagID: result.id,
             });
@@ -106,7 +106,7 @@ class ReaderRFID implements IInputDevice {
         .catch(() => {
           console.log("tag not in db send new Tag ");
           this.send({
-            command: "NewTAG",
+            command: TagCommand.new,
             media: "",
             tagID: adress,
           });

@@ -1,6 +1,6 @@
 import { IInputDevice } from "./IInputDevice";
 import  readline from 'readline';
-import { IInteractionMessage } from "../transmitters/IInteractionMessage";
+import { IInteractionMessage, TagCommand } from "../transmitters/IInteractionMessage";
 import { ITransmitter } from "../transmitters/ITransmitter";
 
 
@@ -24,13 +24,13 @@ class DebugKeyboardInput implements IInputDevice {
         element.enabled = !element.enabled;
         if(element.enabled){
             this.send({
-                command: "NewTAG",
+                command: TagCommand.new,
                 media: "",
                 tagID: element.name,
             });
         }else{
             this.send({
-                command: "Idle",
+                command: TagCommand.idle,
                 media: "",
                 tagID: "",
               });
