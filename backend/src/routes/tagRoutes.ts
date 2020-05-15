@@ -1,5 +1,7 @@
 import express, {Request,Response,NextFunction} from 'express';
+import {ServerSidedInput} from '../input/ServerSidedInput';
 import app from '../app';
+import { TagCommand } from '../transmitters/IInteractionMessage';
 
 const router = express.Router();
 router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
@@ -51,6 +53,15 @@ router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
 	else
 		await app.db.UpdateTag(tag);
 
+	app.db.GetMedia(tag.medias[0]).then((med)=>{
+		ServerSidedInput.getInstance().send({
+			command: TagCommand.play,
+			media: med.name,
+			tagID: "", // should be filled
+		  }
+		)
+
+	})
 	res.json({"status":"SUCCESS","tag":tag})
 });
 

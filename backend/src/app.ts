@@ -10,6 +10,7 @@ import { ITransmitter } from './transmitters/ITransmitter';
 import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
 import { DebugKeyboardInput } from './input/DebugKeyboardInput';
+import { ServerSidedInput } from './input/ServerSidedInput';
 
 
 
@@ -23,16 +24,22 @@ class App {
 		this.config();
 		this.allRoutes();
 		this.db = new DataBase();
+		/// create transmitters
 		this.transmitters.push(new WebsocketTransmitter());
 		this.transmitters.push(new OmxPlayer());
+		// create inputs
 		this.inputDevices.push(new ReaderRFID());
 		this.inputDevices.push(new DebugKeyboardInput());
+		this.inputDevices.push(ServerSidedInput.getInstance()); // ServerSidedInput is singleton
+		// connect transmitters to inputs
 		this.bindTransmittersToInputs();
 	}
 
 	private bindTransmittersToInputs():void{
 		this.inputDevices.forEach(inputDevice => {
+
 			inputDevice.bindTransmitters(this.transmitters);
+			console.log(inputDevice);
 		});
 	}
 
