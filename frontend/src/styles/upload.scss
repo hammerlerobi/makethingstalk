@@ -20,9 +20,15 @@
     font-weight: 600;
     z-index: 1;
   }
+  h4 {
+    z-index: 1;
+    font-size: 1.25rem;
+  }
   h5 {
     z-index: 1;
+    font-size: 1rem;
   }
+
   .upload-progress {
     position: absolute;
     width: 100%;
@@ -31,7 +37,7 @@
     background: red;
     opacity: 1;
     transform-origin: bottom;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.1s ease-in-out;
   }
 }
 
@@ -39,6 +45,6 @@
   cursor: pointer;
   transition: all 0.5s ease;
   &.active {
-    box-shadow: inset 0px 0px 0px 10px #0067ff;
+    box-shadow: inset 0px 0px 0px 10px #0050c7;
   }
 }

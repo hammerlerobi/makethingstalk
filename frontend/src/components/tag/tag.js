@@ -1,10 +1,11 @@
 import React from "react";
 import { motion } from "framer";
 import { connect } from "react-redux";
+import { transform } from "framer-motion";
 
 const transition = {
   ease: "backOut",
-  duration: 0.8,
+  duration: 0.5,
 };
 const variants = {
   open: { scale: [0, 1], opacity: [0, 1], rotate: [-40, 0], ...transition },
@@ -12,27 +13,27 @@ const variants = {
 };
 
 const Tag = (props) => {
+  const progress = transform(props.uploadProgress, [0, 100], [0, 1]);
+  const uploader = props.upload === "uploading" ? progress : 1;
+
   return (
     <motion.div
-      animate={props.upload === false ? "uploaded" : "open"}
+      animate={props.upload === "finished" ? "uploaded" : "open"}
       variants={variants}
-      transition={{
-        ease: "backOut",
-        duration: 0.8,
-      }}
+      transition={transition}
       className="tag d-flex flex-column justify-content-center align-items-center"
     >
       <div
         className="upload-progress"
         style={{
-          transform: "scaleY(" + props.scale + ")",
+          transform: "scaleY(" + uploader + ")",
           backgroundColor: props.tagColor,
         }}
       ></div>
 
       <h2>{props.tagName}</h2>
-      <h5>{props.tagID}</h5>
-      {props.media ? <h5>{props.media}</h5> : ""}
+      {props.media ? <h4>{props.media}</h4> : ""}
+      <h5>#{props.tagID}</h5>
     </motion.div>
   );
 };

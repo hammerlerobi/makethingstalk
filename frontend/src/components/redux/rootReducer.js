@@ -1,13 +1,10 @@
-import adjNoun from "adj-noun";
-adjNoun.seed(parseInt(Math.random() * 999));
-
 const initState = {
   command: "",
   media: null,
   tagID: "",
   oldPage: null,
-  tagName: adjNoun().join(" "),
-  tagColor: get_random_color(),
+  tagName: null,
+  tagColor: null,
   upload: null,
 };
 
@@ -21,20 +18,31 @@ const rootReducer = (state = initState, action) => {
       };
       //avoid removing empty states
       for (var key in state) {
-        if (merged[key] === undefined || merged[key] === null)
-          merged[key] = state[key];
+        if (action.command === "Idle") {
+          if (
+            merged[key] === undefined ||
+            merged[key] === null ||
+            merged[key] === ""
+          ) {
+            merged[key] = state[key];
+          }
+        } else {
+          if (merged[key] === undefined || merged[key] === null) {
+            merged[key] = state[key];
+          }
+        }
       }
       return merged;
 
-    case "ADD_MEDIA":
+    case "SET_MEDIA":
       return { ...state, media: action.media };
-    case "ADD_TAG_COLOR":
+    case "SET_TAG_COLOR":
       return { ...state, tagColor: action.tagColor };
-    case "ADD_TAG_NAME":
+    case "SET_TAG_NAME":
       return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
       return { ...state, oldPage: action.oldPage };
-    case "TEST_UPLOAD":
+    case "SET_UPLOAD_STATUS":
       return {
         ...state,
         upload: action.state,
@@ -46,15 +54,3 @@ const rootReducer = (state = initState, action) => {
 };
 
 export default rootReducer;
-
-// "just for fun"
-function rand(min, max) {
-  return parseInt(Math.random() * (max - min + 1), 10) + min;
-}
-
-function get_random_color() {
-  var h = rand(1, 360); // color hue between 1 and 360
-  var s = rand(60, 80); // saturation 30-100%
-  var l = rand(45, 55); // lightness 30-70%
-  return "hsl(" + h + "," + s + "%," + l + "%)";
-}

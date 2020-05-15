@@ -50,7 +50,8 @@ router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
 		await app.db.AddTag(tag);
 	else
 		await app.db.UpdateTag(tag);
-	res.send("Linked Tag with ID:"+tagId+" to Media with ID:"+mediaId);
+
+	res.json({"status":"SUCCESS","tag":tag})
 });
 
 

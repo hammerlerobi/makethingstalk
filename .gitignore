@@ -1,8 +1,5 @@
-backend/node_modules
-player/node_modules
-backend/dist
-backend/package-lock.json
-player/package-lock.json
-backend/database.json
-frontend/build
+#main git ignore, every module has its own 
+#backend/.gitignore
+#frontend/.gitignore ...
+
 .DS_Store

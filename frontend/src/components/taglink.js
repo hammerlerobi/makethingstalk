@@ -1,77 +1,87 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import request from "superagent";
 import { useHistory, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import { setOldPage, addMedia, testUpload } from "../components/redux/actions";
+import {
+  setOldPage,
+  setUploadStatus,
+  setMedia,
+} from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
 
-import Tag from "./tag";
 import "../styles/upload.scss";
+import TagWrapper from "./tag/tag-wrapper";
 
 var IP = window.location.hostname;
-var descriptionText = "";
-var files = "";
 const TagLink = (props) => {
+  const [uploadProgress, setProgress] = useState(0);
   let history = useHistory();
   let currentLocation = useLocation().pathname;
-
   //navigation to idle screen if tag has been removed
   if (
     props.tagCommand === "Idle" &&
     props.oldPage !== currentLocation &&
-    !props.upload
+    props.upload !== "uploading"
   ) {
     history.push("/");
     props.setOldPage(currentLocation);
   }
 
-  // DROP ZONE
-  const onDrop = useCallback((acceptedFiles, e) => {
+  // DROP ZONE FUNCTION
+  const onDrop = useCallback((files, e) => {
     //upload the file
     let formData = new FormData();
-    console.log(acceptedFiles);
-    formData.append("files", acceptedFiles[0]);
-    const req = request.post("/api/upload/");
-    req.send(formData);
-    req.end();
+    console.log(files);
 
-    postData("http://" + IP + ":4000/api/tag/link", {
-      tagId: props.tagID,
-      mediaId: acceptedFiles[0].name,
-    }).then((data) => {
-      console.log(data); // JSON data parsed by `response.json()` call
-    });
-    // if we get a tag and mediaIDToLink is set we link the media to the tag
+    formData.append("file", files[0]);
+    const req = request
+      .post("/api/upload/")
+      .send(formData)
+      .on("progress", (event) => {
+        var percent = Math.floor(event.percent);
+        if (percent >= 100) {
+          props.setUploadStatus("finished");
+          setProgress(100);
+        } else {
+          console.log(percent);
+          props.setUploadStatus("uploading");
+          setProgress(percent);
+        }
+      })
+      .then((res) => {
+        console.log(res.body);
+        console.log("FIIIINISHED");
+        props.setTagMedia(files[0].name);
+        linkTag(props.tagID, res.body.id);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
-  // FEEDBACK FOR ACTIVE
+  const linkTag = (tagId, mediaId) => {
+    console.log("linking" + tagId + "to" + mediaId);
+    postData("http://" + IP + ":4000/api/tag/link", {
+      tagId: tagId,
+      mediaId: mediaId,
+    }).then((response) => {
+      console.log("linked");
+    });
+  };
 
+  //DROP ZONE SETTINGS
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
-    accept: "video/*",
+    accept: "video/mp4",
   });
-
-  //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
-  switch (props.upload) {
-    case true:
-      descriptionText = "Video wird hochgeladen ...";
-      break;
-    case false:
-      descriptionText = "Das Video wurde erfolgreich verknüpft. ";
-      break;
-    default:
-      descriptionText =
-        "Klicke auf den Bildschirm oder lege einfach dein Video hier ab um es mit dem Tag zu verknüpfen";
-      break;
-  }
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transitino: { duration: 0.75 } }}
+      exit={{ opacity: 0, transitino: { duration: 0.5 } }}
       className="container-fluid p-0"
     >
       {" "}
@@ -81,21 +91,7 @@ const TagLink = (props) => {
         {...getRootProps()}
       >
         <input {...getInputProps()} />
-        <div className="row vh-100 p0 m-0 bg">
-          <div className="col p-0 d-flex flex-column justify-content-center align-items-center">
-            <Tag scale={props.upload ? 0 : 1}></Tag>
-            <motion.p
-              animate={{ opacity: [0, 1] }}
-              transition={{
-                duration: 1,
-                delay: 1,
-              }}
-              className="headline mt-5"
-            >
-              {descriptionText}
-            </motion.p>
-          </div>
-        </div>
+        <TagWrapper uploadProgress={uploadProgress}></TagWrapper>
       </div>
     </motion.div>
   );
@@ -113,14 +109,11 @@ const mapDispatchToProps = (dispatch) => {
     setOldPage: (oldPage) => {
       dispatch(setOldPage(oldPage));
     },
-    addMedia: (media) => {
-      dispatch(addMedia(media));
+    setUploadStatus: (uploadStatus) => {
+      dispatch(setUploadStatus(uploadStatus));
     },
-    testUpload: () => {
-      dispatch(testUpload(true));
-      setTimeout(() => {
-        dispatch(testUpload(false));
-      }, 5000);
+    setTagMedia: (media) => {
+      dispatch(setMedia(media));
     },
   };
 };
@@ -141,5 +134,15 @@ async function postData(url = "", data = {}) {
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *client
     body: JSON.stringify(data), // body data type must match "Content-Type" header
+  }).then((res) => {
+    if (res.ok) {
+      return new Promise(function (resolve, reject) {
+        resolve("success");
+      });
+    } else {
+      return new Promise(function (resolve, reject) {
+        reject("failed");
+      });
+    }
   });
 }

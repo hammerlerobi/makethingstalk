@@ -69,16 +69,28 @@ body {
   color: #fff;
   position: relative;
   p {
-    padding: 0 20px;
     width: 100%;
+    padding: 0 40px;
     position: absolute;
     bottom: 0;
     text-align: center;
   }
 }
-.load-video p {
-  top: 0;
+
+.tag-headline {
+  font-size: 1.3em;
+  color: #fff;
+  position: relative;
+  p {
+    width: 100%;
+    padding: 40px 40px 0px 40px;
+    text-align: center;
+  }
 }
+// .load-video p {
+//   top: 0;
+// }
+
 // IDLE SPLIT VIEW
 // .section-skew-left {
 //   transform: skew(-9deg);
