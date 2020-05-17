@@ -17,13 +17,6 @@ const storage = multer.diskStorage({
 });
 const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
 	if (file.mimetype === "video/mp4") {
-		const exists = app.db.MediaExists(file.originalname);
-		exists.then(value => {
-			console.log('resolved', value);
-		});
-		exists.catch(error => {
-			console.log('rejected', error);
-		});
 		cb(null, true);
 	} else {
 		cb(new Error("Currently only MP4 video files are supported"), false);
@@ -35,19 +28,38 @@ const upload = multer({
 	fileFilter
 });
 
-router.post('/', upload.array('files', 5), async (req: Request,
+router.post('/', upload.single('file'), async (req: Request,
 	res: Response, next: NextFunction) => {
-	const files = req.files as Express.Multer.File[];
-	files.forEach(file => {
-		const media: Media = {
-			id: shortid.generate(),
-			name: file.filename,
-			uploadTime: Date.now(),
-			connectedTags: []
-		};
-		app.db.AddMedia(media);
+	const file = req.file as Express.Multer.File;
+	const mediaInDb = app.db.GetMediaByFilename(sanitize(file.originalname));
+	mediaInDb
+	.then(media => {
+		if(media){
+			res.send(media);
+		}else{
+			media = {
+				id: shortid.generate(),
+				name: file.filename,
+				uploadTime: Date.now(),
+				connectedTags: []
+			};
+			app.db.AddMedia(media)
+			.then(value => {
+				res.send(media);
+			})
+			.catch(error => {
+				res.send("Something went wrong "+error);
+			});
+		}
+
+	})
+	.catch(error => {
+		res.send("Something went wrong "+error);
 	});
-	res.send("Done");
+
+
+
+
 });
 
 export {

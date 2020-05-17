@@ -5,10 +5,12 @@ import { MediaRoutes } from './routes/mediaRoutes';
 import {UploadRoutes} from './routes/uploadRoutes';
 import {TagRoutes} from './routes/tagRoutes';
 import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
+import {OmxPlayer} from './nativePlayer/omxPlayer';
 import { ITransmitter } from './transmitters/ITransmitter';
 import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
-
+import { DebugKeyboardInput } from './input/DebugKeyboardInput';
+import { ServerSidedInput } from './input/ServerSidedInput';
 
 
 
@@ -22,14 +24,22 @@ class App {
 		this.config();
 		this.allRoutes();
 		this.db = new DataBase();
+		/// create transmitters
 		this.transmitters.push(new WebsocketTransmitter());
+		this.transmitters.push(new OmxPlayer());
+		// create inputs
 		this.inputDevices.push(new ReaderRFID());
+		this.inputDevices.push(new DebugKeyboardInput());
+		this.inputDevices.push(ServerSidedInput.getInstance()); // ServerSidedInput is singleton
+		// connect transmitters to inputs
 		this.bindTransmittersToInputs();
 	}
 
 	private bindTransmittersToInputs():void{
 		this.inputDevices.forEach(inputDevice => {
+
 			inputDevice.bindTransmitters(this.transmitters);
+			console.log(inputDevice);
 		});
 	}
 
@@ -44,7 +54,7 @@ class App {
 		// add static routes for player
 		this.express.use('/player', express.static('../player/'));
 		this.express.use('/media', express.static('./uploads/'));
-		this.express.use('/frontend', express.static('../frontend/'));
+		this.express.use('/', express.static('../frontend/build/'));
 		this.express.use('/api/media', MediaRoutes);
 		this.express.use('/api/upload', UploadRoutes);
 		this.express.use('/api/tag', TagRoutes);
