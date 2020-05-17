@@ -74,11 +74,14 @@ $ sudo npm run start
 
 Now the application should start and you should be able to navigate to the frontend aswell as the player.
 
-You can find the Media Player on\
+You can find the Player on\
 http://localhost:4000/player/
 
+Videos should be played via OMXPlayer make sure you have the latest version installed
+
+
 You can find the Backend on\
-http://localhost:4000/frontend/
+http://localhost:4000/
 
 ---
 
