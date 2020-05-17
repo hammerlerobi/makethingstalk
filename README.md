@@ -32,6 +32,25 @@ $ sudo raspi-config
 
 Make sure you have at least __node@10 or later__ installed.
 
+## Frontend Part
+Navigate in the cloned directory and from there navigate in the `frontend` directory. 
+
+> install dependencies using npm install
+
+```shell
+$ npm install 
+```
+
+> now build the frontend:
+
+```shell
+$ npm run build
+```
+
+you should see a build folder now in in the frontend directory.
+
+
+## Backend Part
 Navigate in the cloned directory and from there navigate in the `backend` directory. 
 
 > install dependencies using npm install
