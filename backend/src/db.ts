@@ -1,5 +1,6 @@
 import lowdb from 'lowdb';
 import FileAsync from 'lowdb/adapters/FileAsync';
+import { createThumbnail } from './utils/thumbnailCreator'
 
 export type Media = {
 	id: string;
@@ -65,6 +66,7 @@ class DataBase {
 	public async AddMedia(media:Media):Promise <any>{
 		(await this.database).get('Medias', []).push(media).value();
 		(await this.database).write();
+		createThumbnail(media.name)
 	}
 
 	public async GetMedia(mediaId:string):Promise<Media>{
