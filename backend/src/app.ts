@@ -12,13 +12,12 @@ import { ReaderRFID } from './input/ReaderRFID';
 import { DebugKeyboardInput } from './input/DebugKeyboardInput';
 import { ServerSidedInput } from './input/ServerSidedInput';
 
-
-
 class App {
 	public express: express.Application;
 	public db : DataBase;
 	public transmitters : ITransmitter[] = new Array<ITransmitter>();
 	public inputDevices : IInputDevice[] = new Array<IInputDevice>();
+
 	constructor() {
 		this.express = express();
 		this.config();
@@ -33,6 +32,8 @@ class App {
 		this.inputDevices.push(ServerSidedInput.getInstance()); // ServerSidedInput is singleton
 		// connect transmitters to inputs
 		this.bindTransmittersToInputs();
+
+
 	}
 
 	private bindTransmittersToInputs():void{
