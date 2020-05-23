@@ -29,7 +29,7 @@ const Tag = (props) => {
         className="upload-progress"
         style={{
           transform: "scaleY(" + uploader + ")",
-          backgroundImage: "url(./backend/uploads/thumbnails/1.jpg)",
+          backgroundImage: "url(./media/thumbnails/" + props.media + ".png)",
           backgroundColor: props.tagColor,
           transition: uploadTransition,
         }}

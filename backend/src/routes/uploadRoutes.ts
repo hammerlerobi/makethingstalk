@@ -46,12 +46,12 @@ router.post('/', upload.single('file'), async (req: Request,
 				connectedTags: []
 			};
 			app.db.AddMedia(media)
-			/*.then(value => {
+			.then(value => {
 				res.send(media);
 			})
 			.catch(error => {
 				res.send("Something went wrong "+error);
-			});*/
+			});
 		}
 
 	})

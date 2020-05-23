@@ -1,27 +1,9 @@
-import ffmpeg = require('ffmpeg');
+import * as child from 'child_process';
 
-const videoPath = './uploads'
-const tumbnailPath = videoPath + '/thumbnails'
+const videoPath = './uploads/'
+const tumbnailPath = videoPath + 'thumbnails/'
 const createThumbnail = (fileName:string) => {
-    try {
-		const process = new ffmpeg(videoPath + '/' + fileName);
-		process.then(video => {
-			video.fnExtractFrameToJPG(tumbnailPath, {
-                start_time: 10,
-				frame_rate : 1,
-				number : 1,
-				file_name : fileName + '_thumb'
-			}, (error, files) => {
-				if (!error)
-					console.log('created thumbnail: ' + files);
-			});
-		}, (err) => {
-			console.log('Error: ' + err);
-		});
-	} catch (e) {
-		console.log(e.code);
-		console.log(e.msg);
-	}
+    child.exec('ffmpeg -i ' + videoPath + '/' + fileName + ' -ss 00:00:10.000 -vframes 1 ' + tumbnailPath + '' + fileName + '.png');
 };
 
 export {createThumbnail as createThumbnail};
