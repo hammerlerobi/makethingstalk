@@ -3,9 +3,9 @@ let blurH;
 let offset;
 
 function preload() {
-  blurV = loadShader('assets/shader/base.vert', 'assets/shader/blur.frag');
-  blurH = loadShader('assets/shader/base.vert', 'assets/shader/blur.frag');
-  offset = loadShader('assets/shader/base.vert', 'assets/shader/offset.frag');
+  blurV = loadShader('./assets/shader/base.vert', './assets/shader/blur.frag');
+  blurH = loadShader('./assets/shader/base.vert', './assets/shader/blur.frag');
+  offset = loadShader('./assets/shader/base.vert', './assets/shader/offset.frag');
 }
 
 function setup() {
