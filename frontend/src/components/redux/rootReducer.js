@@ -53,4 +53,12 @@ const rootReducer = (state = initState, action) => {
   return state;
 };
 
+const getThumbnail = (state) => {
+  return 'media/thumbnails/' + state.media.split('.')[0] + '.png'
+}
+
 export default rootReducer;
+
+export {
+  getThumbnail
+}

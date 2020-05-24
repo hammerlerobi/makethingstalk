@@ -1,7 +1,8 @@
 import React from "react";
 import { motion } from "framer";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { transform } from "framer-motion";
+import { getThumbnail } from "../redux/rootReducer"
 
 const transition = {
   ease: "backOut",
@@ -18,6 +19,8 @@ const Tag = (props) => {
   const uploadTransition =
     uploader === 1 ? "all 0.00s ease-in-out" : "all 0.15s ease-in-out";
 
+  const thumbnail = useSelector(getThumbnail)
+
   return (
     <motion.div
       animate={props.upload === "finished" ? "uploaded" : "open"}
@@ -29,7 +32,7 @@ const Tag = (props) => {
         className="upload-progress"
         style={{
           transform: "scaleY(" + uploader + ")",
-          backgroundImage: "url(./media/thumbnails/" + props.media + ".png)",
+          backgroundImage: "url(" + thumbnail + ")",
           backgroundColor: props.tagColor,
           transition: uploadTransition,
         }}
@@ -47,7 +50,7 @@ const mapStateToProps = (state) => ({
   tagName: state.tagName,
   tagColor: state.tagColor,
   media: state.media,
-  upload: state.upload,
+  upload: state.upload
 });
 
 export default connect(mapStateToProps)(Tag);
