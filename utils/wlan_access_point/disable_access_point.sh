@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo cp -r /etc/etc-dhcpcd.np_ap.conf /etc/dhcpcd.conf
+sudo cp -r /etc/dhcpcd.np_ap.conf /etc/dhcpcd.conf
 
 sudo systemctl disable hostapd
 

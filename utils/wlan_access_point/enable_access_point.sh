@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo cp -r /etc/etc-dhcpcd.ap.conf /etc/dhcpcd.conf
+sudo cp -r /etc/dhcpcd.ap.conf /etc/dhcpcd.conf
 
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
