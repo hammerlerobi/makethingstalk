@@ -11,6 +11,7 @@ import { IInputDevice } from './input/IInputDevice';
 import { ReaderRFID } from './input/ReaderRFID';
 import { DebugKeyboardInput } from './input/DebugKeyboardInput';
 import { ServerSidedInput } from './input/ServerSidedInput';
+import { SerialTransmitter } from './transmitters/serialTransmitter';
 
 
 
@@ -27,6 +28,7 @@ class App {
 		/// create transmitters
 		this.transmitters.push(new WebsocketTransmitter());
 		this.transmitters.push(new OmxPlayer());
+		this.transmitters.push(new SerialTransmitter());
 		// create inputs
 		this.inputDevices.push(new ReaderRFID());
 		this.inputDevices.push(new DebugKeyboardInput());
