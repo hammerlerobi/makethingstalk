@@ -7,5 +7,6 @@ export interface IInteractionMessage {
 export enum TagCommand {
   new = "NewTAG",
   play = "Play",
-  idle = "Idle"
+  idle = "Idle",
+  thumbnail = "Thumbnail"
 };

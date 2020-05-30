@@ -6,6 +6,7 @@ const initState = {
   tagName: null,
   tagColor: null,
   upload: null,
+  tagThumbnail: null
 };
 
 const rootReducer = (state = initState, action) => {
@@ -38,6 +39,8 @@ const rootReducer = (state = initState, action) => {
       return { ...state, media: action.media };
     case "SET_TAG_COLOR":
       return { ...state, tagColor: action.tagColor };
+    case "SET_TAG_THUMBNAIL":
+      return { ...state, tagThumbnail: action.tagThumbnail };
     case "SET_TAG_NAME":
       return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
@@ -54,7 +57,9 @@ const rootReducer = (state = initState, action) => {
 };
 
 const getThumbnail = (state) => {
-  return 'media/thumbnails/' + state.media.split('.')[0] + '.png'
+  if(state.tagThumbnail == null)
+    return ''
+  return 'media/thumbnails/' + state.tagThumbnail; 
 }
 
 export default rootReducer;

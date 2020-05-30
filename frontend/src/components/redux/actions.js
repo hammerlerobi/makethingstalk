@@ -27,6 +27,14 @@ export const setTagColor = (tagColor) => {
   };
 };
 
+export const setTagThumbnail = (media) => {
+  let tagThumbnail = media.split('.')[0] + '.png';
+  return {
+    type: "SET_TAG_THUMBNAIL",
+    tagThumbnail: tagThumbnail,
+  };
+};
+
 export const setOldPage = (oldPage) => {
   return {
     type: "SET_OLD_PAGE",

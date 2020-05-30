@@ -4,6 +4,7 @@ import {
   setTagName,
   setTagColor,
   setUploadStatus,
+  setTagThumbnail
 } from "../redux/actions";
 import { getName } from "./name-generator";
 
@@ -23,7 +24,12 @@ export function Connection() {
       console.error(error);
     }
 
-    store.dispatch(newTag(message.command, message.media, message.tagID));
+    if(message.command === "Thumbnail") {
+      store.dispatch(setTagThumbnail(message.media));
+    }
+    else
+      store.dispatch(newTag(message.command, message.media, message.tagID));
+
     if (message.command === "NewTAG" || message.command === "Play") {
       store.dispatch(setTagColor(get_random_color()));
       store.dispatch(setTagName(getName(message.tagID)));

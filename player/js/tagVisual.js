@@ -89,7 +89,7 @@ function draw(hue) {
 }
 
 function getRGBArray(color) {
-  console.log(red(color) / 255.0, green(color) / 255.0, blue(color) / 255.0);
+  //console.log(red(color) / 255.0, green(color) / 255.0, blue(color) / 255.0);
   return [red(color) / 255.0, green(color) / 255.0, blue(color) / 255.0]
 }
 
