@@ -19,5 +19,5 @@ To enable the WLAN access point enter `./enable_access_point.sh`
 
 ## Disable access point
 
-To enable the WLAN disable point enter `./disable_access_point.sh`
+To disable the WLAN access point enter `./disable_access_point.sh`
 
