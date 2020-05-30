@@ -15,11 +15,19 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     sudo rfkill unblock wlan # To ensure WiFi radio is not blocked on the Raspberry Pi
-    echo "writing /etc/hostapd/hostapd.conf, /etc/dnsmasq.conf, /etc/dhcpcd.no_ap.conf, /etc/etc-dhcpcd.ap.conf"
-    sudo cp -r template_files/etc-hostapd-hostapd.conf /etc/hostapd/hostapd.conf
-    sudo cp -r template_files/etc-dnsmasq.conf /etc/dnsmasq.conf
 
-    sudo cp -r template_files/etc-dhcpcd.no_ap.conf /etc/dhcpcd.no_ap.conf
-    sudo cp -r template_files/etc-dhcpcd.ap.conf /etc/dhcpcd.ap.conf
+    timestamp=$(date +%s)
+
+    echo "Backup of original config files:"
+    sudo cp -r -v /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.bkp$timestamp
+    sudo cp -r -v /etc/dnsmasq.conf /etc/dnsmasq.conf.bkp$timestamp
+    sudo cp -r -v /etc/dhcpcd.conf /etc/dhcpcd.conf.bkp$timestamp
+
+    echo "Copy WLAN access point config files:"
+    sudo cp -r -v template_files/etc-hostapd-hostapd.conf /etc/hostapd/hostapd.conf
+    sudo cp -r -v template_files/etc-dnsmasq.conf /etc/dnsmasq.conf
+
+    sudo cp -r -v template_files/etc-dhcpcd.no_ap.conf /etc/dhcpcd.no_ap.conf
+    sudo cp -r -v template_files/etc-dhcpcd.ap.conf /etc/dhcpcd.ap.conf
 fi
 
