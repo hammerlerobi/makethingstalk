@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/lowdb": "^1.0.9",
     "@types/multer": "^1.4.2",
+    "@types/onoff": "^4.1.0",
     "@types/shortid": "0.0.29",
     "@types/ws": "^7.2.3",
     "adj-noun": "^0.1.1",
@@ -28,6 +29,7 @@
     "mfrc522-rpi": "^2.1.2",
     "multer": "^1.4.2",
     "omxplayer-controll": "natcl/omxplayer-controll#master",
+    "onoff": "^6.0.0",
     "sanitize-filename": "^1.6.3",
     "shortid": "^2.2.15",
     "ws": "^7.2.3"
