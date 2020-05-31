@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import {DataBase} from './db';
 import { MediaRoutes } from './routes/mediaRoutes';
 import {UploadRoutes} from './routes/uploadRoutes';
+import {PlayerRoutes} from './routes/playerRoutes';
 import {TagRoutes} from './routes/tagRoutes';
 import {WebsocketTransmitter} from './transmitters/websocketTransmitter';
 import {OmxPlayer} from './nativePlayer/omxPlayer';
@@ -58,6 +59,7 @@ class App {
 		this.express.use('/api/media', MediaRoutes);
 		this.express.use('/api/upload', UploadRoutes);
 		this.express.use('/api/tag', TagRoutes);
+		this.express.use('/api/player', PlayerRoutes);
 
 	}
 }
