@@ -65,6 +65,19 @@ router.post('/link', async (req: Request,res: Response, next: NextFunction) => {
 	res.json({"status":"SUCCESS","tag":tag})
 });
 
+router.get('/count', async (req: Request,res: Response, next: NextFunction) => {
+
+	let tags;
+
+	try {
+		tags = await app.db.GetAllTags();
+    } catch (e) {
+		console.log(e);
+	}
+
+	res.json({"status":"SUCCESS","count": tags.length})
+
+});
 
 export {
 	router as TagRoutes

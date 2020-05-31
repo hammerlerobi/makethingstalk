@@ -28,6 +28,15 @@ router.get('/', async (req: Request,res: Response, next: NextFunction) => {
 	}
 });
 
+router.get('/idle', async (req: Request,res: Response, next: NextFunction) => {
+	try {
+		const idle = await app.db.GetMedia("-1");
+		res.json(idle);
+    } catch (e) {
+		res.json({"name": ""});
+	}
+});
+
 export {
 	router as MediaRoutes
 };
