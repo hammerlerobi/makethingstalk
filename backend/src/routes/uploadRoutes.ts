@@ -6,7 +6,8 @@ import sanitize from 'sanitize-filename';
 import shortid from 'shortid';
 
 const router = express.Router();
-const storage = multer.diskStorage({
+
+const mediaStorage = multer.diskStorage({
 	destination(req, file, cb) {
 		cb(null, './uploads/')
 	},
@@ -15,7 +16,18 @@ const storage = multer.diskStorage({
 		cb(null, cleanFilename)
 	}
 });
-const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
+
+const idleStorage = multer.diskStorage({
+	destination(req, file, cb) {
+		cb(null, './uploads/idle')
+	},
+	filename(req: Express.Request, file: Express.Multer.File, cb: any) {
+		const cleanFilename = sanitize(file.originalname);
+		cb(null, cleanFilename)
+	}
+});
+
+const mediaFileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
 	if (file.mimetype === "video/mp4") {
 		cb(null, true);
 	} else {
@@ -23,15 +35,28 @@ const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) =>
 	}
 }
 
-const upload = multer({
-	storage,
-	fileFilter
+const idleFileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
+	if (file.mimetype === "image/png") {
+		cb(null, true);
+	} else {
+		cb(new Error("Currently only PNG image files are supported for the idle screen"), false);
+	}
+}
+
+const uploadMedia = multer({
+	storage: mediaStorage,
+	fileFilter: mediaFileFilter
 });
 
-router.post('/', upload.single('file'), async (req: Request,
-	res: Response, next: NextFunction) => {
+const uploadIdle = multer({
+	storage: idleStorage,
+	fileFilter: idleFileFilter
+});
+
+const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
 	const file = req.file as Express.Multer.File;
 	const mediaInDb = app.db.GetMediaByFilename(sanitize(file.originalname));
+
 	mediaInDb
 	.then(media => {
 		if(media){
@@ -55,12 +80,11 @@ router.post('/', upload.single('file'), async (req: Request,
 	})
 	.catch(error => {
 		res.send("Something went wrong "+error);
-	});
+	})
+};
 
-
-
-
-});
+router.post('/', uploadMedia.single('file'), uploadFile);
+router.post('/idle', uploadIdle.single('file'), uploadFile);
 
 export {
 	router as UploadRoutes
