@@ -33,9 +33,7 @@ const Tag = (props) => {
           transition: uploadTransition,
         }}
       ></div>
-
-      <h2>{props.tagName}</h2>
-      {props.media ? <h4>{props.media}</h4> : ""}
+      {props.media ? <h2>{props.media}</h2> : ""}
       <h5>#{props.tagID}</h5>
     </motion.div>
   );
@@ -43,7 +41,6 @@ const Tag = (props) => {
 
 const mapStateToProps = (state) => ({
   tagID: state.tagID,
-  tagName: state.tagName,
   tagColor: state.tagColor,
   media: state.media,
   upload: state.upload,

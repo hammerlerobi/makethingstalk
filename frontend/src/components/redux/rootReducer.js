@@ -3,7 +3,6 @@ const initState = {
   media: null,
   tagID: "",
   oldPage: null,
-  tagName: null,
   tagColor: null,
   upload: null,
 };
@@ -38,8 +37,6 @@ const rootReducer = (state = initState, action) => {
       return { ...state, media: action.media };
     case "SET_TAG_COLOR":
       return { ...state, tagColor: action.tagColor };
-    case "SET_TAG_NAME":
-      return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
       return { ...state, oldPage: action.oldPage };
     case "SET_UPLOAD_STATUS":
