@@ -28,6 +28,17 @@ router.get('/', async (req: Request,res: Response, next: NextFunction) => {
 	}
 });
 
+router.get('/idle', async (req: Request,res: Response, next: NextFunction) => {
+	try {
+		// for now it is assumed that the idle screen is stored as regular media file with the ID -1
+		// should be changed to match actual idle screen media
+		const idle = await app.db.GetMedia("-1");
+		res.json(idle);
+    } catch (e) {
+		res.json({"name": ""});
+	}
+});
+
 export {
 	router as MediaRoutes
 };

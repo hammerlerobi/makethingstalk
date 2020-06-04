@@ -58,7 +58,6 @@ class App {
 		this.express.use('/api/media', MediaRoutes);
 		this.express.use('/api/upload', UploadRoutes);
 		this.express.use('/api/tag', TagRoutes);
-
 	}
 }
 export default new App();

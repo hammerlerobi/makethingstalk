@@ -1,79 +1,76 @@
-// var IP = "192.168.178.43"; //location.hostname;
 var IP = window.location.hostname;
 
-var videoLayer = document.getElementById("video");
 var idleLayer = document.getElementById("idle");
-var tagLayer = document.getElementById("tag");
+var welcomeLayer = document.getElementById("welcome");
 
-var connection = new WebSocket("ws:" + IP + ":8090", ["soap", "xmpp"]);
+var connection = new WebSocket("ws:" + IP + ":8090", ["soap", "xmpp"])
 
-// When the connection is open, send some data to the server
 connection.onopen = function () {
-  console.log("----- CONNECTED TO THE SERVER -----");
-};
-
-connection.onmessage = function (e) {
-  //please refer to
-  //backend/transmitters/IInteractonMessage.ts
-  //this is what we will receive here.
-
-  let message;
-  try {
-    message = JSON.parse(e.data);
-  } catch (error) {
-    console.error(error);
+    console.log("----- CONNECTED TO THE SERVER -----")
   }
-  console.log("WS:", message);
+connection.onmessage = function (message) { 
+    let json;
 
-  // if (message.media) {
-  //   videoLayer.src = "../backend/uploads/" + message.media;
-  //   videoLayer.load();
-  // }
-
-  if (message.command) {
-    switch (message.command) {
-      // case "Play":
-      //   showVideo();
-      //   videoLayer.play();
-      //   break;
-      case "NewTAG":
-        showTag(message.tagID);
-        // showTag(randomID());
-        break;
-      case "Idle":
-        showIdle();
-        videoLayer.pause();
-        break;
+    try {
+      json = JSON.parse(message.data);
+      console.log("WS:", json);
+    } catch (error) {
+      console.error(error);
     }
-  }
-};
+    
+    if (json.command) {
+  
+      switch (json.command) {
+        
+        case "NewTAG":
+        case "Play":
+        case "Idle":
+          showIdle();
+          break;
+      }
+    
+    }
+  };
 
-function showVideo() {
-  videoLayer.classList.remove("hidden");
-  tagLayer.classList.add("hidden");
-  idleLayer.classList.add("hidden");
+
+function getIdleScreen() {
+
+  fetch("http://localhost:4000/api/media/idle")
+  .then(data=> {
+    return data.json()
+  })
+  .then(res=>{
+    if(res.name != "")
+      idleLayer.innerHTML = "<img src='" + res.name + "'>";
+  })
+
 }
 
-function showTag(ID) {
-  //document.getElementById("tag").style.backgroundColor = getColor(ID);
+function getTagCount() {
 
-  document.getElementById("tag-bubble").classList.remove("hidden");
-  document.getElementById("tag-name").innerHTML = getName(ID);
-  document.getElementById("tag-id").innerHTML = "#" + ID;
+  fetch("http://localhost:4000/api/tag/count")
+  .then(data=> {
+    return data.json()
+  })
+  .then(res=>{
+    if(res.count == 0) 
+     showWelcome()
+    else
+      showIdle()
+  })
 
-  document.getElementById("sounds").play();
-
-  draw(getColorHue(ID));
-
-  videoLayer.classList.add("hidden");
-  tagLayer.classList.remove("hidden");
-  idleLayer.classList.add("hidden");
 }
+
+getIdleScreen();
+getTagCount();
+
 
 function showIdle() {
-  document.getElementById("tag-bubble").classList.add("hidden");
-
-  videoLayer.classList.add("hidden");
-  tagLayer.classList.add("hidden");
+  welcomeLayer.classList.add("hidden");
   idleLayer.classList.remove("hidden");
+}
+
+function showWelcome() {
+  welcomeLayer.classList.remove("hidden");
+  idleLayer.classList.add("hidden");
 }
