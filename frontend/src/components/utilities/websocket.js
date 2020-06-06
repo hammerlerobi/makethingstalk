@@ -1,11 +1,5 @@
 import store from "../redux/reduxStore";
-import {
-  newTag,
-  setTagName,
-  setTagColor,
-  setUploadStatus,
-} from "../redux/actions";
-import { getName } from "./name-generator";
+import { newTag, setTagColor, setUploadStatus } from "../redux/actions";
 
 var IP = window.location.hostname;
 // var IP = "192.168.178.43";
@@ -26,7 +20,6 @@ export function Connection() {
     store.dispatch(newTag(message.command, message.media, message.tagID));
     if (message.command === "NewTAG" || message.command === "Play") {
       store.dispatch(setTagColor(get_random_color()));
-      store.dispatch(setTagName(getName(message.tagID)));
       store.dispatch(setUploadStatus(null));
     }
   };

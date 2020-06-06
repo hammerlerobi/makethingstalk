@@ -40,7 +40,6 @@ const TagWrapper = (props) => {
 
 const mapStateToProps = (state) => ({
   tagID: state.tagID,
-  tagName: state.tagName,
   tagColor: state.tagColor,
   media: state.media,
   upload: state.upload,
