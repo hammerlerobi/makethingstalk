@@ -70,6 +70,9 @@ p {
     display: flex;
     flex-direction: column;  
     
+    background-color: #000000;
+    background-position: center;
+    background-size: cover;
 
     /* transition: all 1s ease; */
 }
@@ -78,9 +81,7 @@ p {
     opacity: 0 !important;
 }
 
-.layer .layer-content {
 
-}
 
 .layer .layer-footer {
     width: 62vw;
@@ -94,9 +95,13 @@ p {
     align-items: flex-start;
 
     background-image: url("../assets/background.png");
-    background-position: center;
-    background-size: cover;
 }
+
+#idle.layer {
+    
+    background-image: url("../assets/idle-screen.jpg");
+}
+
 
 #idle.layer {
 
@@ -107,6 +112,7 @@ p {
 
 
 }
+
 
 .layer ol {
     line-height: 1.5em;

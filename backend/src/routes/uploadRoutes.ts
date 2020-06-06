@@ -1,9 +1,10 @@
 import express, {Request,Response,NextFunction} from 'express';
 import multer from 'multer';
 import app from '../app';
-import {Media} from '../db';
 import sanitize from 'sanitize-filename';
 import shortid from 'shortid';
+import {ServerSidedInput} from '../input/ServerSidedInput';
+import { TagCommand } from '../transmitters/IInteractionMessage';
 
 const router = express.Router();
 
@@ -19,11 +20,10 @@ const mediaStorage = multer.diskStorage({
 
 const idleStorage = multer.diskStorage({
 	destination(req, file, cb) {
-		cb(null, './uploads/idle')
+		cb(null, '../player/assets/')
 	},
 	filename(req: Express.Request, file: Express.Multer.File, cb: any) {
-		const cleanFilename = sanitize(file.originalname);
-		cb(null, cleanFilename)
+		cb(null, 'idle-screen.jpg')
 	}
 });
 
@@ -35,11 +35,12 @@ const mediaFileFilter = (req: Express.Request, file: Express.Multer.File, cb: an
 	}
 }
 
+const allowedIdleMimeTypes = ["image/jpeg"];
 const idleFileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
-	if (file.mimetype === "image/png") {
+	if (allowedIdleMimeTypes.includes(file.mimetype)) {
 		cb(null, true);
 	} else {
-		cb(new Error("Currently only PNG image files are supported for the idle screen"), false);
+		cb(new Error("Currently only " + allowedIdleMimeTypes + " image files are supported for the idle screen."), false);
 	}
 }
 
@@ -53,7 +54,7 @@ const uploadIdle = multer({
 	fileFilter: idleFileFilter
 });
 
-const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
+const uploadMediaFile = async (req: Request, res: Response, next: NextFunction) => {
 	const file = req.file as Express.Multer.File;
 	const mediaInDb = app.db.GetMediaByFilename(sanitize(file.originalname));
 
@@ -83,8 +84,22 @@ const uploadFile = async (req: Request, res: Response, next: NextFunction) => {
 	})
 };
 
-router.post('/', uploadMedia.single('file'), uploadFile);
-router.post('/idle', uploadIdle.single('file'), uploadFile);
+const uploadIdleFile = async (req: Request, res: Response, next: NextFunction) => {
+	res.send("Upload complete.");
+
+	// send update command after upload is finished to reload the player site with the new idel image
+	ServerSidedInput.getInstance().send({
+		command: TagCommand.update,
+		media: "",
+		tagID: "",
+	  }
+	)
+
+};
+
+
+router.post('/', uploadMedia.single('file'), uploadMediaFile);
+router.post('/idle', uploadIdle.single('file'), uploadIdleFile);
 
 export {
 	router as UploadRoutes

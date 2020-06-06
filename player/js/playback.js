@@ -21,9 +21,11 @@ connection.onmessage = function (message) {
     if (json.command) {
   
       switch (json.command) {
-        
-        case "NewTAG":
-        case "Play":
+
+        case "Update":
+          location.reload();
+          break;
+      
         case "Idle":
           showIdle();
           break;
@@ -33,19 +35,6 @@ connection.onmessage = function (message) {
   };
 
 
-function getIdleScreen() {
-
-  fetch("http://localhost:4000/api/media/idle")
-  .then(data=> {
-    return data.json()
-  })
-  .then(res=>{
-    if(res.name != "")
-      idleLayer.innerHTML = "<img src='" + res.name + "'>";
-  })
-
-}
-
 function getTagCount() {
 
   fetch("http://localhost:4000/api/tag/count")
@@ -54,14 +43,13 @@ function getTagCount() {
   })
   .then(res=>{
     if(res.count == 0) 
-     showWelcome()
+      showWelcome()
     else
       showIdle()
   })
 
 }
 
-getIdleScreen();
 getTagCount();
 
 

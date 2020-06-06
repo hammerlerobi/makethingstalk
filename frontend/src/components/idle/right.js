@@ -22,14 +22,13 @@ const Right = () => {
     formData.append("file",event.target.files[0]);
 
     request
-      .post("/api/upload/")
+      .post("/api/upload/idle")
       .send(formData)
       .on("progress", (event) => {
         console.log(event.percent);
       })
       .then((res) => {
         console.log("upload complete");
-        console.log(res.body);
       })
       .catch((err) => {
         console.log(err);
