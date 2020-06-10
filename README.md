@@ -74,18 +74,16 @@ $ sudo npm run start
 
 Now the application should start and you should be able to navigate to the frontend aswell as the player.
 
-You can find the Media Player on\
+You can find the Player on\
 http://localhost:4000/player/
 
+Videos should be played via OMXPlayer make sure you have the latest version installed
+
+
 You can find the Backend on\
-http://localhost:4000/frontend/
+http://localhost:4000/
 
 ---
-
-## Features
-Currently the player is very slow and the backend very basic but you can upload mp4 files via the backend. You can then show a medialist `fetchmedialist` and link rfid tags to the media. 
-
-The player will play the correspoding media when the right rfid chip is placed on the reader.
 
 
 
@@ -94,4 +92,4 @@ The player will play the correspoding media when the right rfid chip is placed o
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2020 © <a href="makethingstalk.io" target="_blank">The guys from makethingstalk</a>.
+- Copyright 2020 © <a href="https://makethingstalk.io" target="_blank">The guys from makethingstalk</a>.
