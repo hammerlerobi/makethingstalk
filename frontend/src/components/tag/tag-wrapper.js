@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Tag from "./tag";
 
 var descriptionText = "";
+
 const TagWrapper = (props) => {
   //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
 
