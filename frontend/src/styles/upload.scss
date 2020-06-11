@@ -4,19 +4,20 @@
 // }
 
 .tag {
-  max-width: 250px;
-  max-height: 250px;
-  width: 250px;
-  height: 250px;
+  max-width: 200px;
+  max-height: 200px;
+  width: 200px;
+  height: 200px;
   display: block;
-  background: #282828;
-  background: rgba(238, 238, 238, 0.8);
+  background: #343a40;
+  // background: rgba(238, 238, 238, 0.8);
   border-radius: 100% 100% 100% 5%;
-  color: #000;
+  color: #fff;
   text-align: center;
   padding: 10px 20px 0 20px;
   position: relative;
   overflow: hidden;
+  transform-origin: bottom;
   h2 {
     font-weight: 600;
     z-index: 1;
@@ -46,6 +47,14 @@
   cursor: pointer;
   transition: all 0.5s ease;
   &.active {
-    box-shadow: inset 0px 0px 0px 10px #0050c7;
+    box-shadow: inset 0px 0px 0px 10px #343a40;
   }
+}
+
+.checkmark {
+  width: 80px;
+  height: 130px;
+  transform: rotate(45deg);
+  border: solid black;
+  border-width: 0px 20px 20px 0px;
 }

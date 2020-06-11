@@ -14,7 +14,10 @@ const variants = {
 
 const Tag = (props) => {
   const progress = transform(props.uploadProgress, [0, 100], [0, 1]);
-  const uploader = props.upload === "uploading" ? progress : 0;
+  const uploader =
+    props.upload === "uploading" ? progress : props.media ? 1 : 0;
+
+  //if file already linked -> progress = 1
 
   return (
     <motion.div
@@ -23,6 +26,7 @@ const Tag = (props) => {
       transition={transition}
       className="tag d-flex flex-column justify-content-center align-items-center"
     >
+      {/* <div className="checkmark"></div> */}
       <div
         className="upload-progress"
         style={{
@@ -30,7 +34,7 @@ const Tag = (props) => {
           backgroundColor: props.tagColor,
         }}
       ></div>
-      {props.media ? <h2>{props.media}</h2> : ""}
+      {props.media ? <h4>{props.media}</h4> : ""}
     </motion.div>
   );
 };
