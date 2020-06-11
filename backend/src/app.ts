@@ -29,7 +29,7 @@ class App {
 		this.transmitters.push(new OmxPlayer());
 		// create inputs
 		this.inputDevices.push(new ReaderRFID());
-		this.inputDevices.push(new DebugKeyboardInput());
+	// 	this.inputDevices.push(new DebugKeyboardInput());
 		this.inputDevices.push(ServerSidedInput.getInstance()); // ServerSidedInput is singleton
 		// connect transmitters to inputs
 		this.bindTransmittersToInputs();
