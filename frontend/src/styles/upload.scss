@@ -10,8 +10,9 @@
   height: 250px;
   display: block;
   background: #282828;
-  border-radius: 100% 100% 100% 0;
-  color: white;
+  background: rgba(238, 238, 238, 0.8);
+  border-radius: 100% 100% 100% 5%;
+  color: #000;
   text-align: center;
   padding: 10px 20px 0 20px;
   position: relative;
@@ -37,6 +38,7 @@
     background: red;
     opacity: 1;
     transform-origin: bottom;
+    transition: all 0.15s ease-in-out;
   }
 }
 

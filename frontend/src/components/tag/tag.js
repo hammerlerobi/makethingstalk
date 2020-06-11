@@ -14,9 +14,7 @@ const variants = {
 
 const Tag = (props) => {
   const progress = transform(props.uploadProgress, [0, 100], [0, 1]);
-  const uploader = props.upload === "uploading" ? progress : 1;
-  const uploadTransition =
-    uploader === 1 ? "all 0.00s ease-in-out" : "all 0.15s ease-in-out";
+  const uploader = props.upload === "uploading" ? progress : 0;
 
   return (
     <motion.div
@@ -30,11 +28,9 @@ const Tag = (props) => {
         style={{
           transform: "scaleY(" + uploader + ")",
           backgroundColor: props.tagColor,
-          transition: uploadTransition,
         }}
       ></div>
       {props.media ? <h2>{props.media}</h2> : ""}
-      <h5>#{props.tagID}</h5>
     </motion.div>
   );
 };

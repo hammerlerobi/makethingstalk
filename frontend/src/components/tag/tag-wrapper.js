@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer";
 import { connect } from "react-redux";
 import Tag from "./tag";
 
@@ -12,28 +11,37 @@ const TagWrapper = (props) => {
       descriptionText = "Wird hochgeladen ...";
       break;
     case "finished":
-      descriptionText =
-        "🎉 Das Video wurde erfolgreich hochgeladen und verknüpft.";
+      descriptionText = "✅ Das Video wurde mit dem Tag verknüpft";
       break;
     default:
-      descriptionText =
-        "Klicke auf den Bildschirm oder lege einfach dein Video hier ab um es mit dem Tag zu verknüpfen";
+      descriptionText = "Neues Video mit dem Tag verlinken?";
       break;
   }
   return (
     <div className="row vh-100 p0 m-0 bg">
       <div className="col p-0 d-flex flex-column justify-content-center align-items-center ">
         <Tag uploadProgress={props.uploadProgress}></Tag>
-        <div
-          animate={{ opacity: [0, 1] }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="tag-headline"
-        >
+        <div className="tag-headline">
           <p>{descriptionText}</p>
         </div>
+        {props.upload === null ? (
+          <button type="button" className="btn btn-outline-dark">
+            Video* auswählen
+          </button>
+        ) : (
+          ""
+        )}
       </div>
+      <p
+        style={{
+          position: "absolute",
+          bottom: "10px",
+          right: "10px",
+          fontSize: "0.8em",
+        }}
+      >
+        *es wird nur mp4-Format unterstützt
+      </p>
     </div>
   );
 };
