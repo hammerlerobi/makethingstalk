@@ -54,6 +54,13 @@ class DataBase {
 		return tag;
 	}
 
+	public async GetAllTags():Promise<Tag[]>{
+		const tags = (await this.database).get('Tags', []).value();
+		if(!tags)
+			throw new Error("No Tags found");
+		return tags;
+	}
+
 	public async UpdateTag(tag:Tag):Promise <any>{
 		(await this.database).get('Tags')
 		.find({id : tag.id})
