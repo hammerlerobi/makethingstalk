@@ -18,16 +18,21 @@ class OmxPlayer implements ITransmitter {
         'startAt': 0, // default: 0
 	'alpha':1, // must be 1 zero does not work
         'startVolume': 0.8 ,// 0.0 ... 1.0 default: 1.0
-        'win': '"'+'0 0 '+CURRENT_RESOLUTION[0]+' '+CURRENT_RESOLUTION[1]+'"' // must be set otherwise alpha is not working
+        'win': this.generateWindowSetting() // must be set otherwise alpha is not working
     };
 
+    generateWindowSetting(){
+    let setting = "0 0 ";
+    setting = setting.concat(CURRENT_RESOLUTION[0].toString()," ",CURRENT_RESOLUTION[1].toString())
+	return setting;
+    }
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
         if(message.command === "Play"){
             // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
-            setTimeout(this.fadeIn.bind(this),3000); // give omx some time to load should later be realized with a ready callback
+            setTimeout(this.fadeIn.bind(this),1000); // give omx some time to load should later be realized with a ready callback
         }
         if(message.command === "Idle" && this.playing){
             // path for some reason must be absolute
