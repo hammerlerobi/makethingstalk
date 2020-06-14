@@ -15,11 +15,9 @@ const variants = {
 };
 
 const Right = () => {
-
   const onChangeHandler = (event) => {
-
-    let formData = new FormData();  
-    formData.append("file",event.target.files[0]);
+    let formData = new FormData();
+    formData.append("file", event.target.files[0]);
 
     request
       .post("/api/upload/idle")
@@ -33,7 +31,7 @@ const Right = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   return (
     <motion.div
@@ -48,11 +46,22 @@ const Right = () => {
           <div className="animation-player"></div>
         </div>
         <div className="headline h-40">
-         
           <p>
-            Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video abspielt.
-            <input type="file" name="file" onChange={onChangeHandler}/>
+            Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
+            abspielt.
           </p>
+          <input
+            class
+            type="file"
+            name="file"
+            accept="image/*"
+            onChange={onChangeHandler}
+            id="imageUpload"
+            style={{ display: "none" }}
+          />
+          <label for="imageUpload" class="btn btn-dark">
+            Bild auswählen
+          </label>
         </div>
       </div>
     </motion.div>

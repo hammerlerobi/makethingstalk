@@ -19,6 +19,9 @@ export function Connection() {
     }
 
     store.dispatch(newTag(message.command, message.media, message.tagID));
+    // if (message.command === "Idle") {
+    //   store.dispatch(setUploadStatus(null));
+    // }
     if (message.command === "NewTAG" || message.command === "Play") {
       if (message.tagID == "") {
         setTimeout(() => {
