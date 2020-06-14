@@ -3,7 +3,7 @@ const initState = {
   media: null,
   tagID: "",
   oldPage: null,
-  tagColor: null,
+  tagColor: "#ff0000",
   upload: null,
 };
 

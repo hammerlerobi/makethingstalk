@@ -1,38 +1,48 @@
 import React from "react";
-import { motion } from "framer";
 import { connect } from "react-redux";
 import Tag from "./tag";
 
 var descriptionText = "";
+
 const TagWrapper = (props) => {
   //UPLOADER TEXT DEBUG WHEN A TAG HAS BEEN REMOVED/DDED
 
   switch (props.upload) {
     case "uploading":
-      descriptionText = "Wird hochgeladen ...";
+      descriptionText =
+        "Das Video wird hochgeladen und mit dem Objekt verknüpft...";
       break;
     case "finished":
       descriptionText =
-        "🎉 Das Video wurde erfolgreich hochgeladen und verknüpft.";
+        "Das Video wurde erfolgreich verknüpft und wird nun abgespielt.";
       break;
     default:
-      descriptionText =
-        "Klicke auf den Bildschirm oder lege einfach dein Video hier ab um es mit dem Tag zu verknüpfen";
+      if (props.media) {
+        descriptionText =
+          "Dieses Objekt ist bereits mit einem Video verknüpft. Willst du das Video ersetzen?";
+      } else {
+        descriptionText =
+          "Dieses Objekt wurde noch nicht mit einem Video vernküpft.";
+      }
       break;
   }
   return (
     <div className="row vh-100 p0 m-0 bg">
       <div className="col p-0 d-flex flex-column justify-content-center align-items-center ">
         <Tag uploadProgress={props.uploadProgress}></Tag>
-        <div
-          animate={{ opacity: [0, 1] }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="tag-headline"
-        >
+        <div className="tag-headline">
           <p>{descriptionText}</p>
         </div>
+        {props.upload === null ? (
+          <div>
+            <button type="button" className="btn pl-4 pr-4  btn-dark">
+              Video wählen*
+            </button>
+            <p className="hint">*momentan wird nur mp4-Format unterstützt.</p>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

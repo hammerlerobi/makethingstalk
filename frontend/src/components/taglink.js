@@ -14,6 +14,8 @@ import "../styles/upload.scss";
 import TagWrapper from "./tag/tag-wrapper";
 
 var IP = window.location.hostname;
+var IP = "192.168.178.43";
+
 const TagLink = (props) => {
   const [uploadProgress, setProgress] = useState(0);
   let history = useHistory();
@@ -81,7 +83,7 @@ const TagLink = (props) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transitino: { duration: 0.5 } }}
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
       className="container-fluid p-0"
     >
       {" "}

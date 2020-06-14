@@ -8,34 +8,64 @@ const transition = {
   duration: 0.5,
 };
 const variants = {
-  open: { scale: [0, 1], opacity: [0, 1], rotate: [-40, 0], ...transition },
-  uploaded: { scale: [1, 1.3, 1], rotate: [0, 10, 0], ...transition },
+  open: {
+    scale: [0, 1],
+    opacity: [0, 1],
+    rotate: [-40, 0],
+    transition: { ...transition },
+  },
+  uploaded: {
+    scale: [1, 1.3, 1],
+    rotate: [0, 10, 0],
+    transition: { ...transition },
+  },
+  checkmark: {
+    scale: [1, 1.1, 1],
+    opacity: [0, 1],
+    rotate: 45,
+    transition: { ...transition },
+  },
+  hide: { scale: 0, opacity: 0, rotate: 0, transition: { ...transition } },
 };
 
 const Tag = (props) => {
   const progress = transform(props.uploadProgress, [0, 100], [0, 1]);
-  const uploader = props.upload === "uploading" ? progress : 1;
-  const uploadTransition =
-    uploader === 1 ? "all 0.00s ease-in-out" : "all 0.15s ease-in-out";
+  const uploader =
+    props.upload === "uploading" ? progress : props.media ? 1 : 0;
+
+  //if file already linked -> progress = 1
 
   return (
-    <motion.div
-      animate={props.upload === "finished" ? "uploaded" : "open"}
-      variants={variants}
-      transition={transition}
-      className="tag d-flex flex-column justify-content-center align-items-center"
-    >
-      <div
-        className="upload-progress"
-        style={{
-          transform: "scaleY(" + uploader + ")",
-          backgroundColor: props.tagColor,
-          transition: uploadTransition,
-        }}
-      ></div>
-      {props.media ? <h2>{props.media}</h2> : ""}
-      <h5>#{props.tagID}</h5>
-    </motion.div>
+    <div>
+      {props.upload === "finished" ? (
+        <motion.div
+          initial={variants.hide}
+          animate={variants.checkmark}
+          exit={variants.hide}
+          style={{
+            border: "solid" + props.tagColor,
+            borderWidth: "0px 20px 20px 0px",
+          }}
+          className="checkmark"
+        ></motion.div>
+      ) : (
+        <motion.div
+          animate={props.upload === "finished" ? "uploaded" : "open"}
+          variants={variants}
+          className="tag d-flex flex-column justify-content-center align-items-center"
+        >
+          {" "}
+          <div
+            className="upload-progress"
+            style={{
+              transform: "scaleY(" + uploader + ")",
+              backgroundColor: props.tagColor,
+            }}
+          ></div>
+          {props.media ? <h4>{props.media}</h4> : ""}
+        </motion.div>
+      )}
+    </div>
   );
 };
 

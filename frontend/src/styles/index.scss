@@ -1,5 +1,15 @@
 @import "utilities.scss";
 
+@font-face {
+  font-family: "ScalaSans";
+  src: url("../assets/fonts/ScalaSans.otf") format("otf");
+}
+
+@font-face {
+  font-family: "ScalaSans-Bold";
+  src: url("../assets/fonts/ScalaSans-Bold.otf") format("otf");
+}
+
 .App {
   overflow: hidden;
   background: url("../assets/noise.png") 0% 0% / 10%,
@@ -13,7 +23,7 @@
 body {
   margin: 0;
   font-size: 2.3vh;
-  font-family: ff-scala-sans-pro, sans-serif;
+  font-family: "ScalaSans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -82,9 +92,10 @@ body {
   color: #fff;
   position: relative;
   p {
-    width: 100%;
-    padding: 40px 40px 0px 40px;
+    width: 80%;
+    padding: 40px 40px 20px 40px;
     text-align: center;
+    margin: auto;
   }
 }
 // .load-video p {
