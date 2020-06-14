@@ -20,11 +20,12 @@ export function Connection() {
 
     store.dispatch(newTag(message.command, message.media, message.tagID));
     if (message.command === "NewTAG" || message.command === "Play") {
-      store.dispatch(setTagColor(random_color()));
       if (message.tagID == "") {
         setTimeout(() => {
           store.dispatch(setUploadStatus(null));
-        }, 10000);
+        }, 5000);
+      } else {
+        store.dispatch(setTagColor(random_color()));
       }
     }
   };
