@@ -10,18 +10,19 @@ const TagWrapper = (props) => {
   switch (props.upload) {
     case "uploading":
       descriptionText =
-        "Das Video wird hochgeladen und mit dem Objekt verknüpft.";
+        "Das Video wird hochgeladen und mit dem Objekt verknüpft...";
       break;
     case "finished":
-      descriptionText = "Video und Objekt wurden erfolgreich verknüpft.";
+      descriptionText =
+        "Das Video wurde erfolgreich verknüpft und wird nun abgespielt.";
       break;
     default:
       if (props.media) {
         descriptionText =
-          "Dieses Objekt ist bereits mit einem Video* verknüpft. Willst du das Video ersetzen?";
+          "Dieses Objekt ist bereits mit einem Video verknüpft. Willst du das Video ersetzen?";
       } else {
         descriptionText =
-          "Dieses Objekt wurde noch nicht mit einem Video* vernküpft.";
+          "Dieses Objekt wurde noch nicht mit einem Video vernküpft.";
       }
       break;
   }
@@ -33,24 +34,16 @@ const TagWrapper = (props) => {
           <p>{descriptionText}</p>
         </div>
         {props.upload === null ? (
-          <button type="button" className="btn pl-4 pr-4  btn-dark">
-            Video wählen
-          </button>
+          <div>
+            <button type="button" className="btn pl-4 pr-4  btn-dark">
+              Video wählen*
+            </button>
+            <p className="hint">*momentan wird nur mp4-Format unterstützt.</p>
+          </div>
         ) : (
           ""
         )}
       </div>
-      <p
-        style={{
-          position: "absolute",
-          bottom: "10px",
-          right: "10px",
-          fontSize: "0.8em",
-          color: "white",
-        }}
-      >
-        *momentan wird nur mp4-Format unterstützt.
-      </p>
     </div>
   );
 };

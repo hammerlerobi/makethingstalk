@@ -57,3 +57,11 @@
   height: 130px;
   transform: rotate(45deg);
 }
+
+.hint {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.8em;
+  color: white;
+}
