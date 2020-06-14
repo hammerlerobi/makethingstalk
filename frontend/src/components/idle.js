@@ -1,5 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { useHistory, useLocation } from "react-router-dom";
 import Left from "./idle/left";
 import Right from "./idle/right";
@@ -21,8 +20,8 @@ const Idle = (props) => {
   return (
     <div className="container-fluid p-0">
       <div className="row vh-100 p0 m-0 gradient-bg">
-      <Left></Left>
-      <Right></Right>
+        <Left></Left>
+        <Right></Right>
       </div>
     </div>
   );

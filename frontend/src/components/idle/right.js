@@ -53,7 +53,6 @@ const Right = () => {
           <input
             class
             type="file"
-            name="file"
             accept="image/*"
             onChange={onChangeHandler}
             id="imageUpload"

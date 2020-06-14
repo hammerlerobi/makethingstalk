@@ -14,7 +14,7 @@ import "../styles/upload.scss";
 import TagWrapper from "./tag/tag-wrapper";
 
 var IP = window.location.hostname;
-var IP = "192.168.178.43";
+// var IP = "192.168.178.43";
 
 const TagLink = (props) => {
   const [uploadProgress, setProgress] = useState(0);
