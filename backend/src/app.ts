@@ -37,9 +37,7 @@ class App {
 
 	private bindTransmittersToInputs():void{
 		this.inputDevices.forEach(inputDevice => {
-
 			inputDevice.bindTransmitters(this.transmitters);
-			console.log(inputDevice);
 		});
 	}
 
