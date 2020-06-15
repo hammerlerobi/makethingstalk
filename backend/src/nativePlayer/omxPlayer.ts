@@ -1,7 +1,7 @@
 import { ITransmitter } from "../transmitters/ITransmitter";
 import { IInteractionMessage } from "../transmitters/IInteractionMessage";
 import omxp from "omxplayer-controll";
-import {CURRENT_RESOLUTION,PROJECT_DIR } from "../settings";
+import {getResolution,PROJECT_DIR } from "../settings";
 
 class OmxPlayer implements ITransmitter {
     currentAlpha = 0 ;
@@ -21,10 +21,12 @@ class OmxPlayer implements ITransmitter {
         'win': this.generateWindowSetting() // must be set otherwise alpha is not working
     };
 
-    generateWindowSetting(){
-    let setting = "0 0 ";
-    setting = setting.concat(CURRENT_RESOLUTION[0].toString()," ",CURRENT_RESOLUTION[1].toString())
-	return setting;
+    generateWindowSetting():string{
+        let setting = "0 0 ";
+        const res = getResolution();
+        setting = setting.concat(res[0].toString()," ",res[1].toString())
+        console.log("Starting OMX with " +setting);
+        return setting;
     }
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
