@@ -22,6 +22,7 @@ export function Connection() {
     // if (message.command === "Idle") {
     //   store.dispatch(setUploadStatus(null));
     // }
+
     if (message.command === "NewTAG" || message.command === "Play") {
       if (message.tagID == "") {
         setTimeout(() => {

@@ -13,12 +13,19 @@
 .App {
   overflow: hidden;
   background: url("../assets/noise.png") 0% 0% / 10%,
-    // linear-gradient(130deg, rgba(166, 163, 159, 1) 0%, rgb(107, 106, 103) 100%),
-      radial-gradient(
-        40.8% 68.67% at 50% 54.89%,
-        rgba(166, 163, 159, 1) 0%,
-        rgb(136, 135, 131) 100%
-      );
+    radial-gradient(
+      40.8% 68.67% at 50% 54.89%,
+      rgba(166, 163, 159, 1) 0%,
+      rgb(136, 135, 131) 100%
+    );
+  // background: url("../assets/noise.png") 0% 0% / 10%,
+  //   linear-gradient(
+  //     96deg,
+  //     rgba(166, 163, 159, 1) 0%,
+  //     rgba(178, 176, 171, 1) 50%,
+  //     rgba(204, 201, 196, 1) 50%,
+  //     rgba(191, 188, 184, 1) 100%
+  //   );
 }
 body {
   margin: 0;
@@ -28,18 +35,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-// .gradient-bg {
-//   background: url("../assets/noise.png") 0% 0% / 10%,
-//     linear-gradient(130deg, rgba(166, 163, 159, 1) 0%, rgb(107, 106, 103) 100%);
-//   // background: url("../assets/noise.png") 0% 0% / 10%,
-//   //   linear-gradient(
-//   //     96deg,
-//   //     rgba(166, 163, 159, 1) 0%,
-//   //     rgba(178, 176, 171, 1) 50%,
-//   //     rgba(204, 201, 196, 1) 50%,
-//   //     rgba(191, 188, 184, 1) 100%
-//   //   );
-// }
+.gradient-bg {
+  background: url("../assets/noise.png") 0% 0% / 10%,
+    linear-gradient(
+      96deg,
+      rgba(191, 188, 184, 1) 0%,
+      rgba(204, 201, 196, 1) 50%,
+      rgba(178, 176, 171, 1) 50%,
+      rgba(166, 163, 159, 1) 100%
+    );
+}
 
 .place-tag,
 .load-video {
@@ -78,7 +83,7 @@ body {
   color: #fff;
   position: relative;
   p {
-    font-size: 1.5em;
+    font-size: 1.3em;
     width: 100%;
     padding: 0 40px;
     position: absolute;
@@ -96,6 +101,17 @@ body {
     padding: 40px 40px 20px 40px;
     text-align: center;
     margin: auto;
+  }
+}
+
+.idle-image {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
+  box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.45);
+  img {
+    width: 100%;
+    object-fit: cover;
   }
 }
 // .load-video p {

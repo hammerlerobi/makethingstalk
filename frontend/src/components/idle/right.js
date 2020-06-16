@@ -1,14 +1,16 @@
 import React from "react";
 import request from "superagent";
 import { motion } from "framer-motion";
+import fallbackImage from "../../assets/idle-screen.jpg";
 
-const transition = { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] };
+var IP = window.location.hostname;
+// var IP = "192.168.178.43";
+const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const variants = {
-  initial: { opacity: 0, delay: 0, y: -50 },
-  enter: { opacity: 1, y: 0, transition },
+  initial: { y: -50 },
+  enter: { y: 0, transition },
   exit: {
-    opacity: 0,
     y: -50,
     transition: { duration: 1, ...transition },
   },
@@ -27,6 +29,7 @@ const Right = () => {
       })
       .then((res) => {
         console.log("upload complete");
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -39,30 +42,33 @@ const Right = () => {
       animate="enter"
       exit="exit"
       variants={variants}
-      className="col p-0 "
+      className="col p-0 d-flex flex-column justify-content-center align-items-center"
     >
-      <div className="load-video">
-        <div className="load-video-animation h-60">
-          <div className="animation-player"></div>
-        </div>
-        <div className="headline h-40">
-          <p>
-            Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
-            abspielt.
-          </p>
-          <input
-            class
-            type="file"
-            accept="image/*"
-            onChange={onChangeHandler}
-            id="imageUpload"
-            style={{ display: "none" }}
-          />
-          <label for="imageUpload" class="btn btn-dark">
-            Bild auswählen
-          </label>
-        </div>
+      {/* <div className="animation-player"></div> */}
+      <object
+        className="idle-image mb-4"
+        data={`http://${IP}:4000/player/assets/idle-screen.jpg`}
+        type="image/png"
+      >
+        <img src={fallbackImage} alt="" />
+      </object>
+
+      <div className="p-0 mt-4 headline">
+        <p style={{ position: "relative" }}>
+          Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
+          abspielt.
+        </p>
       </div>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={onChangeHandler}
+        id="imageUpload"
+        style={{ display: "none" }}
+      />
+      <label htmlFor="imageUpload" className="btn pl-4 pr-4 btn-dark">
+        Bild auswählen
+      </label>
     </motion.div>
   );
 };
