@@ -14,12 +14,6 @@ export const setMedia = (media) => {
   };
 };
 
-export const setTagName = (tagName) => {
-  return {
-    type: "SET_TAG_NAME",
-    tagName: tagName,
-  };
-};
 export const setTagColor = (tagColor) => {
   return {
     type: "SET_TAG_COLOR",
