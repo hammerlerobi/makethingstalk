@@ -15,109 +15,131 @@
 
 body {
     font-family: "ScalaSans";
-    /*font-size: 3em;*/
-    font-size: 3vw;
-    color: white;
-    background-color: black;
+    font-size: 2vw;
+    color: #ffffff;
+    background-color: #000000;
+    line-height: 1.3;
 }
 
 b {
     font-family: "ScalaSans-Bold";
+    letter-spacing: .025em;
+}
+
+b.color {
+    /* color: orange; */
+}
+
+h1 {
+    font-family: "ScalaSans";
+    font-weight: 800;
+    letter-spacing: .025em;
+    margin: 4vh 0;
+}
+
+h3 {
+    font-family: "ScalaSans";
+    font-weight: 400;
+    margin: 4vh 0;
+}
+
+p {
+    margin: 4vh 0;
+}
+
+#logo {
+    width: 320px;
 }
 
 .stage {
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
+    
 }
 
 .layer {
-    opacity: 1;
     position: absolute;
-    width: 100%;
-    height: 100%;
-    transition: all 1s ease;
+    opacity: 1;
+
+
+    padding: 10vh;
+    width: calc(100vw - 20vh);
+    height: 80vh;
+
+ 
+    display: flex;
+    flex-direction: column;  
+    
+    background-color: #000000;
+    background-position: center;
+    background-size: cover;
+
+    /* transition: all 1s ease; */
 }
 
 .layer.hidden {
     opacity: 0 !important;
 }
 
-#video {
-    width: 100%;
+
+
+.layer .layer-footer {
+    width: 62vw;
 }
 
-#idle {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
+#welcome.layer {
+
+    color: #000000;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    background-image: url("../assets/background.png");
 }
 
-#idle.layer.hidden {
-}
-
-#tag {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    color: black;
-}
-
-#tag-visual {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-#tag-bubble {
-    position: relative;
-    width: 30vw;
-    height: 30vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    transform: scale(1);
-    transition: all .5s ease-out;
-}
-
-#tag-image {
-    position: absolute;
-    z-index: -1;
-    width: 100%;
+#idle.layer {
+    
+    background-image: url("../assets/idle-screen.jpg");
 }
 
 
-#tag-bubble.hidden {
-    transform: scale(1.25);
+#idle.layer {
+
+    color: #ffffff;
+
+    justify-content: center;
+    align-items: center;
+
+
 }
 
 
-#tag-name {
-    margin-top: .2em;
-    font-size: 1.25em;
-    line-height: 1em;
-    max-width: 80%;
-    text-align: center;
-    font-weight: 600;
-    letter-spacing: .01em;
-}
-
-#tag-id {
-    margin-top: .4em;
-    font-size: .5em;
-    opacity: .75;
-}
-
-#tag-info {
-    position: absolute;
-    width: 50%;
-    font-size: .5em;
-    bottom: 5%;
+.layer ol {
     line-height: 1.5em;
+    margin-left: 1em;
+    list-style: none;
+    counter-reset: li
 }
 
-#tag-info img {
-    height: .5em;
-    margin-right: .25em;
+.layer ol li {
+    counter-increment: li
+}
+
+.layer ol li::before {
+    content: counter(li) ".";
+    color: black;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    font-weight: 800;
+
+}
+
+.layer ol li span {
+    position: relative;
+    left: .5em;
+  }
+
+#idle h1 {
+    text-align: center;
 }

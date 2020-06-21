@@ -4,9 +4,9 @@ import {
   setTagName,
   setTagColor,
   setUploadStatus,
-  setTagThumbnail
+  setTagThumbnail,
 } from "../redux/actions";
-import { getName } from "./name-generator";
+import { random_color } from "./color-generator";
 
 var IP = window.location.hostname;
 // var IP = "192.168.178.43";
@@ -24,28 +24,19 @@ export function Connection() {
       console.error(error);
     }
 
-    if(message.command === "Thumbnail") {
+    if (message.command === "Thumbnail") {
       store.dispatch(setTagThumbnail(message.media));
-    }
-    else
+    } else
       store.dispatch(newTag(message.command, message.media, message.tagID));
 
     if (message.command === "NewTAG" || message.command === "Play") {
-      store.dispatch(setTagColor(get_random_color()));
-      store.dispatch(setTagName(getName(message.tagID)));
-      store.dispatch(setUploadStatus(null));
+      if (message.tagID == "") {
+        setTimeout(() => {
+          store.dispatch(setUploadStatus(null));
+        }, 5000);
+      } else {
+        store.dispatch(setTagColor(random_color()));
+      }
     }
   };
-}
-
-// "just for fun"
-function rand(min, max) {
-  return parseInt(Math.random() * (max - min + 1), 10) + min;
-}
-
-function get_random_color() {
-  var h = rand(1, 360); // color hue between 1 and 360
-  var s = rand(60, 80); // saturation 30-100%
-  var l = rand(45, 55); // lightness 30-70%
-  return "hsl(" + h + "," + s + "%," + l + "%)";
 }

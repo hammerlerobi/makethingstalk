@@ -28,7 +28,7 @@ class App {
 		this.transmitters.push(new OmxPlayer());
 		// create inputs
 		this.inputDevices.push(new ReaderRFID());
-		this.inputDevices.push(new DebugKeyboardInput());
+	// 	this.inputDevices.push(new DebugKeyboardInput());
 		this.inputDevices.push(ServerSidedInput.getInstance()); // ServerSidedInput is singleton
 		// connect transmitters to inputs
 		this.bindTransmittersToInputs();
@@ -38,9 +38,7 @@ class App {
 
 	private bindTransmittersToInputs():void{
 		this.inputDevices.forEach(inputDevice => {
-
 			inputDevice.bindTransmitters(this.transmitters);
-			console.log(inputDevice);
 		});
 	}
 
@@ -59,7 +57,6 @@ class App {
 		this.express.use('/api/media', MediaRoutes);
 		this.express.use('/api/upload', UploadRoutes);
 		this.express.use('/api/tag', TagRoutes);
-
 	}
 }
 export default new App();

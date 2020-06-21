@@ -1,9 +1,21 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { useHistory, useLocation } from "react-router-dom";
 import Left from "./idle/left";
+import Right from "./idle/right";
 import { connect } from "react-redux";
 import { setOldPage } from "../components/redux/actions";
+import { motion } from "framer-motion";
+
+const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
+
+const variants = {
+  initial: { opacity: 0 },
+  enter: { opacity: 1, transition: transition },
+  exit: {
+    opacity: 0,
+    transition: transition,
+  },
+};
 
 const Idle = (props) => {
   let history = useHistory();
@@ -19,9 +31,16 @@ const Idle = (props) => {
 
   return (
     <div className="container-fluid p-0">
-      <div className="row vh-100 p0 m-0 gradient-bg">
+      <motion.div
+        initial="initial"
+        animate="enter"
+        exit="exit"
+        variants={variants}
+        className="row vh-100 p0 m-0 gradient-bg"
+      >
         <Left></Left>
-      </div>
+        <Right></Right>
+      </motion.div>
     </div>
   );
 };

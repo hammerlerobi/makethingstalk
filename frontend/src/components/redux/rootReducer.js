@@ -3,10 +3,9 @@ const initState = {
   media: null,
   tagID: "",
   oldPage: null,
-  tagName: null,
-  tagColor: null,
+  tagColor: "#ff0000",
   upload: null,
-  tagThumbnail: null
+  tagThumbnail: null,
 };
 
 const rootReducer = (state = initState, action) => {
@@ -41,8 +40,6 @@ const rootReducer = (state = initState, action) => {
       return { ...state, tagColor: action.tagColor };
     case "SET_TAG_THUMBNAIL":
       return { ...state, tagThumbnail: action.tagThumbnail };
-    case "SET_TAG_NAME":
-      return { ...state, tagName: action.tagName };
     case "SET_OLD_PAGE":
       return { ...state, oldPage: action.oldPage };
     case "SET_UPLOAD_STATUS":
@@ -57,13 +54,10 @@ const rootReducer = (state = initState, action) => {
 };
 
 const getThumbnail = (state) => {
-  if(state.tagThumbnail == null)
-    return ''
-  return 'media/thumbnails/' + state.tagThumbnail; 
-}
+  if (state.tagThumbnail == null) return "";
+  return "media/thumbnails/" + state.tagThumbnail;
+};
 
 export default rootReducer;
 
-export {
-  getThumbnail
-}
+export { getThumbnail };

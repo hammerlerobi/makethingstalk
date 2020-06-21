@@ -7,40 +7,35 @@
     <title>Player</title>
     <link rel="stylesheet" type="text/css"  href="css/styles.css">
 
-    <script src="js/p5.min.js"></script>
-
   </head>
 
   <body>
 
-    <div class="stage">
-        <video id="video" class="layer" src="" autoplay="autoPlay">
-            <source id="mp4_src" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div id="tag" class="layer hidden">
-              <div id="tag-visual"></div>
-              <div id="tag-bubble" class="hidden">
-                  <img id="tag-image" src="assets/bubble.svg">
-                  <div id="tag-name">ruby robert</div>
-                  <div id="tag-id">256-256-256-256-256</div>
-              </div>
-              <div id="tag-info">Wähle dich mit einem WIFI-fähigem Gerät in das WLAN mit dem Namen <span><img src="assets/wifi.svg"></span><b>make things talk</b> ein, um Medieninhalte mit diesem Tag zu verknüpfen.</div>
-            </div>
-      <div id="idle" class="layer">
-        <span>Platziere einen Tag auf der <b>make things talk</b> Box.</span>
-      </div>
-      
-      
+    <div id="logo">
     </div>
 
-    <audio id="sounds">
-        <source src="assets/audio/success.mp3" type="audio/mp3">
-        Your browser does not support the audio element.
-      </audio>
+    <div class="stage">
+      <div id="welcome" class="layer">
+          <div class="layer-header">
+          <img src="assets/logo-left.svg" id="logo">
+        </div>
+        <div class="layer-footer">
+        <p>
+          Willkommen auf deiner <b>make things talk</b> Starterbox. Noch hast du keine Inhalte mit Objekten verknüpft. Um dies zu ändern, führe die drei folgenden Schritte aus:    
+        </p>
+          <ol>
+            <li><span>Verbinde deinen Computer mit dem WIFI <b class="color">makethingstalk-WIFI</b>. Das Passwort ist <b>mtt#162</b>.</span></li>
+            <li><span>Öffne einen Webbrowser.</span></li>
+            <li><span>Tippe <b class="color">makethingstalk.local</b> ins Adressfeld.</span></li>
+          </ol>
+        </div>
+    </div>
+      <div id="idle" class="layer hidden">
+        <div class="layer-content">
+        </div>
+    </div>
+    </div>
 
-    <script  src="js/tagVisual.js"></script>
-    <script  src="js/tagIdentifier.js"></script>
     <script  src="js/playback.js"></script>
 
   </body>

@@ -8,5 +8,6 @@ export enum TagCommand {
   new = "NewTAG",
   play = "Play",
   idle = "Idle",
-  thumbnail = "Thumbnail"
-};
+  thumbnail = "Thumbnail",
+  update = "Update",
+}
