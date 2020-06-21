@@ -61,7 +61,9 @@ const Tag = (props) => {
             style={{
               transform: "scaleY(" + uploader + ")",
               background:
-                "url(media/thumbnails/" + props.thumbnail + "), #FAA82E",
+                "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://192.168.178.43:4000/media/thumbnails/" +
+                props.thumbnail +
+                ") center center / cover, #FAA82E",
             }}
           ></div>
           {props.media ? <h4>{props.media}</h4> : ""}
