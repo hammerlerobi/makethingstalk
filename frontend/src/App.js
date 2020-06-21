@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Idle from "./components/idle";
 import TagLink from "./components/taglink";
 import { Connection } from "./components/utilities/websocket";
-import { connect } from "react-redux";
 
 function App() {
   //connecting to WS

@@ -44,7 +44,7 @@ const Tag = (props) => {
           animate={variants.checkmark}
           exit={variants.hide}
           style={{
-            border: "solid" + props.tagColor,
+            border: "solid #FAA82E",
             borderWidth: "0px 20px 20px 0px",
           }}
           className="checkmark"
@@ -60,7 +60,8 @@ const Tag = (props) => {
             className="upload-progress"
             style={{
               transform: "scaleY(" + uploader + ")",
-              backgroundColor: props.tagColor,
+              background:
+                "url(media/thumbnails/" + props.thumbnail + "), #FAA82E",
             }}
           ></div>
           {props.media ? <h4>{props.media}</h4> : ""}
@@ -72,9 +73,10 @@ const Tag = (props) => {
 
 const mapStateToProps = (state) => ({
   tagID: state.tagID,
-  tagColor: state.tagColor,
+  // tagColor: state.tagColor,
   media: state.media,
   upload: state.upload,
+  thumbnail: state.tagThumbnail,
 });
 
 export default connect(mapStateToProps)(Tag);

@@ -9,12 +9,9 @@ import {
 } from "../components/redux/actions";
 import { useDropzone } from "react-dropzone";
 import { motion } from "framer-motion";
-
+import IP from "./utilities/ip-settings";
 import "../styles/upload.scss";
 import TagWrapper from "./tag/tag-wrapper";
-
-var IP = window.location.hostname;
-// var IP = "192.168.178.43";
 
 const TagLink = (props) => {
   const [uploadProgress, setProgress] = useState(0);
@@ -64,7 +61,7 @@ const TagLink = (props) => {
 
   const linkTag = (tagId, mediaId) => {
     console.log("linking" + tagId + "to" + mediaId);
-    postData("http://" + IP + ":4000/api/tag/link", {
+    postData("http://" + IP[0] + ":4000/api/tag/link", {
       tagId: tagId,
       mediaId: mediaId,
     }).then((response) => {
