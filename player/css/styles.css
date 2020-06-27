@@ -19,6 +19,7 @@ body {
     color: #ffffff;
     background-color: #000000;
     line-height: 1.3;
+    cursor: none;
 }
 
 b {
