@@ -16,7 +16,7 @@ class OmxPlayer implements ITransmitter {
         'disableGhostbox': true, // false | true | default: false
         'subtitlePath': '', // default: ""
         'startAt': 0, // default: 0
-	'alpha':1, // must be 1 zero does not work
+	    'alpha':1, // must be 1 zero does not work
         'startVolume': 0.8 ,// 0.0 ... 1.0 default: 1.0
         'win': this.generateWindowSetting() // must be set otherwise alpha is not working
     };
@@ -31,8 +31,11 @@ class OmxPlayer implements ITransmitter {
     // we use the transmitter interface so that we can simply add the omxplayer to the transmitter array
     sendMessage(message: IInteractionMessage): void {
         if(message.command === "Play"){
-            if(this.playing)
+            if(this.playing){
+                this.currentAlpha=0;
+                omxp.setAlpha(this.currentAlpha, (err:Error)=>{console.log(err)});
                 omxp.stop((err:any)=>{console.log(err)});
+            }
             // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
             this.playing = true;
