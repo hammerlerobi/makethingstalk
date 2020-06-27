@@ -24,12 +24,18 @@ connection.onmessage = function (message) {
         location.reload();
         break;
 
-      case "Idle":
-        showIdle();
+      case "Play":
+        hideWelcome();
         break;
     }
   }
 };
+
+function reloadIdleImage() {
+  hash = Math.random() * 9999999;
+  idleLayer.style.backgroundImage = "url(assets/idle-screen.jpg?" + hash + ")"
+
+}
 
 function getTagCount() {
   fetch("http://" + IP + ":4000/api/tag/count")
@@ -37,14 +43,16 @@ function getTagCount() {
       return data.json();
     })
     .then((res) => {
+      console.log(res.count + " tags in database");
       if (res.count == 0) showWelcome();
-      else showIdle();
+      else hideWelcome();
     });
 }
 
+reloadIdleImage();
 getTagCount();
 
-function showIdle() {
+function hideWelcome() {
   welcomeLayer.classList.add("hidden");
   idleLayer.classList.remove("hidden");
 }
