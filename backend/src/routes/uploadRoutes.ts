@@ -35,7 +35,7 @@ const mediaFileFilter = (req: Express.Request, file: Express.Multer.File, cb: an
 	}
 }
 
-const allowedIdleMimeTypes = ["image/jpeg"];
+const allowedIdleMimeTypes = ["image/jpeg", "image/png"];
 const idleFileFilter = (req: Express.Request, file: Express.Multer.File, cb: any) => {
 	if (allowedIdleMimeTypes.includes(file.mimetype)) {
 		cb(null, true);
