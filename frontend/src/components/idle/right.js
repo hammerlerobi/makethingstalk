@@ -3,9 +3,9 @@ import request from "superagent";
 import { motion } from "framer-motion";
 import fallbackImage from "../../assets/idle-screen.jpg";
 
-// var IP = window.location.hostname;
+var IP = window.location.hostname;
 // var IP = "192.168.178.43";
-var IP = "10.10.10.10";
+// var IP = "10.10.10.10";
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const variants = {
