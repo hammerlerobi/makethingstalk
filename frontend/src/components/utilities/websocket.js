@@ -2,8 +2,9 @@ import store from "../redux/reduxStore";
 import { newTag, setTagColor, setUploadStatus } from "../redux/actions";
 import { random_color } from "./color-generator";
 
-var IP = window.location.hostname;
+// var IP = window.location.hostname;
 // var IP = "192.168.178.43";
+var IP = "10.10.10.10";
 var message;
 export function Connection() {
   var ws = new WebSocket("ws://" + IP + ":8090", ["soap", "xmpp"]);
