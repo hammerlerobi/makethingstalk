@@ -23,8 +23,8 @@ const TagWrapper = (props) => {
       if (props.media) {
         descriptionText = (
           <p>
-            Dieses Objekt ist bereits mit einem Video verknüpft. Willst du das
-            MP4 Video ersetzen?
+            Dieses Objekt ist bereits mit einem Video verknüpft.<br></br>Willst
+            du das MP4 Video ersetzen?
           </p>
         );
       } else {
