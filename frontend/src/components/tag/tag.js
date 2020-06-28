@@ -62,7 +62,7 @@ const Tag = (props) => {
               backgroundColor: props.tagColor,
             }}
           ></div>
-          {props.media && props.upload != "uploading" ? (
+          {props.media && props.upload !== "uploading" ? (
             <h4>{props.media}</h4>
           ) : (
             ""

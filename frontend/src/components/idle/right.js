@@ -53,7 +53,6 @@ const Right = () => {
       >
         <img src={fallbackImage} alt="" />
       </object>
-
       <div className="p-0 mt-4 headline">
         <p style={{ position: "relative" }}>
           Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
