@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { transform } from "framer-motion";
-import { getThumbnail } from "../redux/rootReducer";
+import IP from "../utilities/ip-settings";
 
 const transition = {
   ease: "backOut",
@@ -61,7 +61,9 @@ const Tag = (props) => {
             style={{
               transform: "scaleY(" + uploader + ")",
               background:
-                "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://192.168.178.43:4000/media/thumbnails/" +
+                "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://" +
+                IP +
+                ":4000/media/thumbnails/" +
                 props.thumbnail +
                 ") center center / cover, #FAA82E",
             }}
