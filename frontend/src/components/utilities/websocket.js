@@ -2,7 +2,7 @@ import store from "../redux/reduxStore";
 import { newTag, setTagColor, setUploadStatus } from "../redux/actions";
 import { random_color } from "./color-generator";
 
- var IP = window.location.hostname;
+var IP = window.location.hostname;
 // var IP = "192.168.178.43";
 var message;
 export function Connection() {
@@ -24,7 +24,7 @@ export function Connection() {
     // }
 
     if (message.command === "NewTAG" || message.command === "Play") {
-      if (message.tagID == "") {
+      if (message.tagID === "") {
         setTimeout(() => {
           store.dispatch(setUploadStatus(null));
         }, 5000);

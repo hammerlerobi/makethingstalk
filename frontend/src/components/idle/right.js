@@ -2,10 +2,8 @@ import React from "react";
 import request from "superagent";
 import { motion } from "framer-motion";
 import fallbackImage from "../../assets/idle-screen.jpg";
+import IP from "../utilities/ip-settings";
 
-var IP = window.location.hostname;
-// var IP = "192.168.178.43";
-// var IP = "10.10.10.10";
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const variants = {
@@ -48,7 +46,7 @@ const Right = () => {
       {/* <div className="animation-player"></div> */}
       <object
         className="idle-image mb-4"
-        data={`http://${IP}:4000/player/assets/idle-screen.jpg`}
+        data={`http://${IP}/player/assets/idle-screen.jpg`}
         type="image/png"
       >
         <img src={fallbackImage} alt="" />

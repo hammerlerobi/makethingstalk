@@ -1,4 +1,5 @@
 var IP = window.location.hostname;
+var PORT = window.location.port;
 
 var idleLayer = document.getElementById("idle");
 var welcomeLayer = document.getElementById("welcome");
@@ -33,12 +34,11 @@ connection.onmessage = function (message) {
 
 function reloadIdleImage() {
   hash = Math.random() * 9999999;
-  idleLayer.style.backgroundImage = "url(assets/idle-screen.jpg?" + hash + ")"
-
+  idleLayer.style.backgroundImage = "url(assets/idle-screen.jpg?" + hash + ")";
 }
 
 function getTagCount() {
-  fetch("http://" + IP + ":4000/api/tag/count")
+  fetch("http://" + IP + ":" + PORT + "/api/tag/count")
     .then((data) => {
       return data.json();
     })
