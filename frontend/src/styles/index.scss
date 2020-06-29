@@ -108,9 +108,10 @@ body {
   width: 50%;
   height: auto;
   object-fit: cover;
-  box-shadow: 0px 2px 14px rgba(0, 0, 0, 0.45);
+  box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.25);
   transform: matrix(1, 0.2, 0, 1, 0, 0);
-  border: solid white 5px;
+  border: 12px solid #cccccc;
+  outline: 2px solid #888888;
   img {
     width: 100%;
     object-fit: cover;
