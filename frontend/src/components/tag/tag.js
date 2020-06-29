@@ -33,7 +33,14 @@ const Tag = (props) => {
   const progress = transform(props.uploadProgress, [0, 100], [0, 1]);
   const uploader =
     props.upload === "uploading" ? progress : props.media ? 1 : 0;
-
+  const tagBackground =
+    props.upload === "uploading"
+      ? "#FAA82E"
+      : "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://" +
+        IP[0] +
+        ":4000/media/thumbnails/" +
+        props.thumbnail +
+        ") center center / cover, #FAA82E";
   //if file already linked -> progress = 1
 
   return (
@@ -60,12 +67,7 @@ const Tag = (props) => {
             className="upload-progress"
             style={{
               transform: "scaleY(" + uploader + ")",
-              background:
-                "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://" +
-                IP +
-                ":4000/media/thumbnails/" +
-                props.thumbnail +
-                ") center center / cover, #FAA82E",
+              background: tagBackground,
             }}
           ></div>
           {props.media ? <h4>{props.media}</h4> : ""}
@@ -77,7 +79,6 @@ const Tag = (props) => {
 
 const mapStateToProps = (state) => ({
   tagID: state.tagID,
-  // tagColor: state.tagColor,
   media: state.media,
   upload: state.upload,
   thumbnail: state.tagThumbnail,
