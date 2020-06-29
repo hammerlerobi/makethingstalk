@@ -34,7 +34,7 @@ const Tag = (props) => {
   const uploader =
     props.upload === "uploading" ? progress : props.media ? 1 : 0;
   const tagBackground =
-    props.upload === "uploading"
+    props.upload === "uploading" || !props.thumbnail
       ? "#FAA82E"
       : "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://" +
         IP[0] +
