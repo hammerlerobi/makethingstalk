@@ -70,7 +70,11 @@ const Tag = (props) => {
               background: tagBackground,
             }}
           ></div>
-          {props.media ? <h4>{props.media}</h4> : ""}
+          {props.media && props.upload !== "uploading" ? (
+            <h4>{props.media}</h4>
+          ) : (
+            ""
+          )}
         </motion.div>
       )}
     </div>

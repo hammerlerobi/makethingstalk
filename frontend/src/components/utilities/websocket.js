@@ -1,10 +1,11 @@
 import store from "../redux/reduxStore";
 import { newTag, setUploadStatus, setTagThumbnail } from "../redux/actions";
-import IP from "./ip-settings";
+
+let IP = window.location.hostname;
 
 var message;
 export function Connection() {
-  var ws = new WebSocket("ws://" + IP[0] + ":8090", ["soap", "xmpp"]);
+  var ws = new WebSocket("ws://" + IP + ":8090", ["soap", "xmpp"]);
   ws.onopen = () => {
     console.log("CONNECTED TO WS");
   };

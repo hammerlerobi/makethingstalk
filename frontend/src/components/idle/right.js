@@ -46,12 +46,11 @@ const Right = () => {
       {/* <div className="animation-player"></div> */}
       <object
         className="idle-image mb-4"
-        data={`http://${IP[0]}:4000/player/assets/idle-screen.jpg`}
+        data={`http://${IP}/player/assets/idle-screen.jpg`}
         type="image/png"
       >
         <img src={fallbackImage} alt="" />
       </object>
-
       <div className="p-0 mt-4 headline">
         <p style={{ position: "relative" }}>
           Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
