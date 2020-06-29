@@ -81,7 +81,7 @@ const createThumbnail = (fileName: string) => {
   const thumbnail = tumbnailPath + strippedFileName + ".png";
   // build ffmpeg command
   const command =
-    "ffmpeg -i " + video + " -ss 00:00:03.000 -vframes 1 " + thumbnail;
+    "ffmpeg -i " + video + " -ss 00:00:03.000 -vframes 1 -y " + thumbnail;
   // create thumbnail directory in case it doesn't exist
   child.exec("mkdir " + tumbnailPath);
   // execute ffmpeg command
