@@ -12,7 +12,6 @@ import { motion } from "framer-motion";
 import IP from "./utilities/ip-settings";
 import "../styles/upload.scss";
 import TagWrapper from "./tag/tag-wrapper";
-import IP from "./utilities/ip-settings";
 
 const TagLink = (props) => {
   const [uploadProgress, setProgress] = useState(0);
