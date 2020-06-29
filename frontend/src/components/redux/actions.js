@@ -14,15 +14,8 @@ export const setMedia = (media) => {
   };
 };
 
-export const setTagColor = (tagColor) => {
-  return {
-    type: "SET_TAG_COLOR",
-    tagColor: tagColor,
-  };
-};
-
 export const setTagThumbnail = (media) => {
-  let tagThumbnail = media.split('.')[0] + '.png';
+  let tagThumbnail = media.split(".")[0] + ".png";
   return {
     type: "SET_TAG_THUMBNAIL",
     tagThumbnail: tagThumbnail,
@@ -42,11 +35,3 @@ export const setUploadStatus = (state) => {
     state: state,
   };
 };
-
-// TESTING DISPATCHES
-// {
-// 	type: 'NEW_TAG',
-// 	command: "NewTag",
-// 	tagID: "#123456456",
-// 	media: "test.mp4",
-// 	}

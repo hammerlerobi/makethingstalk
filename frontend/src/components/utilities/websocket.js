@@ -1,12 +1,6 @@
 import store from "../redux/reduxStore";
-import {
-  newTag,
-  setTagColor,
-  setUploadStatus,
-  setTagThumbnail,
-} from "../redux/actions";
+import { newTag, setUploadStatus, setTagThumbnail } from "../redux/actions";
 import IP from "./ip-settings";
-import { random_color } from "./color-generator";
 
 var message;
 export function Connection() {
@@ -22,14 +16,13 @@ export function Connection() {
       console.error(error);
     }
 
-    if (message.command === "Thumbnail") {
+    if (
+      message.command === "Thumbnail" ||
+      (message.command === "Play" && message.tagID)
+    ) {
       store.dispatch(setUploadStatus(null));
       store.dispatch(setTagThumbnail(message.media));
-    } else
-      store.dispatch(newTag(message.command, message.media, message.tagID));
-
-    if (message.command === "NewTAG" || message.command === "Play") {
-      store.dispatch(setTagColor(random_color()));
     }
+    store.dispatch(newTag(message.command, message.media, message.tagID));
   };
 }
