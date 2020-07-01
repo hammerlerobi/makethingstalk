@@ -79,6 +79,7 @@ const createThumbnail = (fileName: string) => {
   const strippedFileName = fileName.split(".")[0];
   // add .png ending to filename
   const thumbnail = tumbnailPath + strippedFileName + ".png";
+  console.log("creating:", thumbnail, video);
   // build ffmpeg command
   const command =
     "ffmpeg -i " + video + " -ss 00:00:03.000 -vframes 1 -y " + thumbnail;
@@ -109,6 +110,7 @@ const uploadMediaFile = async (
 ) => {
   const file = req.file as Express.Multer.File;
   const mediaInDb = app.db.GetMediaByFilename(sanitize(file.originalname));
+  console.log("creating thumbnail...");
   createThumbnail(file.filename);
   mediaInDb
     .then((media) => {
