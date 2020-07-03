@@ -95,13 +95,12 @@ body {
 }
 
 .idle-image {
-  width: 50%;
+  width: 70%;
   height: auto;
   object-fit: cover;
   box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.25);
   transform: matrix(1, 0.2, 0, 1, 0, 0);
-  border: 12px solid #cccccc;
-  outline: 2px solid #888888;
+  border: 10px solid #fff;
   img {
     width: 100%;
     object-fit: cover;
@@ -111,6 +110,13 @@ body {
 .btn-blue {
   background: #0153cc;
   color: white;
+}
+
+.seperator {
+  background: #0153cc;
+  width: 3px;
+  height: 80%;
+  transform: rotate(10deg);
 }
 // .load-video p {
 //   top: 0;

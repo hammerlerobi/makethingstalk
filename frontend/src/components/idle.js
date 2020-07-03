@@ -39,6 +39,9 @@ const Idle = (props) => {
         className="row vh-100 p0 m-0 gradient-bg"
       >
         <Left></Left>
+        <div className="col-1 d-flex align-self-center vh-100 justify-content-center align-items-center">
+          <div className="seperator"></div>
+        </div>
         <Right></Right>
       </motion.div>
     </div>
