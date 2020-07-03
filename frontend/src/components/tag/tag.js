@@ -35,12 +35,12 @@ const Tag = (props) => {
     props.upload === "uploading" ? progress : props.media ? 1 : 0;
   const tagBackground =
     props.upload === "uploading" || !props.thumbnail
-      ? "#FAA82E"
+      ? "#0067FF"
       : "linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(http://" +
         IP +
         "/media/thumbnails/" +
         props.thumbnail +
-        ") center center / cover, #FAA82E";
+        ") center center / cover, #0153cc";
   //if file already linked -> progress = 1
 
   return (
@@ -51,7 +51,7 @@ const Tag = (props) => {
           animate={variants.checkmark}
           exit={variants.hide}
           style={{
-            border: "solid #FAA82E",
+            border: "solid #0067FF",
             borderWidth: "0px 20px 20px 0px",
           }}
           className="checkmark"

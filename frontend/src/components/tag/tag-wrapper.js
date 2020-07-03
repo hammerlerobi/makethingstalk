@@ -44,7 +44,7 @@ const TagWrapper = (props) => {
         <div className="tag-headline">{descriptionText}</div>
         {props.upload === null ? (
           <div>
-            <button type="button" className="btn pl-4 pr-4  btn-dark">
+            <button type="button" className="btn pl-4 pr-4  btn-blue">
               Video auswählen
             </button>
           </div>

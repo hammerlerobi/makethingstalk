@@ -17,8 +17,8 @@ function App() {
           render={({ location }) => (
             <AnimatePresence exitBeforeEnter>
               <Switch location={location} key={location.pathname}>
-                <Route exact path="/" component={Idle} />
-                <Route path="/taglink" component={TagLink} />
+                <Route exact path="/taglink" component={Idle} />
+                <Route path="/" component={TagLink} />
               </Switch>
             </AnimatePresence>
           )}

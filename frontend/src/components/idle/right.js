@@ -64,7 +64,7 @@ const Right = () => {
         id="imageUpload"
         style={{ display: "none" }}
       />
-      <label htmlFor="imageUpload" className="btn pl-4 pr-4 btn-dark">
+      <label htmlFor="imageUpload" className="btn pl-4 pr-4 btn-blue">
         Bild auswählen
       </label>
     </motion.div>
