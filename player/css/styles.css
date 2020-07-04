@@ -95,7 +95,15 @@ p {
     justify-content: space-between;
     align-items: flex-start;
 
-    background-image: url("../assets/background.png");
+    /*background-image: url("../assets/background.png");*/
+
+    background: radial-gradient(
+        89.78% 89.78% at 50% 50%,
+        rgba(0, 0, 0, 0) 53.13%,
+        rgba(0, 0, 0, 0.14) 100%
+        ),
+        #f7ce38;
+      
 }
 
 #idle.layer {
