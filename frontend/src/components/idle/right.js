@@ -46,7 +46,7 @@ const Right = () => {
       {/* <div className="animation-player"></div> */}
       <object
         className="idle-image"
-        data={`http://${IP}/pla yer/assets/idle-screen.jpg`}
+        data={`http://${IP}/player/assets/idle-screen.jpg`}
         type="image/png"
       >
         <img src={fallbackImage} alt="" />
