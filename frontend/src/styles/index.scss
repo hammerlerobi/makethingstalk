@@ -55,12 +55,12 @@ body {
   }
   .animation-box {
     width: 70%;
-    max-width: 500px;
+    max-width: 1000px;
     background: url("../assets/box@2x.png") 50% 80% / contain no-repeat;
   }
   .animation-tag {
     width: 25%;
-    max-width: 140px;
+    max-width: 280px;
     background: url("../assets/tag@2x.png") 50% 10% / contain no-repeat;
   }
   .animation-player {
@@ -95,26 +95,46 @@ body {
 }
 
 .idle-image {
-  width: 70%;
+  width: 50%;
   height: auto;
   object-fit: cover;
   box-shadow: 0px 8px 14px rgba(0, 0, 0, 0.25);
   transform: matrix(1, 0.2, 0, 1, 0, 0);
-  border: 10px solid #fff;
+  border: 8px solid #000000;
+  border-radius: 16px;
+  margin-bottom: 100px;
+  overflow: hidden;
+ 
   img {
     width: 100%;
     object-fit: cover;
+    transform: scale(1.25);
   }
 }
+
+// .idle-image {
+//   width: 33vh;
+//   height: 33vh;
+//   object-fit: cover;
+//   border-radius: 100%;
+//   overflow: hidden;
+ 
+//   img {
+//     height: 100%;
+//     margin-left: -50%;
+//   }
+// }
 
 .btn-blue {
   background: #0153cc;
   color: white;
+  font-family: "ScalaSans-Bold", sans-serif;
+  font-size: 1em;
 }
 
 .seperator {
   background: #0153cc;
-  width: 3px;
+  width: 2px;
   height: 80%;
   transform: rotate(10deg);
 }

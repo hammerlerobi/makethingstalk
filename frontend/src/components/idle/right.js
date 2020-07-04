@@ -45,16 +45,16 @@ const Right = () => {
     >
       {/* <div className="animation-player"></div> */}
       <object
-        className="idle-image mb-4"
-        data={`http://${IP}/player/assets/idle-screen.jpg`}
+        className="idle-image"
+        data={`http://${IP}/pla yer/assets/idle-screen.jpg`}
         type="image/png"
       >
         <img src={fallbackImage} alt="" />
       </object>
       <div className="p-0 mt-4 headline">
         <p style={{ position: "relative" }}>
-          Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
-          abspielt.
+          <b>2.</b> Definiere ein Bild, welches angezeigt wird, wenn gerade kein Video
+          abgespielt wird.
         </p>
       </div>
       <input
