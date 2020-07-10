@@ -54,8 +54,8 @@ body {
     height: 100%;
   }
   .animation-box {
-    width: 70%;
-    max-width: 1000px;
+    width: 40%;
+    max-width: 720px;
     background: url("../assets/box@2x.png") 50% 80% / contain no-repeat;
   }
   .animation-tag {
@@ -73,24 +73,27 @@ body {
   color: #000;
   position: relative;
   p {
-    font-size: 1.3em;
-    width: 100%;
+    font-size: 2em;
+    line-height: 1.3em;
+    width: 50%;
     padding: 0 40px;
     position: absolute;
+    left: 25%;
     bottom: 0;
     text-align: center;
   }
 }
 
 .tag-headline {
-  font-size: 1.3em;
+  font-size: 1.5em;
+  line-height: 1.5em;
   color: #000;
   position: relative;
   p {
     width: 100%;
     padding: 40px 40px 20px 40px;
     text-align: center;
-    margin: auto;
+    margin: 20px auto;
   }
 }
 

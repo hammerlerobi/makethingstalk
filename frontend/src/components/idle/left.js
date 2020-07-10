@@ -24,7 +24,7 @@ const Left = () => {
       <div className="place-tag">
         <div className="headline h-30">
           <p>
-            <b>1.</b> Platziere einen Tag auf der <b>make things talk</b> Box, um ein
+            Platziere einen Tag auf der <b>make things talk</b> Box, um ein
             Video damit zu verknüpfen.
           </p>
         </div>

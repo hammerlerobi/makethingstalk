@@ -52,7 +52,7 @@ const Tag = (props) => {
           exit={variants.hide}
           style={{
             border: "solid #0067FF",
-            borderWidth: "0px 20px 20px 0px",
+            borderWidth: "0px 40px 40px 0px",
           }}
           className="checkmark"
         ></motion.div>
