@@ -21,6 +21,9 @@ class OmxPlayer implements ITransmitter {
         'win': this.generateWindowSetting() // must be set otherwise alpha is not working
     };
 
+    
+
+
     generateWindowSetting():string{
         let setting = "0 0 ";
         const res = getResolution();
@@ -35,6 +38,10 @@ class OmxPlayer implements ITransmitter {
                 this.currentAlpha=0;
                 omxp.setAlpha(this.currentAlpha, (err:Error)=>{console.log(err)});
                 omxp.stop((err:any)=>{console.log(err)});
+                omxp.on('aboutToFinish',function(){
+                    console.log('File about to finish');
+                    this.fadeOut();
+                });
             }
             // path for some reason must be absolute
             omxp.open(PROJECT_DIR+"/../uploads/"+message.media, this.opts);
